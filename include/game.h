@@ -9,14 +9,13 @@ using namespace sf;
 
 class game
 {
-    public:
-        // Constructor
-        game(int width, int height, std::string title);
+public:
+    // Constructor
+    game(Vector2i dimension, std::string title);
 
         void gameLoop();
-
         void draw();
-
+        void process_events();
 
     private:
 
@@ -24,8 +23,10 @@ class game
 
         int fps;
 
-        Texture * txt_title;
-        Sprite * spr_title_1;
+        Texture * txt_title, * txt_ship;
+        Sprite * spr_title_1, *spr_ship1;
+
+        Event * event1;
 
 };
 
