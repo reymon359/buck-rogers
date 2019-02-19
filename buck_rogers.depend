@@ -1,11 +1,12 @@
 # depslib dependency file v1.0
-1550500083 source:/home/ramon/Desktop/FV/buck_rogers/main.cpp
+1550591587 source:/home/ramon/Desktop/FV/buck_rogers/main.cpp
 	<SFML/Graphics.hpp>
 	<game.h>
 
-1550497734 source:/home/ramon/Desktop/FV/buck_rogers/src/game.cpp
-	"game.h"
+1550591266 source:/home/ramon/Desktop/FV/buck_rogers/src/game.cpp
+	<game.h>
+	"SFML/Graphics.hpp"
 
-1550500144 /home/ramon/Desktop/FV/buck_rogers/include/game.h
+1550592035 /home/ramon/Desktop/FV/buck_rogers/include/game.h
 	<SFML/Graphics.hpp>
 

@@ -24,9 +24,8 @@ class game
 
         int fps;
 
-        Texture * texture1;
-
-        Sprite * sprite1;
+        Texture * txt_title;
+        Sprite * spr_title_1;
 
 };
 
