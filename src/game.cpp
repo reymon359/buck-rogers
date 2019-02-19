@@ -25,6 +25,7 @@ game::game(Vector2i dimension, std::string title)
 //    spr_ship1->setScale(((float)window1->getSize().x/(float)spr_ship1->getTexture()->getSize().x), ((float)window1->getSize().y/(float)spr_ship1->getTexture()->getSize().y));
 
 
+    event1= new Event,
 
     gameLoop();
 }
@@ -34,7 +35,7 @@ void game::gameLoop(){
 
     while(window1->isOpen()){
 
-//        process_events();
+        process_events();
 
         draw();
     }
@@ -71,20 +72,20 @@ void game::process_events()
         case Event::KeyPressed:
             if(Keyboard::isKeyPressed(Keyboard::Up))
             {
-                spr_ship1->setPosition(spr_ship1->getPosition().x,spr_ship1->getPosition().y - 2);
+                spr_ship1->setPosition(spr_ship1->getPosition().x,spr_ship1->getPosition().y - 4);
             }
             else if(Keyboard::isKeyPressed(Keyboard::Down))
             {
 
-                spr_ship1->setPosition(spr_ship1->getPosition().x,spr_ship1->getPosition().y + 2);
+                spr_ship1->setPosition(spr_ship1->getPosition().x,spr_ship1->getPosition().y + 4);
             }
             else if(Keyboard::isKeyPressed(Keyboard::Left))
             {
-                spr_ship1->setPosition(spr_ship1->getPosition().x - 2,spr_ship1->getPosition().y);
+                spr_ship1->setPosition(spr_ship1->getPosition().x - 4,spr_ship1->getPosition().y);
             }
             else if(Keyboard::isKeyPressed(Keyboard::Right))
             {
-                spr_ship1->setPosition(spr_ship1->getPosition().x + 2,spr_ship1->getPosition().y);
+                spr_ship1->setPosition(spr_ship1->getPosition().x + 4,spr_ship1->getPosition().y);
             }
 
             break;
