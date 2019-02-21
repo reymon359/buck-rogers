@@ -16,6 +16,7 @@ public:
         void gameLoop();
         void draw();
         void process_events();
+        void load_graphics();
 
     private:
 
@@ -23,8 +24,8 @@ public:
 
         int fps;
 
-        Texture * txt_title, * txt_ship;
-        Sprite * spr_title_1, *spr_ship1;
+        Texture * txt_title;
+        Sprite * spr_title_1;
 
         Event * event1;
 
