@@ -3,6 +3,7 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "player.h"
 #include <SFML/Graphics.hpp>
 
 using namespace sf;
@@ -23,6 +24,8 @@ public:
         RenderWindow * window1;
 
         int fps;
+
+        player * player1;
 
         Texture * txt_title;
         Sprite * spr_title_1;

@@ -1,4 +1,5 @@
 #include <game.h>
+#include <player.h>
 #include "SFML/Graphics.hpp"
 #include <iostream>
 
@@ -25,7 +26,7 @@ void game::gameLoop()
 
     while(window1->isOpen())
     {
-
+        player1->process_player_events();
         process_events();
 
         draw();
@@ -53,8 +54,9 @@ void game::draw()
 
     // We clean the window and then show it
     window1->clear();
-    window1->draw(*spr_title_1);
-    window1->draw(*spr_ship1);
+    window1->draw( *spr_title_1);
+     window1->draw(player1->get_sprite());
+//    window1->draw(*spr_ship1);
     window1->display();
 
 
@@ -73,26 +75,26 @@ void game::process_events()
             exit(1);
             break;
         // Key pressed
-        case Event::KeyPressed:
-            if(Keyboard::isKeyPressed(Keyboard::Up))
-            {
-                spr_ship1->setPosition(spr_ship1->getPosition().x,spr_ship1->getPosition().y - 6);
-            }
-            else if(Keyboard::isKeyPressed(Keyboard::Down))
-            {
-
-                spr_ship1->setPosition(spr_ship1->getPosition().x,spr_ship1->getPosition().y + 6);
-            }
-            else if(Keyboard::isKeyPressed(Keyboard::Left))
-            {
-                spr_ship1->setPosition(spr_ship1->getPosition().x - 6,spr_ship1->getPosition().y);
-            }
-            else if(Keyboard::isKeyPressed(Keyboard::Right))
-            {
-                spr_ship1->setPosition(spr_ship1->getPosition().x + 6,spr_ship1->getPosition().y);
-            }
-
-            break;
+//        case Event::KeyPressed:
+//            if(Keyboard::isKeyPressed(Keyboard::Up))
+//            {
+//                spr_ship1->setPosition(spr_ship1->getPosition().x,spr_ship1->getPosition().y - 6);
+//            }
+//            else if(Keyboard::isKeyPressed(Keyboard::Down))
+//            {
+//
+//                spr_ship1->setPosition(spr_ship1->getPosition().x,spr_ship1->getPosition().y + 6);
+//            }
+//            else if(Keyboard::isKeyPressed(Keyboard::Left))
+//            {
+//                spr_ship1->setPosition(spr_ship1->getPosition().x - 6,spr_ship1->getPosition().y);
+//            }
+//            else if(Keyboard::isKeyPressed(Keyboard::Right))
+//            {
+//                spr_ship1->setPosition(spr_ship1->getPosition().x + 6,spr_ship1->getPosition().y);
+//            }
+//
+//            break;
         }
     }
 
