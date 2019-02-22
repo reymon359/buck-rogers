@@ -16,8 +16,8 @@ public:
 
 private:
 
-    Texture txt_ship;
-    Sprite spr_ship1;
+    Texture *txt_ship;
+    Sprite *spr_ship1;
 
     Event * eventPlayer;
 };
