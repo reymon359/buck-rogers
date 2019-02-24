@@ -26,7 +26,7 @@ void game::gameLoop()
 
     while(window1->isOpen())
     {
-        player1->process_player_events();
+        player1.process_player_events();
         process_events();
 
         draw();
@@ -55,7 +55,7 @@ void game::draw()
     // We clean the window and then show it
     window1->clear();
     window1->draw( *spr_title_1);
-     window1->draw(player1->get_sprite());
+     window1->draw(player1.get_sprite());
 //    window1->draw(*spr_ship1);
     window1->display();
 

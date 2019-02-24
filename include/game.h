@@ -25,7 +25,7 @@ public:
 
         int fps;
 
-        player * player1;
+        player  player1;
 
         Texture * txt_title;
         Sprite * spr_title_1;

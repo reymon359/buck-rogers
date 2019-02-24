@@ -3,22 +3,22 @@
 	<SFML/Graphics.hpp>
 	<game.h>
 
-1550875601 source:/home/ramon/Desktop/FV/buck_rogers/src/game.cpp
+1551002630 source:/home/ramon/Desktop/FV/buck_rogers/src/game.cpp
 	<game.h>
 	<player.h>
 	"SFML/Graphics.hpp"
 	<iostream>
 
-1550875251 /home/ramon/Desktop/FV/buck_rogers/include/game.h
+1551002588 /home/ramon/Desktop/FV/buck_rogers/include/game.h
 	"player.h"
 	<SFML/Graphics.hpp>
 
-1550876129 source:/home/ramon/Desktop/FV/buck_rogers/src/player.cpp
+1551002437 source:/home/ramon/Desktop/FV/buck_rogers/src/player.cpp
 	"player.h"
 	"game.h"
 	"SFML/Graphics.hpp"
 	<iostream>
 
-1550876095 /home/ramon/Desktop/FV/buck_rogers/include/player.h
+1551002687 /home/ramon/Desktop/FV/buck_rogers/include/player.h
 	<SFML/Graphics.hpp>
 
