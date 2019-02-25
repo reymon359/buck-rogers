@@ -18,6 +18,6 @@ int main(int argc, char * args[])
 //    match1 = new game({800,600}, "buck rogers");
 
 
-  game match1({800,600}, "Buck Rogers");
+  game match1({1000,800}, "Buck Rogers");
     return 0;
 }

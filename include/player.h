@@ -12,14 +12,12 @@ public:
     player();
     Sprite get_sprite();
 
-    void process_player_events();
 
 private:
 
     Texture txt_ship;
     Sprite spr_ship1;
 
-    Event  eventPlayer;
 };
 
 #endif // PLAYER_H

@@ -12,26 +12,33 @@ class game
 {
 public:
     // Constructor
-    game(Vector2i dimension, std::string title);
+    game(Vector2f dimension, std::string title);
 
-        void gameLoop();
-        void draw();
-        void process_events();
-        void load_graphics();
+    void gameLoop();
+    void load_graphics();
+//    void process_events();
 
-    private:
+private:
 
-        RenderWindow * window1;
+    Texture * txt_background;
+    Sprite * spr_water1, * spr_water2,* spr_water3, * spr_water4;
 
-        int fps;
 
-        player  player1;
+    Texture txt_ship;
+    Sprite spr_ship1;
 
-        Texture * txt_title;
-        Sprite * spr_title_1;
 
-        Event * event1;
+    RenderWindow * window1;
 
+    Texture  txt_title;
+    Sprite  spr_title_1;
+
+    player * player1;
+
+    Event * event1;
+
+    bool game_over;
+    int fps;
 };
 
 #endif // GAME_H

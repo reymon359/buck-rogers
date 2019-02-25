@@ -1,24 +1,25 @@
 # depslib dependency file v1.0
-1550767045 source:/home/ramon/Desktop/FV/buck_rogers/main.cpp
+1551119372 source:/home/ramon/Desktop/FV/buck_rogers/main.cpp
 	<SFML/Graphics.hpp>
 	<game.h>
 
-1551002630 source:/home/ramon/Desktop/FV/buck_rogers/src/game.cpp
+1551119614 source:/home/ramon/Desktop/FV/buck_rogers/src/game.cpp
 	<game.h>
-	<player.h>
+	"player.h"
 	"SFML/Graphics.hpp"
 	<iostream>
+	<stdlib.h>
 
-1551002588 /home/ramon/Desktop/FV/buck_rogers/include/game.h
+1551117774 /home/ramon/Desktop/FV/buck_rogers/include/game.h
 	"player.h"
 	<SFML/Graphics.hpp>
 
-1551002437 source:/home/ramon/Desktop/FV/buck_rogers/src/player.cpp
+1551114213 source:/home/ramon/Desktop/FV/buck_rogers/src/player.cpp
 	"player.h"
-	"game.h"
-	"SFML/Graphics.hpp"
+	<stdlib.h>
 	<iostream>
+	"SFML/Graphics.hpp"
 
-1551002687 /home/ramon/Desktop/FV/buck_rogers/include/player.h
+1551114137 /home/ramon/Desktop/FV/buck_rogers/include/player.h
 	<SFML/Graphics.hpp>
 
