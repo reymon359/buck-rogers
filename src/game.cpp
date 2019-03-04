@@ -16,8 +16,12 @@ game::game(Vector2f dimension, std::string title)
 
     event1 = new Event;
 
-    load_resources();
+    // 4th dimension
+    clock1 = new Clock();
+    time1 = new Time();
+    time2 = 0.f;
 
+    load_resources();
     gameLoop();
 }
 
@@ -56,19 +60,22 @@ void game::gameLoop()
 {
     while(!game_over)
     {
-        // We clean the window and then show it
-        window1->clear();
-//        process_events();
-        window1->draw(*spr_water1);
-        window1->draw(*spr_water2);
-        window1->draw(*spr_water3);
-        window1->draw(*spr_water4);
-//         window1->draw(spr_ship1);
-//        window1->draw((Sprite)player1->get_sprite());
-        window1->display();
+
+        *time1 = clock1->getElapsedTime();
+        if(time1->asSeconds() > time2 + fps)
+        {
+            time2 = time1->asSeconds();
+
+
+        }
+
+
+
+
+//            process_events();
+         draw();
     }
 }
-
 
 //void game::process_events()
 //{
@@ -106,6 +113,15 @@ void game::gameLoop()
 //    }
 
 //}
+void game::draw()
+{
+    window1->clear();
+    window1->draw(*spr_water1);
+    window1->draw(*spr_water2);
+    window1->draw(*spr_water3);
+    window1->draw(*spr_water4);
+    window1->display();
+}
 
 //game::~game()
 //{
