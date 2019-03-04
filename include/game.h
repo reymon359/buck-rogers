@@ -39,7 +39,7 @@ private:
       // Time
     Clock * clock1;
     Time * time1;
-    float  time2;
+    float  time_water ;
 
     Texture txt_ship;
     Sprite spr_ship1;

@@ -19,7 +19,7 @@ game::game(Vector2f dimension, std::string title)
     // 4th dimension
     clock1 = new Clock();
     time1 = new Time();
-    time2 = 0.f;
+    time_water =0;
 
     load_resources();
     gameLoop();
@@ -31,6 +31,9 @@ void game::load_resources()
     // We are going to load the background texture and  water sprites
     txt_background = new Texture();
     txt_background -> loadFromFile("imgs/texture_background.png");
+
+    spr_water = new Sprite(*txt_background);
+    spr_water -> setPosition(300,300);
 
     spr_water1 = new Sprite(*txt_background);
     spr_water1 -> setTextureRect(sf::IntRect(2, 107, 255, 48));
@@ -62,12 +65,24 @@ void game::gameLoop()
     {
 
         *time1 = clock1->getElapsedTime();
-        if(time1->asSeconds() > time2 + fps)
-        {
-            time2 = time1->asSeconds();
-
-
+        time_water = time1->asSeconds()/0.5;
+        cout << (int)time_water <<endl;
+        if ((int)time_water==0){
+            spr_water -> setTextureRect(sf::IntRect(2, 107, 255, 48));
         }
+         else if ((int)time_water==1){
+            spr_water -> setTextureRect(sf::IntRect(262, 107, 255, 48));
+        }
+        else if ((int)time_water==2){
+            spr_water -> setTextureRect(sf::IntRect(523, 107, 255, 48));
+        }
+        else if ((int)time_water==3){
+            spr_water -> setTextureRect(sf::IntRect(784, 107, 255, 48));
+        }
+        else{
+        time_water= 0;
+        }
+
 
 
 
@@ -116,6 +131,7 @@ void game::gameLoop()
 void game::draw()
 {
     window1->clear();
+    window1->draw(*spr_water);
     window1->draw(*spr_water1);
     window1->draw(*spr_water2);
     window1->draw(*spr_water3);
