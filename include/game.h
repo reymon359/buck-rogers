@@ -15,10 +15,23 @@ public:
     game(Vector2f dimension, std::string title);
 
     void gameLoop();
-    void load_graphics();
-//    void process_events();
+    void process_events();
+    void load_resources();
+    void draw();
 
 private:
+
+    RenderWindow * window1;
+
+    Event * event1;
+
+    Sprite * spr_character1;
+    Texture * txt_character1;
+
+
+    Vector2i sprite_division;
+    Vector2i actual_frame;
+    int sprite_flip;
 
     Texture * txt_background;
     Sprite * spr_water1, * spr_water2,* spr_water3, * spr_water4;
@@ -28,16 +41,12 @@ private:
     Sprite spr_ship1;
 
 
-    RenderWindow * window1;
 
-    Texture  txt_title;
-    Sprite  spr_title_1;
 
-    player * player1;
+//    player * player1;
 
-    Event * event1;
 
-    bool game_over;
+    bool game_over = false;
     int fps;
 };
 

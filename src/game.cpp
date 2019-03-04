@@ -1,5 +1,4 @@
-#include <game.h>
-#include "player.h"
+#include "game.h"
 #include "SFML/Graphics.hpp"
 #include <iostream>
 #include <stdlib.h>
@@ -10,22 +9,20 @@ using namespace std;
 // Constructor
 game::game(Vector2f dimension, std::string title)
 {
-    game_over=false;
-
+    // Setting window
     fps = 60;
-
     window1 = new RenderWindow(VideoMode(dimension.x, dimension.y), title);
     window1->setFramerateLimit(fps);
 
     event1 = new Event;
 
-    load_graphics();
+    load_resources();
 
     gameLoop();
 }
 
 // Here we load the game textures and sprites
-void game::load_graphics()
+void game::load_resources()
 {
     // We are going to load the background texture and  water sprites
     txt_background = new Texture();
@@ -43,15 +40,14 @@ void game::load_graphics()
     spr_water3 -> setTextureRect(sf::IntRect(523, 107, 255, 48));
     spr_water3 -> setPosition(520,0);
 
-     spr_water4 = new Sprite(*txt_background);
+    spr_water4 = new Sprite(*txt_background);
     spr_water4 -> setTextureRect(sf::IntRect(784, 107, 255, 48));
     spr_water4 -> setPosition(780,0);
 
-    txt_title.loadFromFile("imgs/title_screen.png");
-    spr_title_1.setTexture(txt_title);
+
     txt_ship.loadFromFile("imgs/ship.png");
     spr_ship1.setTexture(txt_ship);
-    spr_title_1.setScale(((float)window1->getSize().x/(float)txt_title.getSize().x), ((float)window1->getSize().y/(float)txt_title.getSize().y));
+//    spr_title_1.setScale(((float)window1->getSize().x/(float)txt_title.getSize().x), ((float)window1->getSize().y/(float)txt_title.getSize().y));
 
 //    spr_title_1.setScale(((float)window1->getSize().x/(float)spr_title_1->getTexture()->getSize().x), ((float)window1->getSize().y/(float)spr_title_1->getTexture()->getSize().y));
 }
