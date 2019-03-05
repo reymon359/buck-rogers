@@ -19,7 +19,10 @@ game::game(Vector2f dimension, std::string title)
     // 4th dimension
     clock1 = new Clock();
     time1 = new Time();
+
+    gameSpeed = 2;
     time_water =0;
+
 
     load_resources();
     gameLoop();
@@ -65,22 +68,30 @@ void game::gameLoop()
     {
 
         *time1 = clock1->getElapsedTime();
-        time_water = time1->asSeconds()/0.5;
-        cout << (int)time_water <<endl;
-        if ((int)time_water==0){
+
+
+
+
+        time_water = (int)((time1->asSeconds())/(1/gameSpeed))%4;
+        if ((int)time_water==0)
+        {
             spr_water -> setTextureRect(sf::IntRect(2, 107, 255, 48));
         }
-         else if ((int)time_water==1){
+        else if ((int)time_water==1)
+        {
             spr_water -> setTextureRect(sf::IntRect(262, 107, 255, 48));
         }
-        else if ((int)time_water==2){
+        else if ((int)time_water==2)
+        {
             spr_water -> setTextureRect(sf::IntRect(523, 107, 255, 48));
         }
-        else if ((int)time_water==3){
+        else if ((int)time_water==3)
+        {
             spr_water -> setTextureRect(sf::IntRect(784, 107, 255, 48));
         }
-        else{
-        time_water= 0;
+        else
+        {
+            time_water= 0;
         }
 
 
@@ -88,7 +99,7 @@ void game::gameLoop()
 
 
 //            process_events();
-         draw();
+        draw();
     }
 }
 

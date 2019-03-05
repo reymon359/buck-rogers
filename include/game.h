@@ -39,6 +39,7 @@ private:
       // Time
     Clock * clock1;
     Time * time1;
+    float gameSpeed;
     float  time_water ;
 
     Texture txt_ship;
