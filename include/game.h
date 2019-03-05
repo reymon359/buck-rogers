@@ -34,8 +34,8 @@ private:
     int sprite_flip;
 
     Texture * txt_background;
-    Sprite * spr_water1, * spr_water2,* spr_water3, * spr_water4;
     Sprite * spr_water;
+    Sprite * spr1;
       // Time
     Clock * clock1;
     Time * time1;

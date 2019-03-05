@@ -36,23 +36,10 @@ void game::load_resources()
     txt_background -> loadFromFile("imgs/texture_background.png");
 
     spr_water = new Sprite(*txt_background);
-    spr_water -> setPosition(300,300);
+    spr_water -> setPosition(0,230);
+//  spr_water -> setTextureRect(sf::IntRect(2, 107, 255, 48));
+    spr_water->setScale(800.f, 2200.f/spr_water->getTexture()->getSize().y); // desired size / actual size
 
-    spr_water1 = new Sprite(*txt_background);
-    spr_water1 -> setTextureRect(sf::IntRect(2, 107, 255, 48));
-
-
-    spr_water2 = new Sprite(*txt_background);
-    spr_water2 -> setTextureRect(sf::IntRect(262, 107, 255, 48));
-    spr_water2 -> setPosition(260,0);
-
-    spr_water3 = new Sprite(*txt_background);
-    spr_water3 -> setTextureRect(sf::IntRect(523, 107, 255, 48));
-    spr_water3 -> setPosition(520,0);
-
-    spr_water4 = new Sprite(*txt_background);
-    spr_water4 -> setTextureRect(sf::IntRect(784, 107, 255, 48));
-    spr_water4 -> setPosition(780,0);
 
 
     txt_ship.loadFromFile("imgs/ship.png");
@@ -143,10 +130,7 @@ void game::draw()
 {
     window1->clear();
     window1->draw(*spr_water);
-    window1->draw(*spr_water1);
-    window1->draw(*spr_water2);
-    window1->draw(*spr_water3);
-    window1->draw(*spr_water4);
+
     window1->display();
 }
 
