@@ -106,22 +106,25 @@ void game::process_events()
             break;
         // Key pressed
         case Event::KeyPressed:
+
             if(Keyboard::isKeyPressed(Keyboard::Up))
             {
                 // If the player sprite is not above the limit it will go up
 //                if(spr_player.getPosition())
                 cout<< spr_player -> getPosition().y <<endl;
-                if (spr_player -> getPosition().y < 390)
+                if (spr_player -> getPosition().y > 390)
                 {
+
+                    spr_player -> setTextureRect(sf::IntRect(0, 0, 224, 224));
                     spr_player -> setPosition(spr_player -> getPosition().x, spr_player -> getPosition().y - 4 );
                 }
-//                player1->get_sprite()->setPosition(player1->get_sprite()->getPosition().x,player1->get_sprite()->getPosition().y - 6);
             }
             else if(Keyboard::isKeyPressed(Keyboard::Down))
             {
-                cout<< spr_player -> getPosition().y <<endl;
                 if (spr_player -> getPosition().y < 538)
                 {
+
+                spr_player -> setTextureRect(sf::IntRect(0, 0, 224, 224));
                     spr_player -> setPosition(spr_player -> getPosition().x, spr_player -> getPosition().y + 4 );
                 }
 
@@ -129,24 +132,35 @@ void game::process_events()
             }
             else if(Keyboard::isKeyPressed(Keyboard::Left))
             {
-                cout<< spr_player -> getPosition().x <<endl;
                 if (spr_player -> getPosition().x > 2)
                 {
+                    spr_player -> setTextureRect(sf::IntRect(896, 1120, 224, 224));
                     spr_player -> setPosition(spr_player -> getPosition().x - 4, spr_player -> getPosition().y );
                 }
 //                player1->get_sprite()->setPosition(player1.get_sprite()->getPosition().x - 6,player1.get_sprite()->getPosition().y);
             }
+
             else if(Keyboard::isKeyPressed(Keyboard::Right))
             {
-                cout<< spr_player -> getPosition().x <<endl;
                 if (spr_player -> getPosition().x < 722)
                 {
+                    spr_player -> setTextureRect(sf::IntRect(672, 0, 224, 224));
+
                     spr_player -> setPosition(spr_player -> getPosition().x + 4, spr_player -> getPosition().y );
                 }
 //                player1.get_sprite()->setPosition(player1.get_sprite()->getPosition().x + 6,player1.get_sprite()->getPosition().y);
             }
 
+
             break;
+            case Event::KeyReleased:
+              if(!Keyboard::isKeyPressed(Keyboard::Right) && !Keyboard::isKeyPressed(Keyboard::Left))
+            {
+                cout<< "key left or right not pressed" <<endl;
+
+                spr_player -> setTextureRect(sf::IntRect(0, 0, 224, 224));
+            }
+             break;
         }
     }
 
