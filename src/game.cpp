@@ -41,8 +41,13 @@ void game::load_resources()
 
     // Now the player texture and sprites
 
-//    txt_ship.loadFromFile("imgs/ship.png");
-//    spr_ship1.setTexture(txt_ship);
+    txt_player = new Texture();
+    txt_player -> loadFromFile("imgs/player.png");
+    spr_player = new Sprite(*txt_player);
+    spr_player -> setScale(500.f/spr_player->getTexture()->getSize().y, 500.f/spr_player->getTexture()->getSize().y);
+    spr_player -> setTextureRect(sf::IntRect(0, 0, 224, 224));
+    spr_player -> setPosition(350,470);
+
 //    spr_title_1.setScale(((float)window1->getSize().x/(float)txt_title.getSize().x), ((float)window1->getSize().y/(float)txt_title.getSize().y));
 
 //    spr_title_1.setScale(((float)window1->getSize().x/(float)spr_title_1->getTexture()->getSize().x), ((float)window1->getSize().y/(float)spr_title_1->getTexture()->getSize().y));
@@ -127,7 +132,7 @@ void game::draw()
 {
     window1->clear();
     window1->draw(*spr_water);
-
+    window1->draw(*spr_player);
     window1->display();
 }
 
