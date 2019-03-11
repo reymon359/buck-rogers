@@ -14,9 +14,9 @@ public:
     // Constructor
     game(Vector2f dimension, std::string title);
 
+    void load_resources();
     void gameLoop();
     void process_events();
-    void load_resources();
     void draw();
 
 private:

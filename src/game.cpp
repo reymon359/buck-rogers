@@ -87,47 +87,71 @@ void game::gameLoop()
 
 
 
-//            process_events();
+        process_events();
         draw();
     }
 }
 
-//void game::process_events()
-//{
-//    while(window1->pollEvent(*event1))
-//    {
-//        // We are going to listen the different events
-//        switch(event1->type)
-//        {
-//        // window closed
-//        case Event::Closed:
-//            window1->close();
-//            exit(1);
-//            break;
-//        // Key pressed
-//        case Event::KeyPressed:
-//            if(Keyboard::isKeyPressed(Keyboard::Up))
-//            {
+void game::process_events()
+{
+    while(window1->pollEvent(*event1))
+    {
+        // We are going to listen the different events
+        switch(event1->type)
+        {
+        // window closed
+        case Event::Closed:
+            window1->close();
+            exit(1);
+            break;
+        // Key pressed
+        case Event::KeyPressed:
+            if(Keyboard::isKeyPressed(Keyboard::Up))
+            {
+                // If the player sprite is not above the limit it will go up
+//                if(spr_player.getPosition())
+                cout<< spr_player -> getPosition().y <<endl;
+                if (spr_player -> getPosition().y < 390)
+                {
+                    spr_player -> setPosition(spr_player -> getPosition().x, spr_player -> getPosition().y - 4 );
+                }
 //                player1->get_sprite()->setPosition(player1->get_sprite()->getPosition().x,player1->get_sprite()->getPosition().y - 6);
-//            }
-//            else if(Keyboard::isKeyPressed(Keyboard::Down))
-//            {
-//                player1->get_sprite()->setPosition(player1->get_sprite()->getPosition().x,player1->get_sprite()->getPosition().y + 6);
-//            }
-//            else if(Keyboard::isKeyPressed(Keyboard::Left))
-//            {
-//                player1->get_sprite()->setPosition(player1.get_sprite()->getPosition().x - 6,player1.get_sprite()->getPosition().y);
-//            }
-//            else if(Keyboard::isKeyPressed(Keyboard::Right))
-//            {
-//                player1.get_sprite()->setPosition(player1.get_sprite()->getPosition().x + 6,player1.get_sprite()->getPosition().y);
-//            }
-//
-//            break;
-//        }
-//    }
+            }
+            else if(Keyboard::isKeyPressed(Keyboard::Down))
+            {
+                cout<< spr_player -> getPosition().y <<endl;
+                if (spr_player -> getPosition().y < 538)
+                {
+                    spr_player -> setPosition(spr_player -> getPosition().x, spr_player -> getPosition().y + 4 );
+                }
 
-//}
+//                player1->get_sprite()->setPosition(player1->get_sprite()->getPosition().x,player1->get_sprite()->getPosition().y + 6);
+            }
+            else if(Keyboard::isKeyPressed(Keyboard::Left))
+            {
+                cout<< spr_player -> getPosition().x <<endl;
+                if (spr_player -> getPosition().x > 2)
+                {
+                    spr_player -> setPosition(spr_player -> getPosition().x - 4, spr_player -> getPosition().y );
+                }
+//                player1->get_sprite()->setPosition(player1.get_sprite()->getPosition().x - 6,player1.get_sprite()->getPosition().y);
+            }
+            else if(Keyboard::isKeyPressed(Keyboard::Right))
+            {
+                cout<< spr_player -> getPosition().x <<endl;
+                if (spr_player -> getPosition().x < 722)
+                {
+                    spr_player -> setPosition(spr_player -> getPosition().x + 4, spr_player -> getPosition().y );
+                }
+//                player1.get_sprite()->setPosition(player1.get_sprite()->getPosition().x + 6,player1.get_sprite()->getPosition().y);
+            }
+
+            break;
+        }
+    }
+
+}
+
 void game::draw()
 {
     window1->clear();
