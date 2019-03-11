@@ -20,30 +20,28 @@ public:
     void draw();
 
 private:
-
+    // Window
     RenderWindow * window1;
-
     Event * event1;
 
-    Sprite * spr_character1;
-    Texture * txt_character1;
+    // Time
+    Clock * clock1;
+    Time * time1;
+    float gameSpeed;
+    float  time_water;
+
+    // Textures and Sprites
+    Texture * txt_background;
+    Sprite * spr_water;
+    Texture * txt_player;
+    Sprite * spr_player;
+
 
 
     Vector2i sprite_division;
     Vector2i actual_frame;
     int sprite_flip;
 
-    Texture * txt_background;
-    Sprite * spr_water;
-    Sprite * spr1;
-      // Time
-    Clock * clock1;
-    Time * time1;
-    float gameSpeed;
-    float  time_water ;
-
-    Texture txt_ship;
-    Sprite spr_ship1;
 
 
     bool game_over = false;

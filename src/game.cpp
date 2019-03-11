@@ -37,13 +37,12 @@ void game::load_resources()
 
     spr_water = new Sprite(*txt_background);
     spr_water -> setPosition(0,230);
-//  spr_water -> setTextureRect(sf::IntRect(2, 107, 255, 48));
-    spr_water->setScale(800.f, 2200.f/spr_water->getTexture()->getSize().y); // desired size / actual size
+    spr_water -> setScale(800.f, 2200.f/spr_water->getTexture()->getSize().y); // desired size / actual size
 
+    // Now the player texture and sprites
 
-
-    txt_ship.loadFromFile("imgs/ship.png");
-    spr_ship1.setTexture(txt_ship);
+//    txt_ship.loadFromFile("imgs/ship.png");
+//    spr_ship1.setTexture(txt_ship);
 //    spr_title_1.setScale(((float)window1->getSize().x/(float)txt_title.getSize().x), ((float)window1->getSize().y/(float)txt_title.getSize().y));
 
 //    spr_title_1.setScale(((float)window1->getSize().x/(float)spr_title_1->getTexture()->getSize().x), ((float)window1->getSize().y/(float)spr_title_1->getTexture()->getSize().y));
@@ -55,8 +54,6 @@ void game::gameLoop()
     {
 
         *time1 = clock1->getElapsedTime();
-
-
 
 
         time_water = (int)((time1->asSeconds())/(1/gameSpeed))%4;
