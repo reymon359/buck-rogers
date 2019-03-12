@@ -17,7 +17,7 @@ public:
     void load_resources();
     void gameLoop();
     void process_events();
-    void position_rocks();
+    void move_rocks();
     void draw();
 
 private:
@@ -31,12 +31,14 @@ private:
     float gameSpeed;
     float  time_water;
 
-    // Textures and Sprites
+    // Background
     Texture * txt_background;
     Sprite * spr_water;
 
+    // Player
     Texture * txt_player;
     Sprite * spr_player;
+    int vel_player;
 
     Texture * txt_rock;
     RectangleShape * rock1;

@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 #include <time.h>       /* time */
-#define velPlayer 4
+
 
 using namespace sf;
 using namespace std;
@@ -23,7 +23,8 @@ game::game(Vector2f dimension, std::string title)
     clock1 = new Clock();
     time1 = new Time();
 
-    gameSpeed = 2;
+    gameSpeed = 4;
+    vel_player = 5;
     time_water =0;
 
 
@@ -57,12 +58,10 @@ void game::load_resources()
     rockSize = 30;
 
     srand (time(NULL));
-    // Random size between rocks
-    int randomSize = rand() % rockSize + 1;
-    // Random spawn point
-    int randomSpawn = rand() % (800-(rockSize*2 + randomSize) ) + 1;
-    cout << randomSize << endl;
-    cout << randomSpawn << endl;
+    int randomSize = rand() % rockSize + 1;// Random size between rocks
+    int randomSpawn = rand() % (800-(rockSize*2 + randomSize) ) + 1;// Random spawn point
+//    cout << randomSize << endl;
+//    cout << randomSpawn << endl;
     rock_pos.x = randomSpawn;rock_pos.y = 230;
     rock1 = new RectangleShape({rockSize,rockSize});
     rockspace = new RectangleShape({rockSize + randomSize,rockSize});
@@ -72,13 +71,11 @@ void game::load_resources()
     rockspace -> setFillColor(Color::Green);
     rock2 -> setTexture(txt_rock);
 
+
     rock1-> setPosition(rock_pos.x,rock_pos.y);
     rockspace-> setPosition(rock_pos.x + rockSize,rock_pos.y);
     rock2-> setPosition(rock_pos.x + randomSize +(rockSize*2),rock_pos.y);
-//    spr_rock = new Sprite(*txt_rock);
-//    spr_rock< -> setScale((50/(float)spr_rock->getTexture()->getSize().x), (50/(float)spr_rock->getTexture()->getSize().y));
-    //    spr_rock -> setTextureRect(sf::IntRect(100, 40, 255, 48));
-//    spr_rock -> setPosition(300,470);
+
 }
 
 
@@ -102,27 +99,31 @@ void game::gameLoop()
             {
                 spr_water -> setTextureRect(sf::IntRect(2, 107, 255, 48));
 
+                 move_rocks();
             }
             else if ((int)time_water==1)
             {
                 spr_water -> setTextureRect(sf::IntRect(262, 107, 255, 48));
+                move_rocks();
             }
             else if ((int)time_water==2)
             {
                 spr_water -> setTextureRect(sf::IntRect(523, 107, 255, 48));
+                 move_rocks();
             }
             else if ((int)time_water==3)
             {
                 spr_water -> setTextureRect(sf::IntRect(784, 107, 255, 48));
+                 move_rocks();
             }
             else
             {
                 time_water= 0;
             }
 
-
-
-
+//            int time_rocks = (int)time1->asSeconds()%4;
+//            cout << time_rocks << endl;
+//            move_rocks();
 
             process_events();
             draw();
@@ -130,7 +131,14 @@ void game::gameLoop()
     }
 }
 
-void game::position_rocks(){
+void game::move_rocks(){
+
+
+
+
+    rock1-> setPosition(rock1 -> getPosition().x ,rock1 -> getPosition().y + 2);
+    rockspace-> setPosition(rockspace -> getPosition().x ,rockspace -> getPosition().y + 2);
+    rock2-> setPosition(rock2 -> getPosition().x ,rock2 -> getPosition().y + 2);
 
 }
 
@@ -155,7 +163,7 @@ void game::process_events()
                 if (spr_player -> getPosition().y > 390)
                 {
                     spr_player -> setTextureRect(sf::IntRect(0, 0, 224, 224));
-                    spr_player -> setPosition(spr_player -> getPosition().x, spr_player -> getPosition().y - velPlayer );
+                    spr_player -> setPosition(spr_player -> getPosition().x, spr_player -> getPosition().y - vel_player );
                 }
             }
             else if(Keyboard::isKeyPressed(Keyboard::Down))
@@ -163,7 +171,7 @@ void game::process_events()
                 if (spr_player -> getPosition().y < 538)
                 {
                     spr_player -> setTextureRect(sf::IntRect(0, 0, 224, 224));
-                    spr_player -> setPosition(spr_player -> getPosition().x, spr_player -> getPosition().y + velPlayer );
+                    spr_player -> setPosition(spr_player -> getPosition().x, spr_player -> getPosition().y + vel_player );
                 }
             }
             else if(Keyboard::isKeyPressed(Keyboard::Left))
@@ -171,7 +179,7 @@ void game::process_events()
                 if (spr_player -> getPosition().x > 2)
                 {
                     spr_player -> setTextureRect(sf::IntRect(896, 1120, 224, 224));
-                    spr_player -> setPosition(spr_player -> getPosition().x - velPlayer, spr_player -> getPosition().y );
+                    spr_player -> setPosition(spr_player -> getPosition().x - vel_player, spr_player -> getPosition().y );
                 }
             }
 
@@ -180,10 +188,10 @@ void game::process_events()
                 if (spr_player -> getPosition().x < 722)
                 {
                     spr_player -> setTextureRect(sf::IntRect(672, 0, 224, 224));
-
-                    spr_player -> setPosition(spr_player -> getPosition().x + velPlayer, spr_player -> getPosition().y );
+                    spr_player -> setPosition(spr_player -> getPosition().x + vel_player, spr_player -> getPosition().y );
                 }
             }
+
             break;
         case Event::KeyReleased:
             if(!Keyboard::isKeyPressed(Keyboard::Right) && !Keyboard::isKeyPressed(Keyboard::Left))
@@ -201,10 +209,11 @@ void game::draw()
 {
     window1->clear();
     window1->draw(*spr_water);
-    window1->draw(*spr_player);
+
     window1->draw(*rock1);
     window1->draw(*rockspace);
     window1->draw(*rock2);
+      window1->draw(*spr_player);
     window1->display();
 }
 
