@@ -35,12 +35,13 @@ private:
     Sprite * spr_water;
     Texture * txt_player;
     Sprite * spr_player;
+//    Texture *
 
 
 
-    Vector2i sprite_division;
-    Vector2i actual_frame;
-    int sprite_flip;
+//    Vector2i sprite_division;
+//    Vector2i actual_frame;
+//    int sprite_flip;
 
 
 

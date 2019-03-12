@@ -3,6 +3,8 @@
 #include <iostream>
 #include <stdlib.h>
 
+#define velPlayer 4
+
 using namespace sf;
 using namespace std;
 
@@ -48,9 +50,6 @@ void game::load_resources()
     spr_player -> setTextureRect(sf::IntRect(0, 0, 224, 224));
     spr_player -> setPosition(350,470);
 
-//    spr_title_1.setScale(((float)window1->getSize().x/(float)txt_title.getSize().x), ((float)window1->getSize().y/(float)txt_title.getSize().y));
-
-//    spr_title_1.setScale(((float)window1->getSize().x/(float)spr_title_1->getTexture()->getSize().x), ((float)window1->getSize().y/(float)spr_title_1->getTexture()->getSize().y));
 }
 
 void game::gameLoop()
@@ -59,36 +58,42 @@ void game::gameLoop()
     {
 
         *time1 = clock1->getElapsedTime();
+         // To control manually the fps
+        // The number you are dividing is the number of the fps, if you put a 3 the
+        // game will "move" each 3 seconds cause the clock will restart every 3 seconds
 
-
-        time_water = (int)((time1->asSeconds())/(1/gameSpeed))%4;
-        if ((int)time_water==0)
+        if(time1->asSeconds()>1/fps)
         {
-            spr_water -> setTextureRect(sf::IntRect(2, 107, 255, 48));
-        }
-        else if ((int)time_water==1)
-        {
-            spr_water -> setTextureRect(sf::IntRect(262, 107, 255, 48));
-        }
-        else if ((int)time_water==2)
-        {
-            spr_water -> setTextureRect(sf::IntRect(523, 107, 255, 48));
-        }
-        else if ((int)time_water==3)
-        {
-            spr_water -> setTextureRect(sf::IntRect(784, 107, 255, 48));
-        }
-        else
-        {
-            time_water= 0;
-        }
+            // Water animation
+            time_water = (int)((time1->asSeconds())/(1/gameSpeed))%4;
+            if ((int)time_water==0)
+            {
+                spr_water -> setTextureRect(sf::IntRect(2, 107, 255, 48));
+            }
+            else if ((int)time_water==1)
+            {
+                spr_water -> setTextureRect(sf::IntRect(262, 107, 255, 48));
+            }
+            else if ((int)time_water==2)
+            {
+                spr_water -> setTextureRect(sf::IntRect(523, 107, 255, 48));
+            }
+            else if ((int)time_water==3)
+            {
+                spr_water -> setTextureRect(sf::IntRect(784, 107, 255, 48));
+            }
+            else
+            {
+                time_water= 0;
+            }
 
 
 
 
 
-        process_events();
-        draw();
+            process_events();
+            draw();
+        }
     }
 }
 
@@ -110,34 +115,27 @@ void game::process_events()
             if(Keyboard::isKeyPressed(Keyboard::Up))
             {
                 // If the player sprite is not above the limit it will go up
-//                if(spr_player.getPosition())
-                cout<< spr_player -> getPosition().y <<endl;
                 if (spr_player -> getPosition().y > 390)
                 {
-
                     spr_player -> setTextureRect(sf::IntRect(0, 0, 224, 224));
-                    spr_player -> setPosition(spr_player -> getPosition().x, spr_player -> getPosition().y - 4 );
+                    spr_player -> setPosition(spr_player -> getPosition().x, spr_player -> getPosition().y - velPlayer );
                 }
             }
             else if(Keyboard::isKeyPressed(Keyboard::Down))
             {
                 if (spr_player -> getPosition().y < 538)
                 {
-
-                spr_player -> setTextureRect(sf::IntRect(0, 0, 224, 224));
-                    spr_player -> setPosition(spr_player -> getPosition().x, spr_player -> getPosition().y + 4 );
+                    spr_player -> setTextureRect(sf::IntRect(0, 0, 224, 224));
+                    spr_player -> setPosition(spr_player -> getPosition().x, spr_player -> getPosition().y + velPlayer );
                 }
-
-//                player1->get_sprite()->setPosition(player1->get_sprite()->getPosition().x,player1->get_sprite()->getPosition().y + 6);
             }
             else if(Keyboard::isKeyPressed(Keyboard::Left))
             {
                 if (spr_player -> getPosition().x > 2)
                 {
                     spr_player -> setTextureRect(sf::IntRect(896, 1120, 224, 224));
-                    spr_player -> setPosition(spr_player -> getPosition().x - 4, spr_player -> getPosition().y );
+                    spr_player -> setPosition(spr_player -> getPosition().x - velPlayer, spr_player -> getPosition().y );
                 }
-//                player1->get_sprite()->setPosition(player1.get_sprite()->getPosition().x - 6,player1.get_sprite()->getPosition().y);
             }
 
             else if(Keyboard::isKeyPressed(Keyboard::Right))
@@ -146,21 +144,17 @@ void game::process_events()
                 {
                     spr_player -> setTextureRect(sf::IntRect(672, 0, 224, 224));
 
-                    spr_player -> setPosition(spr_player -> getPosition().x + 4, spr_player -> getPosition().y );
+                    spr_player -> setPosition(spr_player -> getPosition().x + velPlayer, spr_player -> getPosition().y );
                 }
-//                player1.get_sprite()->setPosition(player1.get_sprite()->getPosition().x + 6,player1.get_sprite()->getPosition().y);
             }
-
-
             break;
-            case Event::KeyReleased:
-              if(!Keyboard::isKeyPressed(Keyboard::Right) && !Keyboard::isKeyPressed(Keyboard::Left))
+        case Event::KeyReleased:
+            if(!Keyboard::isKeyPressed(Keyboard::Right) && !Keyboard::isKeyPressed(Keyboard::Left))
             {
-                cout<< "key left or right not pressed" <<endl;
-
+//                cout<< "key left or right not pressed" <<endl;
                 spr_player -> setTextureRect(sf::IntRect(0, 0, 224, 224));
             }
-             break;
+            break;
         }
     }
 
