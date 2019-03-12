@@ -17,6 +17,7 @@ public:
     void load_resources();
     void gameLoop();
     void process_events();
+    void position_rocks();
     void draw();
 
 private:
@@ -41,7 +42,7 @@ private:
     RectangleShape * rock1;
     RectangleShape * rockspace;
     RectangleShape * rock2;
-    float rockSize;
+    int rockSize;
 
         Vector2i rock_pos;
 
