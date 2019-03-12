@@ -42,7 +42,6 @@ void game::load_resources()
     spr_water -> setScale(800.f, 2200.f/spr_water->getTexture()->getSize().y); // desired size / actual size
 
     // Now the player texture and sprites
-
     txt_player = new Texture();
     txt_player -> loadFromFile("imgs/player.png");
     spr_player = new Sprite(*txt_player);
@@ -50,6 +49,26 @@ void game::load_resources()
     spr_player -> setTextureRect(sf::IntRect(0, 0, 224, 224));
     spr_player -> setPosition(350,470);
 
+    // Rocks
+    txt_rock = new Texture();
+    txt_rock -> loadFromFile("imgs/sea_rock.png");
+
+    rockSize = 50;
+    rock1 = new RectangleShape({rockSize,rockSize});
+    rockspace = new RectangleShape({rockSize,rockSize});
+    rock2 = new RectangleShape({rockSize,rockSize});
+
+    rock1 -> setTexture(txt_rock);
+    rockspace -> setFillColor(Color::Green);
+    rock2 -> setTexture(txt_rock);
+
+    rock1-> setPosition(200,200);
+    rockspace-> setPosition(200 + rockSize,200);
+    rock2-> setPosition(200 + (rockSize*2),200);
+//    spr_rock = new Sprite(*txt_rock);
+//    spr_rock< -> setScale((50/(float)spr_rock->getTexture()->getSize().x), (50/(float)spr_rock->getTexture()->getSize().y));
+    //    spr_rock -> setTextureRect(sf::IntRect(100, 40, 255, 48));
+//    spr_rock -> setPosition(300,470);
 }
 
 void game::gameLoop()
@@ -58,11 +77,11 @@ void game::gameLoop()
     {
 
         *time1 = clock1->getElapsedTime();
-         // To control manually the fps
+        // To control manually the fps
         // The number you are dividing is the number of the fps, if you put a 3 the
         // game will "move" each 3 seconds cause the clock will restart every 3 seconds
 
-        if(time1->asSeconds()>1/fps)
+        if(time1->asSeconds()>5/fps)
         {
             // Water animation
             time_water = (int)((time1->asSeconds())/(1/gameSpeed))%4;
@@ -165,6 +184,9 @@ void game::draw()
     window1->clear();
     window1->draw(*spr_water);
     window1->draw(*spr_player);
+    window1->draw(*rock1);
+    window1->draw(*rockspace);
+    window1->draw(*rock2);
     window1->display();
 }
 

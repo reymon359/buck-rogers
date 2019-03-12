@@ -33,10 +33,15 @@ private:
     // Textures and Sprites
     Texture * txt_background;
     Sprite * spr_water;
+
     Texture * txt_player;
     Sprite * spr_player;
-//    Texture *
 
+    Texture * txt_rock;
+    RectangleShape * rock1;
+    RectangleShape * rockspace;
+    RectangleShape * rock2;
+    float rockSize;
 
 
 //    Vector2i sprite_division;
