@@ -43,6 +43,7 @@ private:
     RectangleShape * rock2;
     float rockSize;
 
+        Vector2i rock_pos;
 
 //    Vector2i sprite_division;
 //    Vector2i actual_frame;

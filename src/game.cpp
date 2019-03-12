@@ -3,6 +3,7 @@
 #include <iostream>
 #include <stdlib.h>
 
+#include <time.h>       /* time */
 #define velPlayer 4
 
 using namespace sf;
@@ -53,18 +54,22 @@ void game::load_resources()
     txt_rock = new Texture();
     txt_rock -> loadFromFile("imgs/sea_rock.png");
 
-    rockSize = 50;
+    srand (time(NULL));
+    rockSize = 30;     // To randomly create monsters
+    int random = rand() % 30 + 1;
+    cout << random << endl;
+    rock_pos.x = 200;rock_pos.y = 230;
     rock1 = new RectangleShape({rockSize,rockSize});
-    rockspace = new RectangleShape({rockSize,rockSize});
+    rockspace = new RectangleShape({rockSize + random,rockSize});
     rock2 = new RectangleShape({rockSize,rockSize});
 
     rock1 -> setTexture(txt_rock);
     rockspace -> setFillColor(Color::Green);
     rock2 -> setTexture(txt_rock);
 
-    rock1-> setPosition(200,200);
-    rockspace-> setPosition(200 + rockSize,200);
-    rock2-> setPosition(200 + (rockSize*2),200);
+    rock1-> setPosition(rock_pos.x,rock_pos.y);
+    rockspace-> setPosition(rock_pos.x + rockSize,rock_pos.y);
+    rock2-> setPosition(rock_pos.x + random +(rockSize*2),rock_pos.y);
 //    spr_rock = new Sprite(*txt_rock);
 //    spr_rock< -> setScale((50/(float)spr_rock->getTexture()->getSize().x), (50/(float)spr_rock->getTexture()->getSize().y));
     //    spr_rock -> setTextureRect(sf::IntRect(100, 40, 255, 48));
@@ -88,6 +93,7 @@ void game::gameLoop()
             if ((int)time_water==0)
             {
                 spr_water -> setTextureRect(sf::IntRect(2, 107, 255, 48));
+
             }
             else if ((int)time_water==1)
             {
