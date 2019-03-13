@@ -138,14 +138,17 @@ void game::gameLoop()
 void game::move_rocks()
 {
 
-    rock1-> setPosition(rock1 -> getPosition().x - (float)(gameSpeed/8),rock1 -> getPosition().y + (gameSpeed/3));
-    rockspace-> setPosition(rockspace -> getPosition().x,rockspace -> getPosition().y + (gameSpeed/3));
-    rock2-> setPosition(rock2 -> getPosition().x + (float)(gameSpeed/8),rock2 -> getPosition().y + (gameSpeed/3));
-//    cout << rock1 -> getPosition().y << endl;
 
+    // Change the size
     rock1->setSize({rock1 ->getSize().x + (float)(gameSpeed/8),rock1 ->getSize().y + (float)(gameSpeed/8)});
-    rockspace->setSize({rockspace ->getSize().x + (float)(gameSpeed/8),rockspace ->getSize().y + (float)(gameSpeed/8)});
+    rockspace->setSize({rockspace ->getSize().x + (float)(gameSpeed/4),rockspace ->getSize().y + (float)(gameSpeed/8)});
     rock2->setSize({rock2 ->getSize().x + (float)(gameSpeed/8),rock2 ->getSize().y + (float)(gameSpeed/8)});
+
+    // Change the position
+     rock1-> setPosition(rock1 -> getPosition().x - (float)(gameSpeed/8),rock1 -> getPosition().y + (gameSpeed/3));
+    rockspace-> setPosition(rockspace -> getPosition().x,rockspace -> getPosition().y + (gameSpeed/3));
+    rock2-> setPosition(rock2 -> getPosition().x + (float)(gameSpeed/4),rock2 -> getPosition().y + (gameSpeed/3));
+//    cout << rock1 -> getPosition().y << endl;
 
     if(rock1 -> getPosition().y >= 650)
     {
@@ -200,7 +203,6 @@ void game::process_events()
                     rock2-> setPosition(rock2 -> getPosition().x + (float)(vel_player/1.5) ,rock2 -> getPosition().y);
                 }
             }
-
             else if(Keyboard::isKeyPressed(Keyboard::Right))
             {
                 if (spr_player -> getPosition().x < 722)
