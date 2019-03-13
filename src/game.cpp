@@ -57,13 +57,19 @@ void game::load_resources()
     txt_rock -> loadFromFile("imgs/sea_rock.png");
 
 
+    spawn_rocks();
 
+
+}
+
+void game::spawn_rocks()
+{
     srand (time(NULL));
     randomSize = rand() % rockSize + 1;// Random size between rocks
     randomSpawn = rand() % (800-(rockSize*2 + randomSize) ) + 1;// Random spawn point
-//    cout << randomSize << endl;
-//    cout << randomSpawn << endl;
-    rock_pos.x = randomSpawn;rock_pos.y = 210;
+
+    rock_pos.x = randomSpawn;
+    rock_pos.y = 210;
     rock1 = new RectangleShape({rockSize,rockSize});
     rockspace = new RectangleShape({rockSize + randomSize,rockSize});
     rock2 = new RectangleShape({rockSize,rockSize});
@@ -78,8 +84,6 @@ void game::load_resources()
     rock2-> setPosition(rock_pos.x + randomSize +(rockSize*2),rock_pos.y);
 
 }
-
-
 
 
 void game::gameLoop()
@@ -100,7 +104,7 @@ void game::gameLoop()
             {
                 spr_water -> setTextureRect(sf::IntRect(2, 107, 255, 48));
 
-                 move_rocks();
+                move_rocks();
             }
             else if ((int)time_water==1)
             {
@@ -110,12 +114,12 @@ void game::gameLoop()
             else if ((int)time_water==2)
             {
                 spr_water -> setTextureRect(sf::IntRect(523, 107, 255, 48));
-                 move_rocks();
+                move_rocks();
             }
             else if ((int)time_water==3)
             {
                 spr_water -> setTextureRect(sf::IntRect(784, 107, 255, 48));
-                 move_rocks();
+                move_rocks();
             }
             else
             {
@@ -132,41 +136,24 @@ void game::gameLoop()
     }
 }
 
-void game::move_rocks(){
+void game::move_rocks()
+{
 
 
 
 
-    rock1-> setPosition(rock1 -> getPosition().x - (float)(gameSpeed/8) ,rock1 -> getPosition().y + (gameSpeed/4));
-    rockspace-> setPosition(rockspace -> getPosition().x ,rockspace -> getPosition().y + (gameSpeed/4));
-    rock2-> setPosition(rock2 -> getPosition().x + (float)(gameSpeed/8) ,rock2 -> getPosition().y + (gameSpeed/4));
+    rock1-> setPosition(rock1 -> getPosition().x - (float)(gameSpeed/8),rock1 -> getPosition().y + (gameSpeed/4));
+    rockspace-> setPosition(rockspace -> getPosition().x,rockspace -> getPosition().y + (gameSpeed/4));
+    rock2-> setPosition(rock2 -> getPosition().x + (float)(gameSpeed/8),rock2 -> getPosition().y + (gameSpeed/4));
     cout << rock1 -> getPosition().y << endl;
 
-     rock1->setSize({rock1 ->getSize().x + (float)(gameSpeed/8),rock1 ->getSize().y + (float)(gameSpeed/8)});
-     rockspace->setSize({rockspace ->getSize().x + (float)(gameSpeed/8),rockspace ->getSize().y + (float)(gameSpeed/8)});
-     rock2->setSize({rock2 ->getSize().x + (float)(gameSpeed/8),rock2 ->getSize().y + (float)(gameSpeed/8)});
+    rock1->setSize({rock1 ->getSize().x + (float)(gameSpeed/8),rock1 ->getSize().y + (float)(gameSpeed/8)});
+    rockspace->setSize({rockspace ->getSize().x + (float)(gameSpeed/8),rockspace ->getSize().y + (float)(gameSpeed/8)});
+    rock2->setSize({rock2 ->getSize().x + (float)(gameSpeed/8),rock2 ->getSize().y + (float)(gameSpeed/8)});
 
-    if(rock1 -> getPosition().y == 650){
-
-    srand (time(NULL));
-    randomSize = rand() % rockSize + 1;// Random size between rocks
-    randomSpawn = rand() % (800-(rockSize*2 + randomSize) ) + 1;// Random spawn point
-//    cout << randomSize << endl;
-//    cout << randomSpawn << endl;
-    rock_pos.x = randomSpawn;rock_pos.y = 210;
-    rock1 = new RectangleShape({rockSize,rockSize});
-    rockspace = new RectangleShape({rockSize + randomSize,rockSize});
-    rock2 = new RectangleShape({rockSize,rockSize});
-
-
-    rock1 -> setTexture(txt_rock);
-    rockspace -> setFillColor(Color::Green);
-    rock2 -> setTexture(txt_rock);
-
-
-    rock1-> setPosition(rock_pos.x,rock_pos.y);
-    rockspace-> setPosition(rock_pos.x + rockSize,rock_pos.y);
-    rock2-> setPosition(rock_pos.x + randomSize +(rockSize*2),rock_pos.y);
+    if(rock1 -> getPosition().y == 650)
+    {
+        spawn_rocks();
     }
 
 
@@ -244,7 +231,7 @@ void game::draw()
     window1->draw(*rock1);
     window1->draw(*rockspace);
     window1->draw(*rock2);
-      window1->draw(*spr_player);
+    window1->draw(*spr_player);
     window1->display();
 }
 

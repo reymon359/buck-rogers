@@ -17,6 +17,7 @@ public:
     void load_resources();
     void gameLoop();
     void process_events();
+    void spawn_rocks();
     void move_rocks();
     void draw();
 
