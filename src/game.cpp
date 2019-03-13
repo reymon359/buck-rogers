@@ -32,6 +32,19 @@ game::game(Vector2f dimension, std::string title)
 
     rockSize = 30;
 
+
+    // Text and fonts
+    font1 = new Font();
+    font1->loadFromFile("stella.ttf");
+
+    txt_points = new Text();
+    txt_points -> setFont(*font1);
+    txt_points -> setString("hola");
+    txt_points -> setPosition(400,300);
+    txt_points -> setColor(Color::Yellow);
+    txt_points -> setCharacterSize(50);
+    txt_points -> setOrigin(txt_points->getGlobalBounds().width/2, txt_points->getGlobalBounds().height/2);
+
     load_resources();
     gameLoop();
 }
@@ -260,6 +273,7 @@ void game::draw()
     window1->draw(*rockspace);
     window1->draw(*rock2);
     window1->draw(*spr_player);
+    window1->draw(*txt_points);
     window1->display();
 }
 

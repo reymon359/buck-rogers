@@ -54,6 +54,10 @@ private:
     int randomSpawn;
     Vector2i rock_pos;
 
+    // Font
+    Font * font1;
+    Text * txt_points;
+
 //    Vector2i sprite_division;
 //    Vector2i actual_frame;
 //    int sprite_flip;
