@@ -41,6 +41,8 @@ private:
     Texture * txt_player;
     Sprite * spr_player;
     int vel_player;
+    int player_points;
+    int pass_between;
 
     // Rocks
     Texture * txt_rock;

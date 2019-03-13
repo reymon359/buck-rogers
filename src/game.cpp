@@ -25,7 +25,10 @@ game::game(Vector2f dimension, std::string title)
 
     gameSpeed = 4;
     vel_player = 5;
+    player_points = 0;
     time_water =0;
+
+    pass_between = 0;
 
     rockSize = 30;
 
@@ -130,6 +133,7 @@ void game::gameLoop()
 //            move_rocks();
 
             process_events();
+            process_collisions();
             draw();
         }
     }
@@ -145,7 +149,7 @@ void game::move_rocks()
     rock2->setSize({rock2 ->getSize().x + (float)(gameSpeed/8),rock2 ->getSize().y + (float)(gameSpeed/8)});
 
     // Change the position
-     rock1-> setPosition(rock1 -> getPosition().x - (float)(gameSpeed/8),rock1 -> getPosition().y + (gameSpeed/3));
+    rock1-> setPosition(rock1 -> getPosition().x - (float)(gameSpeed/8),rock1 -> getPosition().y + (gameSpeed/3));
     rockspace-> setPosition(rockspace -> getPosition().x,rockspace -> getPosition().y + (gameSpeed/3));
     rock2-> setPosition(rock2 -> getPosition().x + (float)(gameSpeed/4),rock2 -> getPosition().y + (gameSpeed/3));
 //    cout << rock1 -> getPosition().y << endl;
@@ -200,7 +204,7 @@ void game::process_events()
                     // Also move the rocks
                     rock1-> setPosition(rock1 -> getPosition().x + (float)(vel_player/1.5),rock1 -> getPosition().y );
                     rockspace-> setPosition(rockspace -> getPosition().x + (float)(vel_player/1.5),rockspace -> getPosition().y);
-                    rock2-> setPosition(rock2 -> getPosition().x + (float)(vel_player/1.5) ,rock2 -> getPosition().y);
+                    rock2-> setPosition(rock2 -> getPosition().x + (float)(vel_player/1.5),rock2 -> getPosition().y);
                 }
             }
             else if(Keyboard::isKeyPressed(Keyboard::Right))
@@ -212,7 +216,7 @@ void game::process_events()
                     // Also move the rocks
                     rock1-> setPosition(rock1 -> getPosition().x - (float)(vel_player/1.5),rock1 -> getPosition().y );
                     rockspace-> setPosition(rockspace -> getPosition().x - (float)(vel_player/1.5),rockspace -> getPosition().y);
-                    rock2-> setPosition(rock2 -> getPosition().x - (float)(vel_player/1.5) ,rock2 -> getPosition().y);
+                    rock2-> setPosition(rock2 -> getPosition().x - (float)(vel_player/1.5),rock2 -> getPosition().y);
                 }
             }
 
@@ -229,12 +233,22 @@ void game::process_events()
 
 }
 
-void game::process_collisions(){
+void game::process_collisions()
+{
+
+        if(spr_player -> getGlobalBounds().intersects(rockspace -> getGlobalBounds()) && pass_between == 0)
+        {
+            pass_between ++;
+            player_points += 500;
+        }
+        else if(!spr_player -> getGlobalBounds().intersects(rockspace -> getGlobalBounds()))
+        {
+            pass_between = 0;
+        }
 
 
 
-
-
+        cout << player_points << endl;
 }
 
 void game::draw()
