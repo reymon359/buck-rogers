@@ -103,7 +103,6 @@ void game::gameLoop()
             if ((int)time_water==0)
             {
                 spr_water -> setTextureRect(sf::IntRect(2, 107, 255, 48));
-
                 move_rocks();
             }
             else if ((int)time_water==1)
@@ -139,24 +138,19 @@ void game::gameLoop()
 void game::move_rocks()
 {
 
-
-
-
-    rock1-> setPosition(rock1 -> getPosition().x - (float)(gameSpeed/8),rock1 -> getPosition().y + (gameSpeed/4));
-    rockspace-> setPosition(rockspace -> getPosition().x,rockspace -> getPosition().y + (gameSpeed/4));
-    rock2-> setPosition(rock2 -> getPosition().x + (float)(gameSpeed/8),rock2 -> getPosition().y + (gameSpeed/4));
-    cout << rock1 -> getPosition().y << endl;
+    rock1-> setPosition(rock1 -> getPosition().x - (float)(gameSpeed/8),rock1 -> getPosition().y + (gameSpeed/3));
+    rockspace-> setPosition(rockspace -> getPosition().x,rockspace -> getPosition().y + (gameSpeed/3));
+    rock2-> setPosition(rock2 -> getPosition().x + (float)(gameSpeed/8),rock2 -> getPosition().y + (gameSpeed/3));
+//    cout << rock1 -> getPosition().y << endl;
 
     rock1->setSize({rock1 ->getSize().x + (float)(gameSpeed/8),rock1 ->getSize().y + (float)(gameSpeed/8)});
     rockspace->setSize({rockspace ->getSize().x + (float)(gameSpeed/8),rockspace ->getSize().y + (float)(gameSpeed/8)});
     rock2->setSize({rock2 ->getSize().x + (float)(gameSpeed/8),rock2 ->getSize().y + (float)(gameSpeed/8)});
 
-    if(rock1 -> getPosition().y == 650)
+    if(rock1 -> getPosition().y >= 650)
     {
         spawn_rocks();
     }
-
-
 
 }
 
@@ -182,6 +176,7 @@ void game::process_events()
                 {
                     spr_player -> setTextureRect(sf::IntRect(0, 0, 224, 224));
                     spr_player -> setPosition(spr_player -> getPosition().x, spr_player -> getPosition().y - vel_player );
+
                 }
             }
             else if(Keyboard::isKeyPressed(Keyboard::Down))
@@ -190,6 +185,7 @@ void game::process_events()
                 {
                     spr_player -> setTextureRect(sf::IntRect(0, 0, 224, 224));
                     spr_player -> setPosition(spr_player -> getPosition().x, spr_player -> getPosition().y + vel_player );
+
                 }
             }
             else if(Keyboard::isKeyPressed(Keyboard::Left))
@@ -197,7 +193,11 @@ void game::process_events()
                 if (spr_player -> getPosition().x > 2)
                 {
                     spr_player -> setTextureRect(sf::IntRect(896, 1120, 224, 224));
-                    spr_player -> setPosition(spr_player -> getPosition().x - vel_player, spr_player -> getPosition().y );
+                    spr_player -> setPosition(spr_player -> getPosition().x - vel_player, spr_player -> getPosition().y);
+                    // Also move the rocks
+                    rock1-> setPosition(rock1 -> getPosition().x + (float)(vel_player/1.5),rock1 -> getPosition().y );
+                    rockspace-> setPosition(rockspace -> getPosition().x + (float)(vel_player/1.5),rockspace -> getPosition().y);
+                    rock2-> setPosition(rock2 -> getPosition().x + (float)(vel_player/1.5) ,rock2 -> getPosition().y);
                 }
             }
 
@@ -207,6 +207,10 @@ void game::process_events()
                 {
                     spr_player -> setTextureRect(sf::IntRect(672, 0, 224, 224));
                     spr_player -> setPosition(spr_player -> getPosition().x + vel_player, spr_player -> getPosition().y );
+                    // Also move the rocks
+                    rock1-> setPosition(rock1 -> getPosition().x - (float)(vel_player/1.5),rock1 -> getPosition().y );
+                    rockspace-> setPosition(rockspace -> getPosition().x - (float)(vel_player/1.5),rockspace -> getPosition().y);
+                    rock2-> setPosition(rock2 -> getPosition().x - (float)(vel_player/1.5) ,rock2 -> getPosition().y);
                 }
             }
 
@@ -220,6 +224,14 @@ void game::process_events()
             break;
         }
     }
+
+}
+
+void game::process_collisions(){
+
+
+
+
 
 }
 
