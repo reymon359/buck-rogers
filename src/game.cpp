@@ -59,8 +59,8 @@ void game::load_resources()
 
 
     srand (time(NULL));
-    int randomSize = rand() % rockSize + 1;// Random size between rocks
-    int randomSpawn = rand() % (800-(rockSize*2 + randomSize) ) + 1;// Random spawn point
+    randomSize = rand() % rockSize + 1;// Random size between rocks
+    randomSpawn = rand() % (800-(rockSize*2 + randomSize) ) + 1;// Random spawn point
 //    cout << randomSize << endl;
 //    cout << randomSpawn << endl;
     rock_pos.x = randomSpawn;rock_pos.y = 210;
@@ -140,11 +140,34 @@ void game::move_rocks(){
     rock1-> setPosition(rock1 -> getPosition().x - (float)(gameSpeed/8) ,rock1 -> getPosition().y + (gameSpeed/4));
     rockspace-> setPosition(rockspace -> getPosition().x ,rockspace -> getPosition().y + (gameSpeed/4));
     rock2-> setPosition(rock2 -> getPosition().x + (float)(gameSpeed/8) ,rock2 -> getPosition().y + (gameSpeed/4));
-    cout << rock1 ->getSize().x << endl;
+    cout << rock1 -> getPosition().y << endl;
 
      rock1->setSize({rock1 ->getSize().x + (float)(gameSpeed/8),rock1 ->getSize().y + (float)(gameSpeed/8)});
      rockspace->setSize({rockspace ->getSize().x + (float)(gameSpeed/8),rockspace ->getSize().y + (float)(gameSpeed/8)});
      rock2->setSize({rock2 ->getSize().x + (float)(gameSpeed/8),rock2 ->getSize().y + (float)(gameSpeed/8)});
+
+    if(rock1 -> getPosition().y == 650){
+
+    srand (time(NULL));
+    randomSize = rand() % rockSize + 1;// Random size between rocks
+    randomSpawn = rand() % (800-(rockSize*2 + randomSize) ) + 1;// Random spawn point
+//    cout << randomSize << endl;
+//    cout << randomSpawn << endl;
+    rock_pos.x = randomSpawn;rock_pos.y = 210;
+    rock1 = new RectangleShape({rockSize,rockSize});
+    rockspace = new RectangleShape({rockSize + randomSize,rockSize});
+    rock2 = new RectangleShape({rockSize,rockSize});
+
+
+    rock1 -> setTexture(txt_rock);
+    rockspace -> setFillColor(Color::Green);
+    rock2 -> setTexture(txt_rock);
+
+
+    rock1-> setPosition(rock_pos.x,rock_pos.y);
+    rockspace-> setPosition(rock_pos.x + rockSize,rock_pos.y);
+    rock2-> setPosition(rock_pos.x + randomSize +(rockSize*2),rock_pos.y);
+    }
 
 
 

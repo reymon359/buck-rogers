@@ -40,13 +40,15 @@ private:
     Sprite * spr_player;
     int vel_player;
 
+    // Rocks
     Texture * txt_rock;
     RectangleShape * rock1;
     RectangleShape * rockspace;
     RectangleShape * rock2;
     int rockSize;
-
-        Vector2i rock_pos;
+    int randomSize;
+    int randomSpawn;
+    Vector2i rock_pos;
 
 //    Vector2i sprite_division;
 //    Vector2i actual_frame;
