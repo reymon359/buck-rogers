@@ -27,6 +27,7 @@ game::game(Vector2f dimension, std::string title)
     vel_player = 5;
     time_water =0;
 
+    rockSize = 30;
 
     load_resources();
     gameLoop();
@@ -55,14 +56,14 @@ void game::load_resources()
     txt_rock = new Texture();
     txt_rock -> loadFromFile("imgs/sea_rock.png");
 
-    rockSize = 30;
+
 
     srand (time(NULL));
     int randomSize = rand() % rockSize + 1;// Random size between rocks
     int randomSpawn = rand() % (800-(rockSize*2 + randomSize) ) + 1;// Random spawn point
 //    cout << randomSize << endl;
 //    cout << randomSpawn << endl;
-    rock_pos.x = randomSpawn;rock_pos.y = 230;
+    rock_pos.x = randomSpawn;rock_pos.y = 210;
     rock1 = new RectangleShape({rockSize,rockSize});
     rockspace = new RectangleShape({rockSize + randomSize,rockSize});
     rock2 = new RectangleShape({rockSize,rockSize});
@@ -136,9 +137,16 @@ void game::move_rocks(){
 
 
 
-    rock1-> setPosition(rock1 -> getPosition().x ,rock1 -> getPosition().y + 2);
-    rockspace-> setPosition(rockspace -> getPosition().x ,rockspace -> getPosition().y + 2);
-    rock2-> setPosition(rock2 -> getPosition().x ,rock2 -> getPosition().y + 2);
+    rock1-> setPosition(rock1 -> getPosition().x - (float)(gameSpeed/8) ,rock1 -> getPosition().y + (gameSpeed/4));
+    rockspace-> setPosition(rockspace -> getPosition().x ,rockspace -> getPosition().y + (gameSpeed/4));
+    rock2-> setPosition(rock2 -> getPosition().x + (float)(gameSpeed/8) ,rock2 -> getPosition().y + (gameSpeed/4));
+    cout << rock1 ->getSize().x << endl;
+
+     rock1->setSize({rock1 ->getSize().x + (float)(gameSpeed/8),rock1 ->getSize().y + (float)(gameSpeed/8)});
+     rockspace->setSize({rockspace ->getSize().x + (float)(gameSpeed/8),rockspace ->getSize().y + (float)(gameSpeed/8)});
+     rock2->setSize({rock2 ->getSize().x + (float)(gameSpeed/8),rock2 ->getSize().y + (float)(gameSpeed/8)});
+
+
 
 }
 
