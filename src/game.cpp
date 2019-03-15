@@ -228,11 +228,7 @@ void game::process_events()
             }
             else if(Keyboard::isKeyPressed(Keyboard::Left))
             {
-                if (spr_player -> getPosition().x > 2)
-                {
-                    spr_player -> setTextureRect(sf::IntRect(896, 1120, 224, 224));
-                    spr_player -> setPosition(spr_player -> getPosition().x - vel_player, spr_player -> getPosition().y);
-                    // Also move the rocks
+                    // Move the rocks and islands
                     rock1-> setPosition(rock1 -> getPosition().x + (float)(vel_player/1.5),rock1 -> getPosition().y );
                     rockspace-> setPosition(rockspace -> getPosition().x + (float)(vel_player/1.5),rockspace -> getPosition().y);
                     rock2-> setPosition(rock2 -> getPosition().x + (float)(vel_player/1.5),rock2 -> getPosition().y);
@@ -240,21 +236,27 @@ void game::process_events()
                     spr_islands -> setPosition(spr_islands -> getPosition().x + (float)(vel_player/2.3),spr_islands -> getPosition().y );
                     spr_islands2 -> setPosition(spr_islands2 -> getPosition().x + (float)(vel_player/2.3),spr_islands2 -> getPosition().y );
 
+                if (spr_player -> getPosition().x > 2)
+                {
+                    spr_player -> setTextureRect(sf::IntRect(896, 1120, 224, 224));
+                    spr_player -> setPosition(spr_player -> getPosition().x - vel_player, spr_player -> getPosition().y);
+
                 }
             }
             else if(Keyboard::isKeyPressed(Keyboard::Right))
             {
-                if (spr_player -> getPosition().x < 722)
-                {
-                    spr_player -> setTextureRect(sf::IntRect(672, 0, 224, 224));
-                    spr_player -> setPosition(spr_player -> getPosition().x + vel_player, spr_player -> getPosition().y );
-                    // Also move the rocks and islands
+                    // Move the rocks and islands
                     rock1-> setPosition(rock1 -> getPosition().x - (float)(vel_player/1.5),rock1 -> getPosition().y );
                     rockspace-> setPosition(rockspace -> getPosition().x - (float)(vel_player/1.5),rockspace -> getPosition().y);
                     rock2-> setPosition(rock2 -> getPosition().x - (float)(vel_player/1.5),rock2 -> getPosition().y);
 
                     spr_islands -> setPosition(spr_islands -> getPosition().x - (float)(vel_player/2.3),spr_islands -> getPosition().y );
                     spr_islands2 -> setPosition(spr_islands2 -> getPosition().x - (float)(vel_player/2.3),spr_islands2 -> getPosition().y );
+
+                if (spr_player -> getPosition().x < 722)
+                {
+                    spr_player -> setTextureRect(sf::IntRect(672, 0, 224, 224));
+                    spr_player -> setPosition(spr_player -> getPosition().x + vel_player, spr_player -> getPosition().y );
 
                 }
             }
@@ -273,7 +275,8 @@ void game::process_events()
         cout << spr_islands -> getPosition().x <<endl;
         cout << spr_islands2 -> getPosition().x <<endl;
         // move islands background
-        if(spr_islands -> getPosition().x <= -1 && spr_islands -> getPosition().x > -2)
+        // When the islands1 passes through 0 patatero
+        if(spr_islands -> getPosition().x <= -0.5 && spr_islands -> getPosition().x > -2)
         {
             // islands at begining
             cout << "0 patatero" <<endl;
@@ -281,16 +284,32 @@ void game::process_events()
             if(spr_islands -> getPosition().x > spr_islands2 -> getPosition().x )
             {
                 // If islands2 is at left I put islands2 at right
+                   cout << "If islands2 is at left I put islands2 at right" <<endl;
                 spr_islands2 -> setPosition(790,spr_islands2 -> getPosition().y );
             }
             else if(spr_islands -> getPosition().x < spr_islands2 -> getPosition().x )
             {
+             cout << "If islands2 is at right I put islands2 at left" <<endl;
                 // If islands2 is at right I put islands2 at left
                 spr_islands2 -> setPosition(-790,spr_islands2 -> getPosition().y );
             }
-
-
-
+        }
+         // When the islands2 passes through 0 patatero
+         if(spr_islands2 -> getPosition().x <= -0.5 && spr_islands2 -> getPosition().x > -2)
+        {
+            // Now we look which one has an x greater to see where are they
+            if(spr_islands2 -> getPosition().x > spr_islands -> getPosition().x )
+            {
+                // If islands is at left I put islands at right
+                 cout << "If islands is at left I put islands at right" <<endl;
+                spr_islands -> setPosition(790,spr_islands -> getPosition().y );
+            }
+            else if(spr_islands2 -> getPosition().x < spr_islands -> getPosition().x )
+            {
+                // If islands is at right I put islands at left
+                     cout << "If islands is at right I put islands at left" <<endl;
+                spr_islands -> setPosition(-790,spr_islands -> getPosition().y );
+            }
         }
 
     }
