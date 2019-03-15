@@ -26,18 +26,11 @@ game::game(Vector2f dimension, std::string title)
     gameSpeed = 4;
     vel_player = 5;
     player_points = 0;
-    time_water =0;
+    time_water = 0;
 
     pass_between = 0;
-
     rockSize = 30;
 
-
-
-
-
-
-//    text_score -> setOrigin(text_score->getGlobalBounds().width/2, text_score->getGlobalBounds().height/2);
 
     load_resources();
     gameLoop();
@@ -68,10 +61,15 @@ void game::load_resources()
     text_score -> setColor(Color::Yellow);
     text_score -> setCharacterSize(20);
 
+    // Water and islands
     spr_water = new Sprite(*txt_background);
     spr_water -> setPosition(0,230);
     spr_water -> setScale(800.f, 2200.f/spr_water->getTexture()->getSize().y); // desired size / actual size
 
+    spr_islands = new Sprite(*txt_background);
+     spr_islands -> setTextureRect(sf::IntRect(1, 70, 512, 32));
+    spr_islands -> setPosition(0,130);
+    spr_islands -> setScale(800.f/512, 100.f/32);
     // Now the player texture and sprites
     txt_player = new Texture();
     txt_player -> loadFromFile("imgs/player.png");
@@ -270,19 +268,15 @@ void game::process_collisions()
     {
         pass_between = 0;
     }
-//    char score_points = std::to_string(player_points);
-
    text_score -> setString("SCORE " + std::to_string(player_points));
 
-
-//    cout << score_points << endl;
 }
 
 void game::draw()
 {
     window1->clear();
     window1->draw(*spr_water);
-
+    window1->draw(*spr_islands);
     window1->draw(*rock1);
     window1->draw(*rockspace);
     window1->draw(*rock2);
