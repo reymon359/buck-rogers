@@ -270,10 +270,12 @@ void game::process_collisions()
     {
         pass_between = 0;
     }
+//    char score_points = std::to_string(player_points);
+
+   text_score -> setString("SCORE " + std::to_string(player_points));
 
 
-
-    cout << player_points << endl;
+//    cout << score_points << endl;
 }
 
 void game::draw()
