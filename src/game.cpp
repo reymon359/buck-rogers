@@ -67,9 +67,17 @@ void game::load_resources()
     spr_water -> setScale(800.f, 2200.f/spr_water->getTexture()->getSize().y); // desired size / actual size
 
     spr_islands = new Sprite(*txt_background);
-     spr_islands -> setTextureRect(sf::IntRect(1, 70, 512, 32));
-    spr_islands -> setPosition(0,130);
+    spr_islands -> setTextureRect(sf::IntRect(1, 70, 512, 32));
+    spr_islands -> setPosition(-10,130);
     spr_islands -> setScale(800.f/512, 100.f/32);
+
+    spr_islands2 = new Sprite(*txt_background);
+    spr_islands2 -> setTextureRect(sf::IntRect(1, 70, 512, 32));
+    spr_islands2 -> setPosition(790,130);
+    spr_islands2 -> setScale(800.f/512, 100.f/32);
+
+
+
     // Now the player texture and sprites
     txt_player = new Texture();
     txt_player -> loadFromFile("imgs/player.png");
@@ -228,6 +236,10 @@ void game::process_events()
                     rock1-> setPosition(rock1 -> getPosition().x + (float)(vel_player/1.5),rock1 -> getPosition().y );
                     rockspace-> setPosition(rockspace -> getPosition().x + (float)(vel_player/1.5),rockspace -> getPosition().y);
                     rock2-> setPosition(rock2 -> getPosition().x + (float)(vel_player/1.5),rock2 -> getPosition().y);
+                    // And the islands background
+                    spr_islands -> setPosition(spr_islands -> getPosition().x + (float)(vel_player/2.3),spr_islands -> getPosition().y );
+                    spr_islands2 -> setPosition(spr_islands2 -> getPosition().x + (float)(vel_player/2.3),spr_islands2 -> getPosition().y );
+
                 }
             }
             else if(Keyboard::isKeyPressed(Keyboard::Right))
@@ -236,10 +248,14 @@ void game::process_events()
                 {
                     spr_player -> setTextureRect(sf::IntRect(672, 0, 224, 224));
                     spr_player -> setPosition(spr_player -> getPosition().x + vel_player, spr_player -> getPosition().y );
-                    // Also move the rocks
+                    // Also move the rocks and islands
                     rock1-> setPosition(rock1 -> getPosition().x - (float)(vel_player/1.5),rock1 -> getPosition().y );
                     rockspace-> setPosition(rockspace -> getPosition().x - (float)(vel_player/1.5),rockspace -> getPosition().y);
                     rock2-> setPosition(rock2 -> getPosition().x - (float)(vel_player/1.5),rock2 -> getPosition().y);
+
+                    spr_islands -> setPosition(spr_islands -> getPosition().x - (float)(vel_player/2.3),spr_islands -> getPosition().y );
+                    spr_islands2 -> setPosition(spr_islands2 -> getPosition().x - (float)(vel_player/2.3),spr_islands2 -> getPosition().y );
+
                 }
             }
 
@@ -252,6 +268,31 @@ void game::process_events()
             }
             break;
         }
+
+
+        cout << spr_islands -> getPosition().x <<endl;
+        cout << spr_islands2 -> getPosition().x <<endl;
+        // move islands background
+        if(spr_islands -> getPosition().x <= -1 && spr_islands -> getPosition().x > -2)
+        {
+            // islands at begining
+            cout << "0 patatero" <<endl;
+            // Now we look which one has an x greater to see where are they
+            if(spr_islands -> getPosition().x > spr_islands2 -> getPosition().x )
+            {
+                // If islands2 is at left I put islands2 at right
+                spr_islands2 -> setPosition(790,spr_islands2 -> getPosition().y );
+            }
+            else if(spr_islands -> getPosition().x < spr_islands2 -> getPosition().x )
+            {
+                // If islands2 is at right I put islands2 at left
+                spr_islands2 -> setPosition(-790,spr_islands2 -> getPosition().y );
+            }
+
+
+
+        }
+
     }
 
 }
@@ -268,7 +309,7 @@ void game::process_collisions()
     {
         pass_between = 0;
     }
-   text_score -> setString("SCORE " + std::to_string(player_points));
+    text_score -> setString("SCORE " + std::to_string(player_points));
 
 }
 
@@ -277,6 +318,7 @@ void game::draw()
     window1->clear();
     window1->draw(*spr_water);
     window1->draw(*spr_islands);
+    window1->draw(*spr_islands2);
     window1->draw(*rock1);
     window1->draw(*rockspace);
     window1->draw(*rock2);

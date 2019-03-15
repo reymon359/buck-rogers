@@ -37,6 +37,7 @@ private:
     Texture * txt_background;
     Sprite * spr_water;
     Sprite * spr_islands;
+    Sprite * spr_islands2;
 
     // Player
     Texture * txt_player;
