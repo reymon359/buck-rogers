@@ -56,8 +56,8 @@ private:
 
     // Font
     Font * font1;
-    Text * txt_points;
-
+    Text * text_score;
+    Text * text_time;
 //    Vector2i sprite_division;
 //    Vector2i actual_frame;
 //    int sprite_flip;

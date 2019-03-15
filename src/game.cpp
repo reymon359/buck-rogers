@@ -33,17 +33,11 @@ game::game(Vector2f dimension, std::string title)
     rockSize = 30;
 
 
-    // Text and fonts
-    font1 = new Font();
-    font1->loadFromFile("stella.ttf");
 
-    txt_points = new Text();
-    txt_points -> setFont(*font1);
-    txt_points -> setString("hola");
-    txt_points -> setPosition(400,300);
-    txt_points -> setColor(Color::Yellow);
-    txt_points -> setCharacterSize(50);
-    txt_points -> setOrigin(txt_points->getGlobalBounds().width/2, txt_points->getGlobalBounds().height/2);
+
+
+
+//    text_score -> setOrigin(text_score->getGlobalBounds().width/2, text_score->getGlobalBounds().height/2);
 
     load_resources();
     gameLoop();
@@ -55,6 +49,24 @@ void game::load_resources()
     // We are going to load the background texture and  water sprites
     txt_background = new Texture();
     txt_background -> loadFromFile("imgs/texture_background.png");
+
+    // Text and fonts
+    font1 = new Font();
+    font1->loadFromFile("256bytes.ttf");
+
+    text_time = new Text();
+    text_time -> setFont(*font1);
+    text_time -> setString("TIME");
+    text_time -> setPosition(10,10);
+    text_time -> setColor(Color::Yellow);
+    text_time -> setCharacterSize(20);
+
+    text_score = new Text();
+    text_score -> setFont(*font1);
+    text_score -> setString("SCORE");
+    text_score -> setPosition(10,40);
+    text_score -> setColor(Color::Yellow);
+    text_score -> setCharacterSize(20);
 
     spr_water = new Sprite(*txt_background);
     spr_water -> setPosition(0,230);
@@ -249,19 +261,19 @@ void game::process_events()
 void game::process_collisions()
 {
 
-        if(spr_player -> getGlobalBounds().intersects(rockspace -> getGlobalBounds()) && pass_between == 0)
-        {
-            pass_between ++;
-            player_points += 500;
-        }
-        else if(!spr_player -> getGlobalBounds().intersects(rockspace -> getGlobalBounds()))
-        {
-            pass_between = 0;
-        }
+    if(spr_player -> getGlobalBounds().intersects(rockspace -> getGlobalBounds()) && pass_between == 0)
+    {
+        pass_between ++;
+        player_points += 500;
+    }
+    else if(!spr_player -> getGlobalBounds().intersects(rockspace -> getGlobalBounds()))
+    {
+        pass_between = 0;
+    }
 
 
 
-        cout << player_points << endl;
+    cout << player_points << endl;
 }
 
 void game::draw()
@@ -273,7 +285,8 @@ void game::draw()
     window1->draw(*rockspace);
     window1->draw(*rock2);
     window1->draw(*spr_player);
-    window1->draw(*txt_points);
+    window1->draw(*text_time);
+    window1->draw(*text_score);
     window1->display();
 }
 
