@@ -81,6 +81,8 @@ void game::load_resources()
     // Now the player texture and sprites
     txt_player = new Texture();
     txt_player -> loadFromFile("imgs/player.png");
+    txt_player_explosion = new Texture();
+    txt_player_explosion -> loadFromFile("imgs/explosion.png");
     spr_player = new Sprite(*txt_player);
     spr_player -> setScale(500.f/spr_player->getTexture()->getSize().y, 500.f/spr_player->getTexture()->getSize().y);
     spr_player -> setTextureRect(sf::IntRect(0, 0, 224, 224));
@@ -228,13 +230,13 @@ void game::process_events()
             }
             else if(Keyboard::isKeyPressed(Keyboard::Left))
             {
-                    // Move the rocks and islands
-                    rock1-> setPosition(rock1 -> getPosition().x + (float)(vel_player/1.5),rock1 -> getPosition().y );
-                    rockspace-> setPosition(rockspace -> getPosition().x + (float)(vel_player/1.5),rockspace -> getPosition().y);
-                    rock2-> setPosition(rock2 -> getPosition().x + (float)(vel_player/1.5),rock2 -> getPosition().y);
-                    // And the islands background
-                    spr_islands -> setPosition(spr_islands -> getPosition().x + (float)(vel_player/2.3),spr_islands -> getPosition().y );
-                    spr_islands2 -> setPosition(spr_islands2 -> getPosition().x + (float)(vel_player/2.3),spr_islands2 -> getPosition().y );
+                // Move the rocks and islands
+                rock1-> setPosition(rock1 -> getPosition().x + (float)(vel_player/1.5),rock1 -> getPosition().y );
+                rockspace-> setPosition(rockspace -> getPosition().x + (float)(vel_player/1.5),rockspace -> getPosition().y);
+                rock2-> setPosition(rock2 -> getPosition().x + (float)(vel_player/1.5),rock2 -> getPosition().y);
+                // And the islands background
+                spr_islands -> setPosition(spr_islands -> getPosition().x + (float)(vel_player/2.3),spr_islands -> getPosition().y );
+                spr_islands2 -> setPosition(spr_islands2 -> getPosition().x + (float)(vel_player/2.3),spr_islands2 -> getPosition().y );
 
                 if (spr_player -> getPosition().x > 2)
                 {
@@ -245,13 +247,13 @@ void game::process_events()
             }
             else if(Keyboard::isKeyPressed(Keyboard::Right))
             {
-                    // Move the rocks and islands
-                    rock1-> setPosition(rock1 -> getPosition().x - (float)(vel_player/1.5),rock1 -> getPosition().y );
-                    rockspace-> setPosition(rockspace -> getPosition().x - (float)(vel_player/1.5),rockspace -> getPosition().y);
-                    rock2-> setPosition(rock2 -> getPosition().x - (float)(vel_player/1.5),rock2 -> getPosition().y);
+                // Move the rocks and islands
+                rock1-> setPosition(rock1 -> getPosition().x - (float)(vel_player/1.5),rock1 -> getPosition().y );
+                rockspace-> setPosition(rockspace -> getPosition().x - (float)(vel_player/1.5),rockspace -> getPosition().y);
+                rock2-> setPosition(rock2 -> getPosition().x - (float)(vel_player/1.5),rock2 -> getPosition().y);
 
-                    spr_islands -> setPosition(spr_islands -> getPosition().x - (float)(vel_player/2.3),spr_islands -> getPosition().y );
-                    spr_islands2 -> setPosition(spr_islands2 -> getPosition().x - (float)(vel_player/2.3),spr_islands2 -> getPosition().y );
+                spr_islands -> setPosition(spr_islands -> getPosition().x - (float)(vel_player/2.3),spr_islands -> getPosition().y );
+                spr_islands2 -> setPosition(spr_islands2 -> getPosition().x - (float)(vel_player/2.3),spr_islands2 -> getPosition().y );
 
                 if (spr_player -> getPosition().x < 722)
                 {
@@ -284,30 +286,30 @@ void game::process_events()
             if(spr_islands -> getPosition().x > spr_islands2 -> getPosition().x )
             {
                 // If islands2 is at left I put islands2 at right
-                   cout << "If islands2 is at left I put islands2 at right" <<endl;
+                cout << "If islands2 is at left I put islands2 at right" <<endl;
                 spr_islands2 -> setPosition(790,spr_islands2 -> getPosition().y );
             }
             else if(spr_islands -> getPosition().x < spr_islands2 -> getPosition().x )
             {
-             cout << "If islands2 is at right I put islands2 at left" <<endl;
+                cout << "If islands2 is at right I put islands2 at left" <<endl;
                 // If islands2 is at right I put islands2 at left
                 spr_islands2 -> setPosition(-790,spr_islands2 -> getPosition().y );
             }
         }
-         // When the islands2 passes through 0 patatero
-         if(spr_islands2 -> getPosition().x <= -0.5 && spr_islands2 -> getPosition().x > -2)
+        // When the islands2 passes through 0 patatero
+        if(spr_islands2 -> getPosition().x <= -0.5 && spr_islands2 -> getPosition().x > -2)
         {
             // Now we look which one has an x greater to see where are they
             if(spr_islands2 -> getPosition().x > spr_islands -> getPosition().x )
             {
                 // If islands is at left I put islands at right
-                 cout << "If islands is at left I put islands at right" <<endl;
+                cout << "If islands is at left I put islands at right" <<endl;
                 spr_islands -> setPosition(790,spr_islands -> getPosition().y );
             }
             else if(spr_islands2 -> getPosition().x < spr_islands -> getPosition().x )
             {
                 // If islands is at right I put islands at left
-                     cout << "If islands is at right I put islands at left" <<endl;
+                cout << "If islands is at right I put islands at left" <<endl;
                 spr_islands -> setPosition(-790,spr_islands -> getPosition().y );
             }
         }
@@ -318,7 +320,7 @@ void game::process_events()
 
 void game::process_collisions()
 {
-
+    // If the player pass between the rocks
     if(spr_player -> getGlobalBounds().intersects(rockspace -> getGlobalBounds()) && pass_between == 0)
     {
         pass_between ++;
@@ -329,6 +331,24 @@ void game::process_collisions()
         pass_between = 0;
     }
     text_score -> setString("SCORE " + std::to_string(player_points));
+
+    // If the player hits the rocks
+    if(spr_player -> getGlobalBounds().intersects(rock1 -> getGlobalBounds()) || spr_player -> getGlobalBounds().intersects(rock2 -> getGlobalBounds()))
+    {
+        cout << "muerto" <<endl;
+        spr_player ->setTexture(*txt_player_explosion);
+        spr_player -> setTextureRect(sf::IntRect(97, 65, 393, 420));
+        // stop game
+
+        // minus 1 life
+
+        // if lifes == 0 end game
+
+        // else reanudar
+
+    }
+
+
 
 }
 

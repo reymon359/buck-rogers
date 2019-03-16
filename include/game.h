@@ -41,6 +41,7 @@ private:
 
     // Player
     Texture * txt_player;
+    Texture * txt_player_explosion;
     Sprite * spr_player;
     int vel_player;
     int player_points;
