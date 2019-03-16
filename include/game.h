@@ -17,8 +17,10 @@ public:
     void load_resources();
     void gameLoop();
     void start_game();
+
     void process_events();
     void process_collisions();
+    void player_crashed();
     void move_water();
     void spawn_rocks();
     void move_rocks();
@@ -33,6 +35,7 @@ private:
     // Time
     Clock * clock1;
     Time * time1;
+        float  time2;
     float gameSpeed;
     float  time_water;
 

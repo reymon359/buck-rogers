@@ -33,15 +33,25 @@ game::game(Vector2f dimension, std::string title)
     pass_between = 0;
     rockSize = 30;
 
-    start_game();
+
     load_resources();
+    start_game();
     gameLoop();
 }
 
 void game::start_game()
 {
+    cout << "start game"<<endl;
     game_status = 1;
 
+    spr_islands -> setPosition(-10,130);
+    spr_islands2 -> setPosition(790,130);
+
+    spr_player ->setTexture(*txt_player);
+    spr_player -> setTextureRect(sf::IntRect(0, 0, 224, 224));
+    spr_player -> setPosition(350,470);
+
+    spawn_rocks();
 }
 
 // Here we load the game textures and sprites
@@ -76,12 +86,10 @@ void game::load_resources()
 
     spr_islands = new Sprite(*txt_background);
     spr_islands -> setTextureRect(sf::IntRect(1, 70, 512, 32));
-    spr_islands -> setPosition(-10,130);
     spr_islands -> setScale(800.f/512, 100.f/32);
 
     spr_islands2 = new Sprite(*txt_background);
     spr_islands2 -> setTextureRect(sf::IntRect(1, 70, 512, 32));
-    spr_islands2 -> setPosition(790,130);
     spr_islands2 -> setScale(800.f/512, 100.f/32);
 
 
@@ -89,19 +97,16 @@ void game::load_resources()
     // Now the player texture and sprites
     txt_player = new Texture();
     txt_player -> loadFromFile("imgs/player.png");
-    txt_player_explosion = new Texture();
-    txt_player_explosion -> loadFromFile("imgs/explosion.png");
     spr_player = new Sprite(*txt_player);
     spr_player -> setScale(500.f/spr_player->getTexture()->getSize().y, 500.f/spr_player->getTexture()->getSize().y);
-    spr_player -> setTextureRect(sf::IntRect(0, 0, 224, 224));
-    spr_player -> setPosition(350,470);
+
+
+    txt_player_explosion = new Texture();
+    txt_player_explosion -> loadFromFile("imgs/explosion.png");
 
     // Rocks
     txt_rock = new Texture();
     txt_rock -> loadFromFile("imgs/sea_rock.png");
-
-
-    spawn_rocks();
 
 
 }
@@ -136,6 +141,8 @@ void game::gameLoop()
     {
 
         *time1 = clock1->getElapsedTime();
+//        cout << time1->asSeconds() << endl;
+//        cout << time2 <<endl;
         // To control manually the fps
         // The number you are dividing is the number of the fps, if you put a 3 the
         // game will "move" each 3 seconds cause the clock will restart every 3 seconds
@@ -144,17 +151,26 @@ void game::gameLoop()
         {
             // Water animation
 
-            if(game_status==1)
+            if(game_status == 1)
             {
-
                 move_water();
                 move_rocks();
                 process_collisions();
-
+            }
+            else if(game_status == 0)
+            {
+                // When the game has stopped
+                if(time1->asSeconds() >= time2) // if time reaches the 4 secs
+                {
+                    time2 = 0;
+                    start_game();
+                }
             }
             process_events();
+
             draw();
         }
+
     }
 }
 
@@ -181,14 +197,11 @@ void game::move_water()
     {
         time_water= 0;
     }
-
 }
 
 
 void game::move_rocks()
 {
-
-
     // Change the size
     rock1->setSize({rock1 ->getSize().x + (float)(gameSpeed/8),rock1 ->getSize().y + (float)(gameSpeed/8)});
     rockspace->setSize({rockspace ->getSize().x + (float)(gameSpeed/4),rockspace ->getSize().y + (float)(gameSpeed/8)});
@@ -229,7 +242,6 @@ void game::process_events()
                     {
                         spr_player -> setTextureRect(sf::IntRect(0, 0, 224, 224));
                         spr_player -> setPosition(spr_player -> getPosition().x, spr_player -> getPosition().y - vel_player );
-
                     }
                 }
                 else if(Keyboard::isKeyPressed(Keyboard::Down))
@@ -238,7 +250,6 @@ void game::process_events()
                     {
                         spr_player -> setTextureRect(sf::IntRect(0, 0, 224, 224));
                         spr_player -> setPosition(spr_player -> getPosition().x, spr_player -> getPosition().y + vel_player );
-
                     }
                 }
                 else if(Keyboard::isKeyPressed(Keyboard::Left))
@@ -353,25 +364,45 @@ void game::process_collisions()
     // If the player hits the rocks
     if(spr_player -> getGlobalBounds().intersects(rock1 -> getGlobalBounds()) || spr_player -> getGlobalBounds().intersects(rock2 -> getGlobalBounds()))
     {
-//        cout << "muerto" <<endl;
-        spr_player ->setTexture(*txt_player_explosion);
-        spr_player -> setTextureRect(sf::IntRect(97, 65, 393, 420));
-        // I put the explosion between the rocks and the player sprite for more realism
-        spr_player -> setPosition(spr_player -> getPosition().x , (spr_player -> getPosition().y + rock1 -> getPosition().y)/2);
-
-        game_status = 0; // stop game
-        player_lifes--; // minus 1 life
-
-
-
-        // if lifes == 0 end game
-
-        // else reanudar
-
+        cout << "before player_crashed" << endl;
+        player_crashed();
     }
-    cout << game_status <<endl;
-    cout << player_lifes <<endl;
 
+
+
+    // if lifes == 0 end game
+
+    // else reanudar
+
+}
+
+// When the player crashes and explodes
+void game::player_crashed()
+{
+    cout << "player_crashed" << endl;
+
+    // First I change the sprite for the explosion one
+    spr_player ->setTexture(*txt_player_explosion);
+    spr_player -> setTextureRect(sf::IntRect(97, 65, 393, 420));
+    // I put the explosion between the rocks and the player sprite for more realism
+    spr_player -> setPosition(spr_player -> getPosition().x, (spr_player -> getPosition().y + rock1 -> getPosition().y)/2);
+
+    // Then I change the status of the game to 0 (stopped)
+    game_status = 0; // stop game
+    player_lifes -- ; // minus 1 life
+
+
+    // Now that the game has stopped we check the player lifes
+    if (player_lifes >= 0)  // If the player still has lifes
+    {
+        cout << "Still has lifes: " << player_lifes << " restart " << endl;
+        // Restart the game in 4 seconds
+        time2 = time1->asSeconds() + 4;
+    }
+    else   // If player does not have lifes
+    {
+        cout << "game over bitch" <<endl;
+    }
 }
 
 void game::draw()
