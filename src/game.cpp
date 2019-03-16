@@ -29,10 +29,8 @@ game::game(Vector2f dimension, std::string title)
     player_lifes = 3;
     time_water = 0;
 
-
     pass_between = 0;
     rockSize = 30;
-
 
     load_resources();
     start_game();
@@ -92,23 +90,30 @@ void game::load_resources()
     spr_islands2 -> setTextureRect(sf::IntRect(1, 70, 512, 32));
     spr_islands2 -> setScale(800.f/512, 100.f/32);
 
-
-
     // Now the player texture and sprites
     txt_player = new Texture();
     txt_player -> loadFromFile("imgs/player.png");
     spr_player = new Sprite(*txt_player);
     spr_player -> setScale(500.f/spr_player->getTexture()->getSize().y, 500.f/spr_player->getTexture()->getSize().y);
 
-
     txt_player_explosion = new Texture();
     txt_player_explosion -> loadFromFile("imgs/explosion.png");
 
+    // Player lifes
+    txt_life = new Texture();
+    txt_life -> loadFromFile("imgs/heart.png");
+    spr_life1 = new Sprite(*txt_life);
+    spr_life1 -> setScale(50.f/190, 50.f/200);
+    spr_life1 -> setPosition(600,10);
+    spr_life2 = new Sprite(*txt_life);
+    spr_life2 -> setScale(50.f/190, 50.f/200);
+    spr_life2 -> setPosition(650,10);
+    spr_life3 = new Sprite(*txt_life);
+    spr_life3 -> setScale(50.f/190, 50.f/200);
+    spr_life3 -> setPosition(700,10);
     // Rocks
     txt_rock = new Texture();
     txt_rock -> loadFromFile("imgs/sea_rock.png");
-
-
 }
 
 void game::spawn_rocks()
@@ -124,14 +129,12 @@ void game::spawn_rocks()
     rock2 = new RectangleShape({rockSize,rockSize});
 
     rock1 -> setTexture(txt_rock);
-    rockspace -> setFillColor(Color::Green);
+    rockspace -> setFillColor(Color::Transparent);
     rock2 -> setTexture(txt_rock);
-
 
     rock1-> setPosition(rock_pos.x,rock_pos.y);
     rockspace-> setPosition(rock_pos.x + rockSize,rock_pos.y);
     rock2-> setPosition(rock_pos.x + randomSize +(rockSize*2),rock_pos.y);
-
 }
 
 
@@ -315,12 +318,10 @@ void game::process_events()
             if(spr_islands -> getPosition().x > spr_islands2 -> getPosition().x )
             {
                 // If islands2 is at left I put islands2 at right
-                cout << "If islands2 is at left I put islands2 at right" <<endl;
                 spr_islands2 -> setPosition(790,spr_islands2 -> getPosition().y );
             }
             else if(spr_islands -> getPosition().x < spr_islands2 -> getPosition().x )
             {
-                cout << "If islands2 is at right I put islands2 at left" <<endl;
                 // If islands2 is at right I put islands2 at left
                 spr_islands2 -> setPosition(-790,spr_islands2 -> getPosition().y );
             }
@@ -332,13 +333,11 @@ void game::process_events()
             if(spr_islands2 -> getPosition().x > spr_islands -> getPosition().x )
             {
                 // If islands is at left I put islands at right
-                cout << "If islands is at left I put islands at right" <<endl;
                 spr_islands -> setPosition(790,spr_islands -> getPosition().y );
             }
             else if(spr_islands2 -> getPosition().x < spr_islands -> getPosition().x )
             {
                 // If islands is at right I put islands at left
-                cout << "If islands is at right I put islands at left" <<endl;
                 spr_islands -> setPosition(-790,spr_islands -> getPosition().y );
             }
         }
@@ -367,20 +366,11 @@ void game::process_collisions()
         cout << "before player_crashed" << endl;
         player_crashed();
     }
-
-
-
-    // if lifes == 0 end game
-
-    // else reanudar
-
 }
 
 // When the player crashes and explodes
 void game::player_crashed()
 {
-    cout << "player_crashed" << endl;
-
     // First I change the sprite for the explosion one
     spr_player ->setTexture(*txt_player_explosion);
     spr_player -> setTextureRect(sf::IntRect(97, 65, 393, 420));
@@ -391,11 +381,10 @@ void game::player_crashed()
     game_status = 0; // stop game
     player_lifes -- ; // minus 1 life
 
-
     // Now that the game has stopped we check the player lifes
     if (player_lifes >= 0)  // If the player still has lifes
     {
-        cout << "Still has lifes: " << player_lifes << " restart " << endl;
+//        cout << "Still has lifes: " << player_lifes << " restart " << endl;
         // Restart the game in 4 seconds
         time2 = time1->asSeconds() + 4;
     }
@@ -417,6 +406,20 @@ void game::draw()
     window1->draw(*spr_player);
     window1->draw(*text_time);
     window1->draw(*text_score);
+    // Drawing lifes
+    if(player_lifes > 2 && player_lifes <=3 )
+    {
+        window1->draw(*spr_life1);window1->draw(*spr_life2);window1->draw(*spr_life3);
+    }
+    if(1 < player_lifes <=2 )
+    {
+        window1->draw(*spr_life2);
+    }
+    if(0 < player_lifes <=1 )
+    {
+        window1->draw(*spr_life3);
+    }
+
     window1->display();
 }
 

@@ -35,7 +35,7 @@ private:
     // Time
     Clock * clock1;
     Time * time1;
-        float  time2;
+    float  time2;
     float gameSpeed;
     float  time_water;
 
@@ -51,8 +51,9 @@ private:
     Sprite * spr_player;
     int vel_player;
     int player_points;
-     int player_lifes;
-    int pass_between;
+    int player_lifes;
+    Texture * txt_life;
+    Sprite * spr_life1, * spr_life2, * spr_life3;
 
     // Rocks
     Texture * txt_rock;
@@ -62,6 +63,7 @@ private:
     int rockSize;
     int randomSize;
     int randomSpawn;
+    int pass_between;
     Vector2i rock_pos;
 
     // Font
