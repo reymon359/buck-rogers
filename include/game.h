@@ -16,16 +16,19 @@ public:
 
     void load_resources();
     void gameLoop();
+    void start_game();
     void process_events();
     void process_collisions();
+    void move_water();
     void spawn_rocks();
     void move_rocks();
     void draw();
 
 private:
-    // Window
+    // Game
     RenderWindow * window1;
     Event * event1;
+    int game_status;
 
     // Time
     Clock * clock1;
