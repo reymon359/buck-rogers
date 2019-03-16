@@ -26,7 +26,9 @@ game::game(Vector2f dimension, std::string title)
     gameSpeed = 4;
     vel_player = 5;
     player_points = 0;
+    player_lifes = 3;
     time_water = 0;
+
 
     pass_between = 0;
     rockSize = 30;
@@ -39,6 +41,7 @@ game::game(Vector2f dimension, std::string title)
 void game::start_game()
 {
     game_status = 1;
+
 }
 
 // Here we load the game textures and sprites
@@ -353,9 +356,13 @@ void game::process_collisions()
 //        cout << "muerto" <<endl;
         spr_player ->setTexture(*txt_player_explosion);
         spr_player -> setTextureRect(sf::IntRect(97, 65, 393, 420));
-        // stop game
-        game_status = 0;
-        // minus 1 life
+        // I put the explosion between the rocks and the player sprite for more realism
+        spr_player -> setPosition(spr_player -> getPosition().x , (spr_player -> getPosition().y + rock1 -> getPosition().y)/2);
+
+        game_status = 0; // stop game
+        player_lifes--; // minus 1 life
+
+
 
         // if lifes == 0 end game
 
@@ -363,7 +370,7 @@ void game::process_collisions()
 
     }
     cout << game_status <<endl;
-
+    cout << player_lifes <<endl;
 
 }
 

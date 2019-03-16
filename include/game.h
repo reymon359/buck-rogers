@@ -48,6 +48,7 @@ private:
     Sprite * spr_player;
     int vel_player;
     int player_points;
+     int player_lifes;
     int pass_between;
 
     // Rocks
