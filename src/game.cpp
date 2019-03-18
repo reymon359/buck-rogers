@@ -52,6 +52,12 @@ void game::start_game()
     spawn_rocks();
 }
 
+void game::end_game()
+{
+    cout << "end game"<<endl;
+
+}
+
 // Here we load the game textures and sprites
 void game::load_resources()
 {
@@ -166,7 +172,13 @@ void game::gameLoop()
                 if(time1->asSeconds() >= time2) // if time reaches the 4 secs
                 {
                     time2 = 0;
-                    start_game();
+                    if(player_lifes>=0){
+                       start_game();
+                    }else{
+                        // Game Over
+                        end_game();
+                    }
+
                 }
             }
             process_events();

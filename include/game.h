@@ -17,6 +17,7 @@ public:
     void load_resources();
     void gameLoop();
     void start_game();
+    void end_game();
 
     void process_events();
     void process_collisions();
