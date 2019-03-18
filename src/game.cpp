@@ -407,17 +407,20 @@ void game::draw()
     window1->draw(*text_time);
     window1->draw(*text_score);
     // Drawing lifes
-    if(player_lifes > 2 && player_lifes <=3 )
+    if(player_lifes == 3 )
     {
-        window1->draw(*spr_life1);window1->draw(*spr_life2);window1->draw(*spr_life3);
+        window1->draw(*spr_life1);
+        window1->draw(*spr_life2);
+        window1->draw(*spr_life3);
     }
-    if(1 < player_lifes <=2 )
+    if(player_lifes ==2 )
     {
+        window1->draw(*spr_life1);
         window1->draw(*spr_life2);
     }
-    if(0 < player_lifes <=1 )
+    if(player_lifes ==1 )
     {
-        window1->draw(*spr_life3);
+        window1->draw(*spr_life1);
     }
 
     window1->display();
