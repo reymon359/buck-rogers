@@ -177,6 +177,7 @@ void game::gameLoop()
                     }else{
                         // Game Over
                         end_game();
+                        game_over=true;
                     }
 
                 }

@@ -32,6 +32,8 @@ private:
     RenderWindow * window1;
     Event * event1;
     int game_status;
+    Texture * txt_title;
+    Sprite * spr_title;
 
     // Time
     Clock * clock1;
