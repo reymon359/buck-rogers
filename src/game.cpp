@@ -58,10 +58,10 @@ void game::end_game()
 {
     cout << "end game"<<endl;
     game_status =2;
-
     window1->draw(*spr_title);
-    text_score -> setString("GAME OVER. TOTAL SCORE: " + std::to_string(player_points));
-    text_score -> setPosition(300,200);
+    text_score -> setString("       GAME OVER.\n    TOTAL SCORE: " + std::to_string(player_points)
+    + "\n\n\n\n\n\nPRESS A TO PLAY AGAIN");
+    text_score -> setPosition(240,80);
 
 
 }
@@ -86,15 +86,13 @@ void game::load_resources()
     text_time = new Text();
     text_time -> setFont(*font1);
     text_time -> setString("TIME");
-    text_time -> setPosition(10,10);
-    text_time -> setColor(Color::Yellow);
-    text_time -> setCharacterSize(20);
+    text_time -> setPosition(10,5);
+    text_time -> setCharacterSize(40);
 
     text_score = new Text();
     text_score -> setFont(*font1);
 
-    text_score -> setColor(Color::Yellow);
-    text_score -> setCharacterSize(20);
+    text_score -> setCharacterSize(40);
 
     // Water and islands
     spr_water = new Sprite(*txt_background);
@@ -204,7 +202,6 @@ void game::gameLoop()
                 }
             }
             process_events();
-
             draw();
         }
 
@@ -325,6 +322,13 @@ void game::process_events()
                     }
                 }
 
+            }
+            if(game_status == 2){
+             if(Keyboard::isKeyPressed(Keyboard::A))
+                {
+                // Restart game
+                cout << "restart game pls" << endl;
+                }
             }
             break;
         case Event::KeyReleased:
