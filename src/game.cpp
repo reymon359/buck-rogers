@@ -26,15 +26,20 @@ game::game(Vector2f dimension, std::string title)
     gameSpeed = 4;
     vel_player = 5;
     player_points = 0;
-    player_lifes = 0;
+    player_lifes = 3;
     time_water = 0;
 
     pass_between = 0;
     rockSize = 30;
 
+    game_status = 2;// For before starting the game
+
     load_resources();
-    start_game();
+//    start_game();
     gameLoop();
+
+
+
 }
 
 void game::start_game()
@@ -72,7 +77,6 @@ void game::load_resources()
     spr_title = new Sprite(*txt_title);
     spr_title -> setScale(800.f/256, 600.f/224);
 
-
     // We are going to load the background texture and  water sprites
     txt_background = new Texture();
     txt_background -> loadFromFile("imgs/texture_background.png");
@@ -89,7 +93,8 @@ void game::load_resources()
 
     text_score = new Text();
     text_score -> setFont(*font1);
-
+    text_score -> setString("Ramon Morcillo\n    Presents: \n\n\n\n\n\nPRESS A TO PLAY");
+      text_score -> setPosition(260,80);
     text_score -> setCharacterSize(40);
 
     // Water and islands
@@ -165,7 +170,7 @@ void game::gameLoop()
     {
 
         *time1 = clock1->getElapsedTime();
-//        cout << time1->asSeconds() << endl;
+        cout << game_status << endl;
 //        cout << time2 <<endl;
         // To control manually the fps
         // The number you are dividing is the number of the fps, if you put a 3 the
