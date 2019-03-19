@@ -26,7 +26,7 @@ game::game(Vector2f dimension, std::string title)
     gameSpeed = 4;
     vel_player = 5;
     player_points = 0;
-    player_lifes = 3;
+    player_lifes = 0;
     time_water = 0;
 
     pass_between = 0;
@@ -49,18 +49,32 @@ void game::start_game()
     spr_player -> setTextureRect(sf::IntRect(0, 0, 224, 224));
     spr_player -> setPosition(350,470);
 
+    text_score -> setPosition(10,40);
+
     spawn_rocks();
 }
 
 void game::end_game()
 {
     cout << "end game"<<endl;
+    game_status =2;
+
+    window1->draw(*spr_title);
+    text_score -> setString("GAME OVER. TOTAL SCORE: " + std::to_string(player_points));
+    text_score -> setPosition(300,200);
+
 
 }
 
 // Here we load the game textures and sprites
 void game::load_resources()
 {
+    txt_title = new Texture();
+    txt_title -> loadFromFile("imgs/title_screen_raw.png");
+    spr_title = new Sprite(*txt_title);
+    spr_title -> setScale(800.f/256, 600.f/224);
+
+
     // We are going to load the background texture and  water sprites
     txt_background = new Texture();
     txt_background -> loadFromFile("imgs/texture_background.png");
@@ -78,8 +92,7 @@ void game::load_resources()
 
     text_score = new Text();
     text_score -> setFont(*font1);
-    text_score -> setString("SCORE");
-    text_score -> setPosition(10,40);
+
     text_score -> setColor(Color::Yellow);
     text_score -> setCharacterSize(20);
 
@@ -172,12 +185,15 @@ void game::gameLoop()
                 if(time1->asSeconds() >= time2) // if time reaches the 4 secs
                 {
                     time2 = 0;
-                    if(player_lifes>=0){
-                       start_game();
-                    }else{
+                    if(player_lifes>=0)
+                    {
+                        start_game();
+                    }
+                    else
+                    {
                         // Game Over
                         end_game();
-                        game_over=true;
+
                     }
 
                 }
@@ -188,6 +204,7 @@ void game::gameLoop()
         }
 
     }
+
 }
 
 void game::move_water()
@@ -326,7 +343,7 @@ void game::process_events()
         if(spr_islands -> getPosition().x <= -0.5 && spr_islands -> getPosition().x > -2)
         {
             // islands at begining
-            cout << "0 patatero" <<endl;
+//            cout << "0 patatero" <<endl;
             // Now we look which one has an x greater to see where are they
             if(spr_islands -> getPosition().x > spr_islands2 -> getPosition().x )
             {
@@ -376,7 +393,6 @@ void game::process_collisions()
     // If the player hits the rocks
     if(spr_player -> getGlobalBounds().intersects(rock1 -> getGlobalBounds()) || spr_player -> getGlobalBounds().intersects(rock2 -> getGlobalBounds()))
     {
-        cout << "before player_crashed" << endl;
         player_crashed();
     }
 }
@@ -395,46 +411,58 @@ void game::player_crashed()
     player_lifes -- ; // minus 1 life
 
     // Now that the game has stopped we check the player lifes
-    if (player_lifes >= 0)  // If the player still has lifes
-    {
-//        cout << "Still has lifes: " << player_lifes << " restart " << endl;
-        // Restart the game in 4 seconds
-        time2 = time1->asSeconds() + 4;
-    }
-    else   // If player does not have lifes
-    {
-        cout << "game over bitch" <<endl;
-    }
+     time2 = time1->asSeconds() + 3;
+//    if (player_lifes >= 0)  // If the player still has lifes
+//    {
+////        cout << "Still has lifes: " << player_lifes << " restart " << endl;
+//        // Restart the game in 4 seconds
+//        time2 = time1->asSeconds() + 3;
+//    }
+//    else   // If player does not have lifes
+//    {
+//        time2 = time1->asSeconds() + 3;
+//    }
 }
 
 void game::draw()
 {
     window1->clear();
-    window1->draw(*spr_water);
-    window1->draw(*spr_islands);
-    window1->draw(*spr_islands2);
-    window1->draw(*rock1);
-    window1->draw(*rockspace);
-    window1->draw(*rock2);
-    window1->draw(*spr_player);
-    window1->draw(*text_time);
-    window1->draw(*text_score);
-    // Drawing lifes
-    if(player_lifes == 3 )
+    if (game_status == 2)
     {
-        window1->draw(*spr_life1);
-        window1->draw(*spr_life2);
-        window1->draw(*spr_life3);
+        window1->draw(*spr_title);
+        window1->draw(*text_score);
     }
-    if(player_lifes ==2 )
+    else
     {
-        window1->draw(*spr_life1);
-        window1->draw(*spr_life2);
+        window1->draw(*spr_water);
+        window1->draw(*spr_islands);
+        window1->draw(*spr_islands2);
+        window1->draw(*rock1);
+        window1->draw(*rockspace);
+        window1->draw(*rock2);
+        window1->draw(*spr_player);
+        window1->draw(*text_time);
+        window1->draw(*text_score);
+        // Drawing lifes
+        if(player_lifes == 3 )
+        {
+            window1->draw(*spr_life1);
+            window1->draw(*spr_life2);
+            window1->draw(*spr_life3);
+        }
+        if(player_lifes ==2 )
+        {
+            window1->draw(*spr_life1);
+            window1->draw(*spr_life2);
+        }
+        if(player_lifes ==1 )
+        {
+            window1->draw(*spr_life1);
+        }
+
+
     }
-    if(player_lifes ==1 )
-    {
-        window1->draw(*spr_life1);
-    }
+
 
     window1->display();
 }
