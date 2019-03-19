@@ -56,19 +56,17 @@ void game::start_game()
 
 void game::end_game()
 {
-    cout << "end game"<<endl;
     game_status =2;
     window1->draw(*spr_title);
     text_score -> setString("       GAME OVER.\n    TOTAL SCORE: " + std::to_string(player_points)
     + "\n\n\n\n\n\nPRESS A TO PLAY AGAIN");
     text_score -> setPosition(240,80);
-
-
 }
 
 // Here we load the game textures and sprites
 void game::load_resources()
 {
+    // Title Screen for end game
     txt_title = new Texture();
     txt_title -> loadFromFile("imgs/title_screen_raw.png");
     spr_title = new Sprite(*txt_title);
@@ -133,6 +131,7 @@ void game::load_resources()
     spr_life3 = new Sprite(*txt_life);
     spr_life3 -> setScale(50.f/190, 50.f/200);
     spr_life3 -> setPosition(700,10);
+
     // Rocks
     txt_rock = new Texture();
     txt_rock -> loadFromFile("imgs/sea_rock.png");
@@ -265,8 +264,8 @@ void game::process_events()
             window1->close();
             exit(1);
             break;
-        // Key pressed
 
+        // Key pressed
         case Event::KeyPressed:
             if(game_status==1)
             {
@@ -326,8 +325,11 @@ void game::process_events()
             if(game_status == 2){
              if(Keyboard::isKeyPressed(Keyboard::A))
                 {
-                // Restart game
-                cout << "restart game pls" << endl;
+                    // Restart game
+                    cout << "restart game pls" << endl;
+                    player_points = 0;
+                    player_lifes = 3;
+                    start_game();
                 }
             }
             break;
@@ -342,13 +344,10 @@ void game::process_events()
             }
             break;
         }
-
-
-
 //        cout << spr_islands -> getPosition().x <<endl;
 //        cout << spr_islands2 -> getPosition().x <<endl;
-        // move islands background
-        // When the islands1 passes through 0 patatero
+        //
+        // Move islands background.When the islands1 passes through 0 patatero
         if(spr_islands -> getPosition().x <= -0.5 && spr_islands -> getPosition().x > -2)
         {
             // islands at begining
@@ -380,9 +379,7 @@ void game::process_events()
                 spr_islands -> setPosition(-790,spr_islands -> getPosition().y );
             }
         }
-
     }
-
 }
 
 void game::process_collisions()
@@ -418,19 +415,7 @@ void game::player_crashed()
     // Then I change the status of the game to 0 (stopped)
     game_status = 0; // stop game
     player_lifes -- ; // minus 1 life
-
-    // Now that the game has stopped we check the player lifes
-     time2 = time1->asSeconds() + 3;
-//    if (player_lifes >= 0)  // If the player still has lifes
-//    {
-////        cout << "Still has lifes: " << player_lifes << " restart " << endl;
-//        // Restart the game in 4 seconds
-//        time2 = time1->asSeconds() + 3;
-//    }
-//    else   // If player does not have lifes
-//    {
-//        time2 = time1->asSeconds() + 3;
-//    }
+    time2 = time1->asSeconds() + 3; // For the game loopy loop
 }
 
 void game::draw()
@@ -451,9 +436,9 @@ void game::draw()
         window1->draw(*rock2);
         window1->draw(*spr_player);
         window1->draw(*spr_sky);
-
         window1->draw(*text_time);
         window1->draw(*text_score);
+
         // Drawing lifes
         if(player_lifes == 3 )
         {
