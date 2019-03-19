@@ -109,6 +109,11 @@ void game::load_resources()
     spr_islands2 -> setTextureRect(sf::IntRect(1, 70, 512, 32));
     spr_islands2 -> setScale(800.f/512, 100.f/32);
 
+    spr_sky = new Sprite(*txt_background);
+    spr_sky -> setTextureRect(sf::IntRect(2, 70, 10, 10));
+    spr_sky -> setScale(800.f/10, 130.f/10);
+
+
     // Now the player texture and sprites
     txt_player = new Texture();
     txt_player -> loadFromFile("imgs/player.png");
@@ -441,6 +446,8 @@ void game::draw()
         window1->draw(*rockspace);
         window1->draw(*rock2);
         window1->draw(*spr_player);
+        window1->draw(*spr_sky);
+
         window1->draw(*text_time);
         window1->draw(*text_score);
         // Drawing lifes
@@ -459,11 +466,7 @@ void game::draw()
         {
             window1->draw(*spr_life1);
         }
-
-
     }
-
-
     window1->display();
 }
 
