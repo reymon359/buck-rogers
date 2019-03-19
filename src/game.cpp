@@ -44,7 +44,6 @@ game::game(Vector2f dimension, std::string title)
 
 void game::start_game()
 {
-    cout << "start game"<<endl;
     game_status = 1;
 
     spr_islands -> setPosition(-10,130);
@@ -64,7 +63,7 @@ void game::end_game()
     game_status =2;
     window1->draw(*spr_title);
     text_score -> setString("       GAME OVER.\n    TOTAL SCORE: " + std::to_string(player_points)
-    + "\n\n\n\n\n\nPRESS A TO PLAY AGAIN");
+                            + "\n\n\n\n\n\nPRESS A TO PLAY AGAIN");
     text_score -> setPosition(240,80);
 }
 
@@ -94,7 +93,7 @@ void game::load_resources()
     text_score = new Text();
     text_score -> setFont(*font1);
     text_score -> setString("Ramon Morcillo\n    Presents: \n\n\n\n\n\nPRESS A TO PLAY");
-      text_score -> setPosition(260,80);
+    text_score -> setPosition(260,80);
     text_score -> setCharacterSize(40);
 
     // Water and islands
@@ -168,18 +167,13 @@ void game::gameLoop()
 {
     while(!game_over)
     {
-
         *time1 = clock1->getElapsedTime();
-        cout << game_status << endl;
-//        cout << time2 <<endl;
         // To control manually the fps
         // The number you are dividing is the number of the fps, if you put a 3 the
         // game will "move" each 3 seconds cause the clock will restart every 3 seconds
 
         if(time1->asSeconds()>5/fps)
         {
-            // Water animation
-
             if(game_status == 1)
             {
                 move_water();
@@ -198,19 +192,14 @@ void game::gameLoop()
                     }
                     else
                     {
-                        // Game Over
-                        end_game();
-
+                        end_game(); // Game Over
                     }
-
                 }
             }
             process_events();
             draw();
         }
-
     }
-
 }
 
 void game::move_water()
@@ -327,8 +316,9 @@ void game::process_events()
                 }
 
             }
-            if(game_status == 2){
-             if(Keyboard::isKeyPressed(Keyboard::A))
+            if(game_status == 2)
+            {
+                if(Keyboard::isKeyPressed(Keyboard::A))
                 {
                     // Restart game
                     cout << "restart game pls" << endl;
