@@ -56,6 +56,8 @@ private:
     int vel_player;
     int player_points;
     int player_objectives; /// The game objectives. Accomplished passing trough rocks and reaching x distance.
+    Font * font_objectives;
+    Text * text_objectives;
     int player_lifes;
     Texture * txt_life;
     Sprite * spr_life1, * spr_life2, * spr_life3;

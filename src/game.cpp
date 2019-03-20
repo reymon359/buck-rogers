@@ -83,7 +83,7 @@ void game::load_resources()
 
     // Text and fonts
     font1 = new Font();
-    font1->loadFromFile("256bytes.ttf");
+    font1->loadFromFile("fonts/256bytes.ttf");
 
     text_time = new Text();
     text_time -> setFont(*font1);
@@ -96,6 +96,14 @@ void game::load_resources()
     text_score -> setString("Ramon Morcillo\n    Presents: \n\n\n\n\n\nPRESS A TO PLAY");
     text_score -> setPosition(260,80);
     text_score -> setCharacterSize(40);
+
+    font_objectives = new Font();
+    font_objectives ->loadFromFile("fonts/AfricOrnOne.ttf");
+    text_objectives = new Text();
+    text_objectives -> setFont(*font_objectives);
+    text_objectives -> setString("h");
+    text_objectives -> setCharacterSize(20);
+    text_objectives -> setPosition(600,60);
 
     // Water and islands
     spr_water = new Sprite(*txt_background);
@@ -434,6 +442,7 @@ void game::draw()
         window1->draw(*spr_sky);
         window1->draw(*text_time);
         window1->draw(*text_score);
+ window1->draw(*text_objectives);
 
         // Drawing lifes
         if(player_lifes == 3 )
@@ -451,6 +460,8 @@ void game::draw()
         {
             window1->draw(*spr_life1);
         }
+
+//        for()
     }
     window1->display();
 }
