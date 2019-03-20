@@ -26,6 +26,7 @@ game::game(Vector2f dimension, std::string title)
     gameSpeed = 4;
     vel_player = 5;
     player_points = 0;
+    player_objectives = 10;
     player_lifes = 3;
     time_water = 0;
 
