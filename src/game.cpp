@@ -39,7 +39,7 @@ void game::initialize_stuff()
     time_water = 0;
     pass_between = 0;
     rockSize = 30;
-    game_status = 2;// For before starting the game
+    game_status = -1;// For before starting the game
 }
 
 void game::start_game()
@@ -60,7 +60,7 @@ void game::start_game()
 
 void game::end_game()
 {
-    game_status =2;
+    game_status =-1;
     window1->draw(*spr_title);
     text_score -> setString("       GAME OVER.\n    TOTAL SCORE: " + std::to_string(player_points)
                             + "\n\n\n\n\n\nPRESS A TO PLAY AGAIN");
@@ -324,7 +324,7 @@ void game::process_events()
                 }
 
             }
-            if(game_status == 2)
+            if(game_status == -1)
             {
                 if(Keyboard::isKeyPressed(Keyboard::A))
                 {
@@ -345,9 +345,7 @@ void game::process_events()
             }
             break;
         }
-//        cout << spr_islands -> getPosition().x <<endl;
-//        cout << spr_islands2 -> getPosition().x <<endl;
-        //
+
         // Move islands background.When the islands1 passes through 0 patatero
         if(spr_islands -> getPosition().x <= -0.5 && spr_islands -> getPosition().x > -2)
         {
@@ -389,6 +387,7 @@ void game::process_collisions()
     if(spr_player -> getGlobalBounds().intersects(rockspace -> getGlobalBounds()) && pass_between == 0)
     {
         pass_between ++;
+        player_objectives--;
         player_points += 500;
     }
     else if(!spr_player -> getGlobalBounds().intersects(rockspace -> getGlobalBounds()))
@@ -434,7 +433,7 @@ void game::player_crashed()
 void game::draw()
 {
     window1->clear();
-    if (game_status == 2)
+    if (game_status == -1)
     {
         window1->draw(*spr_title);
         window1->draw(*text_score);
