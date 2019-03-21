@@ -217,8 +217,9 @@ void game::gameLoop()
             if(game_status == 1)  // And it is in the first stage
             {
                 game_status = 2; // He passes to the second stage
+                  player_objectives = 15;
                 spawn_enemies();
-                player_objectives == 15;
+
             }
 
         }
@@ -432,8 +433,9 @@ void game::calculate_objectives()
     for (int i = 0; i<player_objectives; i++ )
     {
         strAux.append("h");
-        if(i == 9){
-        strAux.append("\n");
+        if(i == 9)
+        {
+            strAux.append("\n");
         }
     }
     text_objectives -> setString(strAux);
@@ -494,7 +496,7 @@ void game::draw()
             window1->draw(*spr_life1);
         }
 
-         if (game_status == 2)
+        if (game_status == 2)
         {
 //           cout<<"drawing enemies"<<endl;
             window1->draw(*ufo1);
@@ -512,7 +514,8 @@ void game::spawn_enemies()
     srand (time(NULL));
 
 
-    int ran1 =  rand() % 1;   cout<<"ran1: "<<ran1<<endl;
+    int ran1 =  rand() % 1;
+    cout<<"ran1: "<<ran1<<endl;
     if (ran1 > 50 )
     {
         ufo1_pos.y = 150;
@@ -523,10 +526,10 @@ void game::spawn_enemies()
         ufo1_pos.y = 570;
         ufo1_size =30;
     }
-ufo1_pos.x = rand() % (800-ufo1_size ) + 1;
+    ufo1_pos.x = rand() % (800-ufo1_size ) + 1;
 
     int ran2 =  rand() % 100;
-        cout<<"ran2: "<<ran2<<endl;
+    cout<<"ran2: "<<ran2<<endl;
     if (ran2 > 50 )
     {
         ufo2_pos.y = 150;
@@ -542,9 +545,9 @@ ufo1_pos.x = rand() % (800-ufo1_size ) + 1;
     ufo1 = new RectangleShape({ufo1_size,ufo1_size});
     ufo2 = new RectangleShape({ufo2_size,ufo2_size});
 
-   ufo1 -> setFillColor(Color::Green);
+    ufo1 -> setFillColor(Color::Green);
 
-   ufo2 -> setFillColor(Color::Red);
+    ufo2 -> setFillColor(Color::Red);
 //    ufo1 -> setTexture(txt_ufo);
 //    ufo2 -> setTexture(txt_ufo);
 
@@ -552,9 +555,9 @@ ufo1_pos.x = rand() % (800-ufo1_size ) + 1;
     ufo2 -> setPosition(ufo2_pos.x,ufo2_pos.y);
     cout<<"Ufo1 size: "<<ufo1_size<<endl;
     cout<<"Ufo1 position: x:"<<ufo1_pos.x << " y: "<<ufo1_pos.y <<endl;
-      cout<<"Ufo2 size: "<<ufo2_size<<endl;
+    cout<<"Ufo2 size: "<<ufo2_size<<endl;
     cout<<"Ufo2 position: x:"<<ufo2_pos.x << " y: "<<ufo2_pos.y <<endl;
-      cout<<"end spawn enemies"<<endl;
+    cout<<"end spawn enemies"<<endl;
 }
 
 
