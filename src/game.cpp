@@ -34,7 +34,7 @@ void game::initialize_stuff()
     gameSpeed = 4;
     vel_player = 5;
     player_points = 0;
-    player_objectives = 2;
+    player_objectives = 0;
     player_lifes = 3;
     time_water = 0;
     time_objectives = 0;
@@ -496,7 +496,7 @@ void game::draw()
 
          if (game_status == 2)
         {
-           cout<<"drawing enemies"<<endl;
+//           cout<<"drawing enemies"<<endl;
             window1->draw(*ufo1);
             window1->draw(*ufo2);
         }
@@ -512,29 +512,30 @@ void game::spawn_enemies()
     srand (time(NULL));
 
 
-    int ran1 =  rand() % 1;
-    if (ran1 == 1 )
+    int ran1 =  rand() % 1;   cout<<"ran1: "<<ran1<<endl;
+    if (ran1 > 50 )
     {
-        ufo1_pos.y == 200;
-        ufo1_size = 20;
+        ufo1_pos.y = 150;
+        ufo1_size = 10;
     }
     else
     {
-        ufo1_pos.y == 600;
-        ufo1_size =60;
+        ufo1_pos.y = 570;
+        ufo1_size =30;
     }
 ufo1_pos.x = rand() % (800-ufo1_size ) + 1;
 
-    int ran2 =  rand() % 1;
-    if (ran2 == 1 )
+    int ran2 =  rand() % 100;
+        cout<<"ran2: "<<ran2<<endl;
+    if (ran2 > 50 )
     {
-        ufo2_pos.y == 200;
-        ufo2_size = 20;
+        ufo2_pos.y = 150;
+        ufo2_size = 10;
     }
     else
     {
-        ufo2_pos.y == 600;
-        ufo2_size =60;
+        ufo2_pos.y = 570;
+        ufo2_size =30;
     }
     ufo2_pos.x = rand() % (800-ufo2_size ) + 1;
 
@@ -549,8 +550,10 @@ ufo1_pos.x = rand() % (800-ufo1_size ) + 1;
 
     ufo1 -> setPosition(ufo1_pos.x,ufo1_pos.y);
     ufo2 -> setPosition(ufo2_pos.x,ufo2_pos.y);
-//    cout<<"Ufo1 size: "<<ufo1_size<<endl;
-//    cout<<"Ufo1 position: x:"<<ufo1_size<<endl;
+    cout<<"Ufo1 size: "<<ufo1_size<<endl;
+    cout<<"Ufo1 position: x:"<<ufo1_pos.x << " y: "<<ufo1_pos.y <<endl;
+      cout<<"Ufo2 size: "<<ufo2_size<<endl;
+    cout<<"Ufo2 position: x:"<<ufo2_pos.x << " y: "<<ufo2_pos.y <<endl;
       cout<<"end spawn enemies"<<endl;
 }
 
