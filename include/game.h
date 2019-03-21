@@ -23,6 +23,7 @@ public:
     void process_events();
     void process_collisions();
     void player_crashed();
+    void calculate_objectives();
     void move_water();
     void spawn_rocks();
     void move_rocks();

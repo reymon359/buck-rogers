@@ -23,10 +23,6 @@ game::game(Vector2f dimension, std::string title)
     clock1 = new Clock();
     time1 = new Time();
 
-
-
-
-
     initialize_stuff();
     load_resources();
 //    start_game();
@@ -43,7 +39,7 @@ void game::initialize_stuff()
     time_water = 0;
     pass_between = 0;
     rockSize = 30;
-   game_status = 2;// For before starting the game
+    game_status = 2;// For before starting the game
 }
 
 void game::start_game()
@@ -104,8 +100,7 @@ void game::load_resources()
     font_objectives ->loadFromFile("fonts/AfricOrnOne.ttf");
     text_objectives = new Text();
     text_objectives -> setFont(*font_objectives);
-    text_objectives -> setString("h");
-    text_objectives -> setCharacterSize(20);
+    text_objectives -> setCharacterSize(15);
     text_objectives -> setPosition(600,60);
 
     // Water and islands
@@ -191,6 +186,7 @@ void game::gameLoop()
                 move_water();
                 move_rocks();
                 process_collisions();
+                calculate_objectives();
             }
             else if(game_status == 0)
             {
@@ -408,6 +404,18 @@ void game::process_collisions()
     }
 }
 
+
+void game::calculate_objectives()
+{
+    // Drawing objectives
+    string strAux;
+    for (int i = 0; i<player_objectives; i++ )
+    {
+        strAux.append("h");
+    }
+    text_objectives -> setString(strAux);
+}
+
 // When the player crashes and explodes
 void game::player_crashed()
 {
@@ -462,7 +470,7 @@ void game::draw()
             window1->draw(*spr_life1);
         }
 
-//        for()
+
     }
     window1->display();
 }
