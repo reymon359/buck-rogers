@@ -37,6 +37,7 @@ void game::initialize_stuff()
     player_objectives = 10;
     player_lifes = 3;
     time_water = 0;
+    time_objectives = 0;
     pass_between = 0;
     rockSize = 30;
     game_status = -1;// For before starting the game
@@ -228,6 +229,7 @@ void game::move_water()
     else if ((int)time_water==3)
     {
         spr_water -> setTextureRect(sf::IntRect(784, 107, 255, 48));
+
     }
     else
     {
@@ -406,7 +408,12 @@ void game::process_collisions()
 
 void game::calculate_objectives()
 {
-    // Drawing objectives
+    // The objectives are acomplished if the player stays alive some X time or passing between rocks
+    if(time1->asSeconds()>= time_objectives+(gameSpeed*1.2))
+    {
+        time_objectives = time1->asSeconds() + (gameSpeed*1.2);
+        player_objectives--;
+    }
     string strAux;
     for (int i = 0; i<player_objectives; i++ )
     {

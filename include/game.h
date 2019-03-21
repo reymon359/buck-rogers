@@ -42,11 +42,12 @@ private:
     Time * time1;
     float  time2;
     float gameSpeed;
-    float  time_water;
+
 
     // Background
     Texture * txt_background;
     Sprite * spr_water;
+     float  time_water;
     Sprite * spr_islands;
     Sprite * spr_islands2;
     Sprite * spr_sky;
@@ -57,12 +58,16 @@ private:
     Sprite * spr_player;
     int vel_player;
     int player_points;
-    int player_objectives; /// The game objectives. Accomplished passing trough rocks and reaching x distance.
-    Font * font_objectives;
-    Text * text_objectives;
+
     int player_lifes;
     Texture * txt_life;
     Sprite * spr_life1, * spr_life2, * spr_life3;
+
+    int player_objectives; /// The game objectives. Accomplished passing trough rocks and reaching x distance.
+    Font * font_objectives;
+    Text * text_objectives;
+      float  time_objectives;
+
 
     // Rocks
     Texture * txt_rock;
