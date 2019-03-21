@@ -23,24 +23,27 @@ game::game(Vector2f dimension, std::string title)
     clock1 = new Clock();
     time1 = new Time();
 
+
+
+
+
+    initialize_stuff();
+    load_resources();
+//    start_game();
+    gameLoop();
+}
+
+void game::initialize_stuff()
+{
     gameSpeed = 4;
     vel_player = 5;
     player_points = 0;
     player_objectives = 10;
     player_lifes = 3;
     time_water = 0;
-
     pass_between = 0;
     rockSize = 30;
-
-    game_status = 2;// For before starting the game
-
-    load_resources();
-//    start_game();
-    gameLoop();
-
-
-
+   game_status = 2;// For before starting the game
 }
 
 void game::start_game()
@@ -330,9 +333,7 @@ void game::process_events()
                 if(Keyboard::isKeyPressed(Keyboard::A))
                 {
                     // Restart game
-                    cout << "restart game pls" << endl;
-                    player_points = 0;
-                    player_lifes = 3;
+                    initialize_stuff();
                     start_game();
                 }
             }
@@ -442,7 +443,7 @@ void game::draw()
         window1->draw(*spr_sky);
         window1->draw(*text_time);
         window1->draw(*text_score);
- window1->draw(*text_objectives);
+        window1->draw(*text_objectives);
 
         // Drawing lifes
         if(player_lifes == 3 )

@@ -15,6 +15,7 @@ public:
     game(Vector2f dimension, std::string title);
 
     void load_resources(); /// Loads the resources, sprites, textures, etc.
+    void initialize_stuff();
     void gameLoop(); /// Main game loop that controls the game states and other important functions.
     void start_game(); /// Starts the game or restarts it if the player has crashed and still has lifes.
     void end_game(); /// Called when the player has no more lifes after crashing.
