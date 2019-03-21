@@ -29,6 +29,8 @@ public:
     void move_rocks();
     void draw();
 
+    void spawn_enemies();
+
 private:
     // Game
     RenderWindow * window1;
@@ -47,7 +49,7 @@ private:
     // Background
     Texture * txt_background;
     Sprite * spr_water;
-     float  time_water;
+    float  time_water;
     Sprite * spr_islands;
     Sprite * spr_islands2;
     Sprite * spr_sky;
@@ -66,17 +68,12 @@ private:
     int player_objectives; /// The game objectives. Accomplished passing trough rocks and reaching x distance.
     Font * font_objectives;
     Text * text_objectives;
-      float  time_objectives;
-
+    float  time_objectives;
 
     // Rocks
     Texture * txt_rock;
-    RectangleShape * rock1;
-    RectangleShape * rockspace;
-    RectangleShape * rock2;
+    RectangleShape * rock1,* rockspace,* rock2;
     int rockSize;
-    int randomSize;
-    int randomSpawn;
     int pass_between;
     Vector2i rock_pos;
 
@@ -84,11 +81,11 @@ private:
     Font * font1;
     Text * text_score;
     Text * text_time;
-//    Vector2i sprite_division;
-//    Vector2i actual_frame;
-//    int sprite_flip;
 
-
+    // Enemies
+    Texture * txt_ufo;
+    RectangleShape * ufo1, * ufo2;
+    Vector2i ufo1_pos, ufo2_pos;
 
     bool game_over = false;
     int fps;

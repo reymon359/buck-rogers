@@ -147,15 +147,18 @@ void game::load_resources()
     // Rocks
     txt_rock = new Texture();
     txt_rock -> loadFromFile("imgs/sea_rock.png");
+
+    // Enemies
+    txt_ufo = new Texture();
+    txt_ufo -> loadFromFile("imgs/ufo.png");
 }
 
 void game::spawn_rocks()
 {
     srand (time(NULL));
-    randomSize = rand() % rockSize + 1;// Random size between rocks
-    randomSpawn = rand() % (800-(rockSize*2 + randomSize) ) + 1;// Random spawn point
+    int randomSize = rand() % rockSize + 1;// Random size between rocks
 
-    rock_pos.x = randomSpawn;
+    rock_pos.x =  rand() % (800-(rockSize*2 + randomSize) ) + 1;// Random spawn point
     rock_pos.y = 210;
     rock1 = new RectangleShape({rockSize,rockSize});
     rockspace = new RectangleShape({rockSize + randomSize,rockSize});
@@ -207,6 +210,16 @@ void game::gameLoop()
             }
             process_events();
             draw();
+        }
+
+        if(player_objectives== 0)  // If the player accomplishes all objectives
+        {
+            if(game_status == 1)  // And it is in the first stage
+            {
+                game_status == 2; // He passes to the second stage
+
+            }
+
         }
     }
 }
@@ -480,6 +493,37 @@ void game::draw()
     }
     window1->display();
 }
+
+void game::spawn_enemies()
+{
+    srand (time(NULL));
+//int   randomSize = rand() % rockSize + 1;// Random size between rocks
+//    randomSpawn = rand() % (800-(rockSize*2 + randomSize) ) + 1;// Random spawn point
+//
+//    rock_pos.x = randomSpawn;
+//    rock_pos.y = 210;
+//    u = new RectangleShape({rockSize,rockSize});
+//    rockspace = new RectangleShape({rockSize + randomSize,rockSize});
+//    rock2 = new RectangleShape({rockSize,rockSize});
+//
+//    rock1 -> setTexture(txt_rock);
+//    rockspace -> setFillColor(Color::Transparent);
+//    rock2 -> setTexture(txt_rock);
+//
+//    rock1-> setPosition(rock_pos.x,rock_pos.y);
+//    rockspace-> setPosition(rock_pos.x + rockSize,rock_pos.y);
+//    rock2-> setPosition(rock_pos.x + randomSize +(rockSize*2),rock_pos.y);
+}
+
+
+
+
+
+
+
+
+
+
 
 //game::~game()
 //{
