@@ -85,7 +85,8 @@ private:
     // Enemies
     Texture * txt_ufo;
     RectangleShape * ufo1, * ufo2;
-    Vector2i ufo1_pos, ufo2_pos;
+    Vector2i ufo1_pos;
+    Vector2i ufo2_pos;
 
     bool game_over = false;
     int fps;

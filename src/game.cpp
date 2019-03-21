@@ -34,7 +34,7 @@ void game::initialize_stuff()
     gameSpeed = 4;
     vel_player = 5;
     player_points = 0;
-    player_objectives = 10;
+    player_objectives = 2;
     player_lifes = 3;
     time_water = 0;
     time_objectives = 0;
@@ -185,7 +185,7 @@ void game::gameLoop()
 
         if(time1->asSeconds()>5/fps)
         {
-            if(game_status == 1)
+            if(game_status >= 1 )
             {
                 move_water();
                 move_rocks();
@@ -216,8 +216,9 @@ void game::gameLoop()
         {
             if(game_status == 1)  // And it is in the first stage
             {
-                game_status == 2; // He passes to the second stage
-
+                game_status = 2; // He passes to the second stage
+                spawn_enemies();
+                player_objectives == 15;
             }
 
         }
@@ -284,7 +285,7 @@ void game::process_events()
 
         // Key pressed
         case Event::KeyPressed:
-            if(game_status==1)
+            if(game_status>= 1)
             {
                 if(Keyboard::isKeyPressed(Keyboard::Up))
                 {
@@ -350,7 +351,7 @@ void game::process_events()
             }
             break;
         case Event::KeyReleased:
-            if(game_status==1)
+            if(game_status>= 1)
             {
 
                 if(!Keyboard::isKeyPressed(Keyboard::Right) && !Keyboard::isKeyPressed(Keyboard::Left))
@@ -431,6 +432,9 @@ void game::calculate_objectives()
     for (int i = 0; i<player_objectives; i++ )
     {
         strAux.append("h");
+        if(i == 9){
+        strAux.append("\n");
+        }
     }
     text_objectives -> setString(strAux);
 }
@@ -472,6 +476,7 @@ void game::draw()
         window1->draw(*text_score);
         window1->draw(*text_objectives);
 
+
         // Drawing lifes
         if(player_lifes == 3 )
         {
@@ -489,6 +494,12 @@ void game::draw()
             window1->draw(*spr_life1);
         }
 
+         if (game_status == 2)
+        {
+           cout<<"drawing enemies"<<endl;
+            window1->draw(*ufo1);
+            window1->draw(*ufo2);
+        }
 
     }
     window1->display();
@@ -496,23 +507,51 @@ void game::draw()
 
 void game::spawn_enemies()
 {
+    cout<<"spawn enemies"<<endl;
+    int ufo1_size, ufo2_size;
     srand (time(NULL));
-//int   randomSize = rand() % rockSize + 1;// Random size between rocks
-//    randomSpawn = rand() % (800-(rockSize*2 + randomSize) ) + 1;// Random spawn point
-//
-//    rock_pos.x = randomSpawn;
-//    rock_pos.y = 210;
-//    u = new RectangleShape({rockSize,rockSize});
-//    rockspace = new RectangleShape({rockSize + randomSize,rockSize});
-//    rock2 = new RectangleShape({rockSize,rockSize});
-//
-//    rock1 -> setTexture(txt_rock);
-//    rockspace -> setFillColor(Color::Transparent);
-//    rock2 -> setTexture(txt_rock);
-//
-//    rock1-> setPosition(rock_pos.x,rock_pos.y);
-//    rockspace-> setPosition(rock_pos.x + rockSize,rock_pos.y);
-//    rock2-> setPosition(rock_pos.x + randomSize +(rockSize*2),rock_pos.y);
+
+
+    int ran1 =  rand() % 1;
+    if (ran1 == 1 )
+    {
+        ufo1_pos.y == 200;
+        ufo1_size = 20;
+    }
+    else
+    {
+        ufo1_pos.y == 600;
+        ufo1_size =60;
+    }
+ufo1_pos.x = rand() % (800-ufo1_size ) + 1;
+
+    int ran2 =  rand() % 1;
+    if (ran2 == 1 )
+    {
+        ufo2_pos.y == 200;
+        ufo2_size = 20;
+    }
+    else
+    {
+        ufo2_pos.y == 600;
+        ufo2_size =60;
+    }
+    ufo2_pos.x = rand() % (800-ufo2_size ) + 1;
+
+    ufo1 = new RectangleShape({ufo1_size,ufo1_size});
+    ufo2 = new RectangleShape({ufo2_size,ufo2_size});
+
+   ufo1 -> setFillColor(Color::Green);
+
+   ufo2 -> setFillColor(Color::Red);
+//    ufo1 -> setTexture(txt_ufo);
+//    ufo2 -> setTexture(txt_ufo);
+
+    ufo1 -> setPosition(ufo1_pos.x,ufo1_pos.y);
+    ufo2 -> setPosition(ufo2_pos.x,ufo2_pos.y);
+//    cout<<"Ufo1 size: "<<ufo1_size<<endl;
+//    cout<<"Ufo1 position: x:"<<ufo1_size<<endl;
+      cout<<"end spawn enemies"<<endl;
 }
 
 
