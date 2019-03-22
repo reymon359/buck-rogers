@@ -30,6 +30,7 @@ public:
     void draw();
 
     void spawn_enemies();
+    void move_enemies();
 
 private:
     // Game
@@ -87,6 +88,8 @@ private:
     RectangleShape * ufo1, * ufo2;
     Vector2i ufo1_pos;
     Vector2i ufo2_pos;
+    int ufo1_direction; // 0 Left 1 Right
+    int ufo2_direction; // 0 Left 1 Right
 
     bool game_over = false;
     int fps;

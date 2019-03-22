@@ -546,7 +546,6 @@ void game::spawn_enemies()
     ufo2 = new RectangleShape({ufo2_size,ufo2_size});
 
     ufo1 -> setFillColor(Color::Green);
-
     ufo2 -> setFillColor(Color::Red);
 //    ufo1 -> setTexture(txt_ufo);
 //    ufo2 -> setTexture(txt_ufo);
@@ -560,7 +559,14 @@ void game::spawn_enemies()
     cout<<"end spawn enemies"<<endl;
 }
 
+void game::move_enemies()
+{
 
+
+
+
+
+}
 
 
 
