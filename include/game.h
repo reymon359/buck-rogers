@@ -39,6 +39,7 @@ private:
     int game_status;
     Texture * txt_title;
     Sprite * spr_title;
+           int game_level;
 
     // Time
     Clock * clock1;
@@ -88,8 +89,8 @@ private:
     RectangleShape * ufo1, * ufo2;
     Vector2i ufo1_pos;
     Vector2i ufo2_pos;
-    int ufo1_direction; // 0 Left 1 Right
-    int ufo2_direction; // 0 Left 1 Right
+    Vector2i ufo1_direction; // x 0 Left 1 Right and y 0 Up 1 Down
+    Vector2i ufo2_direction; // x 0 Left 1 Right and y 0 Up 1 Down
 
     bool game_over = false;
     int fps;

@@ -57,6 +57,10 @@ void game::start_game()
     text_score -> setPosition(10,40);
 
     spawn_rocks();
+    if(game_level==2)
+    {
+        spawn_enemies();
+    }
 }
 
 void game::end_game()
@@ -191,6 +195,10 @@ void game::gameLoop()
                 move_rocks();
                 process_collisions();
                 calculate_objectives();
+                if(game_level==2)
+                {
+                    move_enemies();
+                }
             }
             else if(game_status == 0)
             {
@@ -200,7 +208,9 @@ void game::gameLoop()
                     time2 = 0;
                     if(player_lifes>=0)
                     {
+
                         start_game();
+
                     }
                     else
                     {
@@ -217,7 +227,8 @@ void game::gameLoop()
             if(game_status == 1)  // And it is in the first stage
             {
                 game_status = 2; // He passes to the second stage
-                  player_objectives = 15;
+                game_level =2;
+                player_objectives = 15;
                 spawn_enemies();
 
             }
@@ -496,7 +507,7 @@ void game::draw()
             window1->draw(*spr_life1);
         }
 
-        if (game_status == 2)
+        if (game_level == 2)
         {
 //           cout<<"drawing enemies"<<endl;
             window1->draw(*ufo1);
@@ -509,22 +520,22 @@ void game::draw()
 
 void game::spawn_enemies()
 {
-    cout<<"spawn enemies"<<endl;
     int ufo1_size, ufo2_size;
     srand (time(NULL));
 
-
-    int ran1 =  rand() % 1;
+    int ran1 =  rand() % 100;
     cout<<"ran1: "<<ran1<<endl;
     if (ran1 > 50 )
     {
-        ufo1_pos.y = 150;
-        ufo1_size = 10;
+        ufo1_pos.y = 150; // Spawns Up
+        ufo1_size = 10; // So it is small
+        ufo1_direction.y=1; // Goes down
     }
     else
     {
-        ufo1_pos.y = 570;
-        ufo1_size =30;
+        ufo1_pos.y = 570; // Spawns Down
+        ufo1_size =30; // So it is big
+        ufo1_direction.y=0; // Goes Up
     }
     ufo1_pos.x = rand() % (800-ufo1_size ) + 1;
 
@@ -534,13 +545,16 @@ void game::spawn_enemies()
     {
         ufo2_pos.y = 150;
         ufo2_size = 10;
+        ufo2_direction.y=1;
     }
     else
     {
         ufo2_pos.y = 570;
         ufo2_size =30;
+        ufo2_direction.y=0;
     }
     ufo2_pos.x = rand() % (800-ufo2_size ) + 1;
+
 
     ufo1 = new RectangleShape({ufo1_size,ufo1_size});
     ufo2 = new RectangleShape({ufo2_size,ufo2_size});
@@ -556,16 +570,35 @@ void game::spawn_enemies()
     cout<<"Ufo1 position: x:"<<ufo1_pos.x << " y: "<<ufo1_pos.y <<endl;
     cout<<"Ufo2 size: "<<ufo2_size<<endl;
     cout<<"Ufo2 position: x:"<<ufo2_pos.x << " y: "<<ufo2_pos.y <<endl;
-    cout<<"end spawn enemies"<<endl;
+
+    int ran3 =  rand() % 100;
+    cout<<"ran3: "<<ran3<<endl;
+    ufo1_direction.x= 0;
+    if (ran3 > 50 )
+        ufo1_direction.x= 1;
+    cout<<"Ufo1 direction: "<<ufo1_direction.x<<endl;
+
+    int ran4 =  rand() % 100;
+    cout<<"ran4: "<<ran4<<endl;
+    ufo2_direction.x= 0;
+    if (ran4 > 50 )
+        ufo2_direction.x= 1;
+    cout<<"Ufo2 direction: "<<ufo2_direction.x<<endl;
 }
 
 void game::move_enemies()
 {
-
-
-
-
-
+    // First I am going to check if it is
+    if(ufo1_direction.y == 0) // If it goes up
+        if(ufo1_direction.x == 0) // If it goes left
+            ufo1 -> setPosition(ufo1 -> getPosition().x - (gameSpeed/4), ufo1 -> getPosition().y - (gameSpeed/4));
+        else // If it goes right
+            ufo1 -> setPosition(ufo1 -> getPosition().x + (gameSpeed/4), ufo1 -> getPosition().y - (gameSpeed/4));
+    else // If it goes down
+        if(ufo1_direction.x == 0) // If it goes left
+            ufo1 -> setPosition(ufo1 -> getPosition().x - (gameSpeed/4), ufo1 -> getPosition().y + (gameSpeed/4));
+        else // If it goes right
+            ufo1 -> setPosition(ufo1 -> getPosition().x + (gameSpeed/4), ufo1 -> getPosition().y + (gameSpeed/4));
 }
 
 
