@@ -630,13 +630,52 @@ void game::move_enemies()
         {
             ufo1_direction.y =0;  // Hits bottom, direction top
         }
-        if(ufo1 -> getPosition().y > 360) ufo1->setSize({20,20});// Size to medium}
-
     }
     // UFO size
     if(ufo1 -> getPosition().y <= 280) ufo1->setSize({20,20}); // Size to small
     if(ufo1 -> getPosition().y > 280 && ufo1 -> getPosition().y <= 420 ) ufo1->setSize({30,30});// Size to medium}
     if(ufo1 -> getPosition().y > 420)  ufo1->setSize({40,40}); // Size to big
+    // NOW UFO 2
+    // First I am going to check if it is
+    if(ufo2_direction.y == 0) // If it goes up
+    {
+        if(ufo2_direction.x == 0) // If it goes left
+        {
+            ufo2 -> setPosition(ufo2 -> getPosition().x - (gameSpeed/4), ufo2 -> getPosition().y - (gameSpeed/4));
+            if(ufo2 -> getPosition().x == 0) ufo2_direction.x = 1;// If it hits the left wall I change the direction to right
+        }
+        else if(ufo2_direction.x == 1)// If it goes right
+        {
+            ufo2 -> setPosition(ufo2 -> getPosition().x + (gameSpeed/4), ufo2 -> getPosition().y - (gameSpeed/4));
+            if(ufo2 -> getPosition().x == 800)  ufo2_direction.x = 0; // If it hits the right wall I change the direction to left
+        }
+        if(ufo2 -> getPosition().y <= 140)
+        {
+            ufo2_direction.y =1; // Hits top, direction bottom
+        }
+
+    }
+    if(ufo2_direction.y == 1) // If it goes down
+    {
+        if(ufo2_direction.x == 0) // If it goes left
+        {
+            ufo2 -> setPosition(ufo2 -> getPosition().x - (gameSpeed/4), ufo2 -> getPosition().y + (gameSpeed/4));
+            if(ufo2 -> getPosition().x == 0) ufo2_direction.x = 1;// If it hits the left wall I change the direction to right
+        }
+        else if(ufo2_direction.x == 1)// If it goes right
+        {
+            ufo2 -> setPosition(ufo2 -> getPosition().x + (gameSpeed/4), ufo2 -> getPosition().y + (gameSpeed/4));
+            if(ufo2 -> getPosition().x == 800)  ufo2_direction.x = 0; // If it hits the right wall I change the direction to left
+        }
+        if(ufo2 -> getPosition().y >= 580)
+        {
+            ufo2_direction.y =0;  // Hits bottom, direction top
+        }
+    }
+    // UFO size
+    if(ufo2 -> getPosition().y <= 280) ufo2->setSize({20,20}); // Size to small
+    if(ufo2 -> getPosition().y > 280 && ufo2 -> getPosition().y <= 420 ) ufo2->setSize({30,30});// Size to medium}
+    if(ufo2 -> getPosition().y > 420)  ufo2->setSize({40,40}); // Size to big
 }
 
 
