@@ -456,7 +456,7 @@ void game::calculate_objectives()
 
 // When the player crashes and explodes
 void game::player_crashed(int a)
-{   cout<<a<<endl;
+{
     // First I change the sprite for the explosion one
     spr_player ->setTexture(*txt_player_explosion);
     spr_player -> setTextureRect(sf::IntRect(97, 65, 393, 420));
@@ -561,11 +561,14 @@ void game::spawn_enemies()
     ufo1 = new RectangleShape({ufo1_size,ufo1_size});
     ufo2 = new RectangleShape({ufo2_size,ufo2_size});
 
-    ufo1 -> setFillColor(Color::Green);
-    ufo2 -> setFillColor(Color::Red);
-//    ufo1 -> setTexture(txt_ufo);
-//    ufo2 -> setTexture(txt_ufo);
+//    ufo1 -> setFillColor(Color::Green);
+//    ufo2 -> setFillColor(Color::Red);
 
+
+    ufo1 -> setTexture(txt_ufo);
+    ufo2 -> setTexture(txt_ufo);
+ ufo1 -> setTextureRect(sf::IntRect(5, 89, 44, 38));
+  ufo2 -> setTextureRect(sf::IntRect(5, 89, 44, 38));
     ufo1 -> setPosition(ufo1_pos.x,ufo1_pos.y);
     ufo2 -> setPosition(ufo2_pos.x,ufo2_pos.y);
     cout<<"Ufo1 size: "<<ufo1_size<<endl;
@@ -631,10 +634,9 @@ void game::move_enemies()
 
     }
     // UFO size
-    cout<<ufo1 -> getPosition().y<<endl;
-    if(ufo1 -> getPosition().y <= 280) ufo1->setSize({10,10}); // Size to small
-    if(ufo1 -> getPosition().y > 280 && ufo1 -> getPosition().y <= 420 ) ufo1->setSize({20,20});// Size to medium}
-    if(ufo1 -> getPosition().y > 420)  ufo1->setSize({30,30}); // Size to big
+    if(ufo1 -> getPosition().y <= 280) ufo1->setSize({20,20}); // Size to small
+    if(ufo1 -> getPosition().y > 280 && ufo1 -> getPosition().y <= 420 ) ufo1->setSize({30,30});// Size to medium}
+    if(ufo1 -> getPosition().y > 420)  ufo1->setSize({40,40}); // Size to big
 }
 
 
