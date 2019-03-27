@@ -572,14 +572,15 @@ void game::spawn_enemies()
     ufo1_direction.x= 0;
     if (ran3 > 50 )
         ufo1_direction.x= 1;
-    cout<<"Ufo1 direction: "<<ufo1_direction.x<<endl;
+    cout<<"Ufo1 direction x: "<<ufo1_direction.x<<endl;
+      cout<<"Ufo1 direction y: "<<ufo1_direction.y<<endl;
 
     int ran4 =  rand() % 100;
-    cout<<"ran4: "<<ran4<<endl;
+//    cout<<"ran4: "<<ran4<<endl;
     ufo2_direction.x= 0;
     if (ran4 > 50 )
         ufo2_direction.x= 1;
-    cout<<"Ufo2 direction: "<<ufo2_direction.x<<endl;
+//    cout<<"Ufo2 direction x: "<<ufo2_direction.x<<endl;
 }
 
 void game::move_enemies()
@@ -587,31 +588,31 @@ void game::move_enemies()
     // First I am going to check if it is
     if(ufo1_direction.y == 0) // If it goes up
     {
+
         if(ufo1_direction.x == 0) // If it goes left
         {
             ufo1 -> setPosition(ufo1 -> getPosition().x - (gameSpeed/4), ufo1 -> getPosition().y - (gameSpeed/4));
             if(ufo1 -> getPosition().x == 0) ufo1_direction.x = 1;// If it hits the left wall I change the direction to right
-//            {
-//                 //
-//            }
         }
-        else // If it goes right
+        else if(ufo1_direction.x == 1)// If it goes right
         {
             ufo1 -> setPosition(ufo1 -> getPosition().x + (gameSpeed/4), ufo1 -> getPosition().y - (gameSpeed/4));
          if(ufo1 -> getPosition().x == 800)  ufo1_direction.x = 0; // If it hits the right wall I change the direction to left
-//            {
-//                ufo1_direction.x = 0; //
-//            }
         }
+        if(ufo1 -> getPosition().y <= 140) { cout<<"hits top"<<endl;ufo1_direction.y =1; }// Hits top, direction bottom
     }
-    else   // If it goes down
-        if(ufo1_direction.x == 0) // If it goes left
+     if(ufo1_direction.y == 1) // If it goes down
+         if(ufo1_direction.x == 0) // If it goes left
+        {
             ufo1 -> setPosition(ufo1 -> getPosition().x - (gameSpeed/4), ufo1 -> getPosition().y + (gameSpeed/4));
-        else // If it goes right
+            if(ufo1 -> getPosition().x == 0) ufo1_direction.x = 1;// If it hits the left wall I change the direction to right
+        }
+         else if(ufo1_direction.x == 1)// If it goes right
+        {
             ufo1 -> setPosition(ufo1 -> getPosition().x + (gameSpeed/4), ufo1 -> getPosition().y + (gameSpeed/4));
-
-
-
+         if(ufo1 -> getPosition().x == 800)  ufo1_direction.x = 0; // If it hits the right wall I change the direction to left
+        }
+        if(ufo1 -> getPosition().y >= 580) { cout<<"hits bottom"<<endl;ufo1_direction.y =0; }// Hits bottom, direction top
 
 }
 
