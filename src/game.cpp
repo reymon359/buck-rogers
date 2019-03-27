@@ -424,7 +424,12 @@ void game::process_collisions()
     // If the player hits the rocks
     if(spr_player -> getGlobalBounds().intersects(rock1 -> getGlobalBounds()) || spr_player -> getGlobalBounds().intersects(rock2 -> getGlobalBounds()))
     {
-        player_crashed();
+        player_crashed(1);
+    }
+      // If the player hits the ufos
+    if(spr_player -> getGlobalBounds().intersects(ufo1 -> getGlobalBounds()) || spr_player -> getGlobalBounds().intersects(ufo2 -> getGlobalBounds()))
+    {
+        player_crashed(2);
     }
 }
 
@@ -450,13 +455,14 @@ void game::calculate_objectives()
 }
 
 // When the player crashes and explodes
-void game::player_crashed()
-{
+void game::player_crashed(int a)
+{   cout<<a<<endl;
     // First I change the sprite for the explosion one
     spr_player ->setTexture(*txt_player_explosion);
     spr_player -> setTextureRect(sf::IntRect(97, 65, 393, 420));
-    // I put the explosion between the rocks and the player sprite for more realism
-    spr_player -> setPosition(spr_player -> getPosition().x, (spr_player -> getPosition().y + rock1 -> getPosition().y)/2);
+
+    // I put the explosion between the rocks or the ufo and the player sprite for more realism
+    if(a==1)spr_player -> setPosition(spr_player -> getPosition().x, (spr_player -> getPosition().y + rock1 -> getPosition().y)/2);
 
     // Then I change the status of the game to 0 (stopped)
     game_status = 0; // stop game
@@ -602,7 +608,6 @@ void game::move_enemies()
         if(ufo1 -> getPosition().y <= 140)
         {
             ufo1_direction.y =1; // Hits top, direction bottom
-
         }
 
     }
@@ -621,7 +626,6 @@ void game::move_enemies()
         if(ufo1 -> getPosition().y >= 580)
         {
             ufo1_direction.y =0;  // Hits bottom, direction top
-
         }
         if(ufo1 -> getPosition().y > 360) ufo1->setSize({20,20});// Size to medium}
 

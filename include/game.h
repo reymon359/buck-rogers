@@ -22,7 +22,7 @@ public:
 
     void process_events();
     void process_collisions();
-    void player_crashed();
+    void player_crashed(int a);
     void calculate_objectives();
     void move_water();
     void spawn_rocks();
