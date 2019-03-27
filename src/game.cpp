@@ -588,7 +588,6 @@ void game::move_enemies()
     // First I am going to check if it is
     if(ufo1_direction.y == 0) // If it goes up
     {
-//        while(ufo1 ->getSize().x>10){ufo1->setSize({ufo1 ->getSize().x - 1,ufo1 ->getSize().y - 1});};
         if(ufo1_direction.x == 0) // If it goes left
         {
             ufo1 -> setPosition(ufo1 -> getPosition().x - (gameSpeed/4), ufo1 -> getPosition().y - (gameSpeed/4));
@@ -601,12 +600,12 @@ void game::move_enemies()
         }
         if(ufo1 -> getPosition().y <= 140)
         {
-            ufo1_direction.y =1;// Hits top, direction bottom
-            ufo1->setSize({10,10});
+            ufo1_direction.y =1; // Hits top, direction bottom
+            ufo1->setSize({10,10}); // Size to small
         }
+        if(ufo1 -> getPosition().y <= 140)
     }
     if(ufo1_direction.y == 1) // If it goes down
-//     while(ufo1 ->getSize().x<30){ufo1->setSize({ufo1 ->getSize().x + 1,ufo1 ->getSize().y + 1});};
         if(ufo1_direction.x == 0) // If it goes left
         {
             ufo1 -> setPosition(ufo1 -> getPosition().x - (gameSpeed/4), ufo1 -> getPosition().y + (gameSpeed/4));
@@ -620,9 +619,13 @@ void game::move_enemies()
     if(ufo1 -> getPosition().y >= 580)
     {
         ufo1_direction.y =0;  // Hits bottom, direction top
-         ufo1->setSize({30,30});
+         ufo1->setSize({30,30}); // Size to big
     }
-
+  if(ufo1 -> getPosition().y > 360) ufo1->setSize({20,20});// Size to medium
+    {
+        ufo1_direction.y =0;  // Hits bottom, direction top
+         ufo1->setSize({30,30}); // Size to big
+    }
 }
 
 
