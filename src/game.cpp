@@ -208,9 +208,7 @@ void game::gameLoop()
                     time2 = 0;
                     if(player_lifes>=0)
                     {
-
                         start_game();
-
                     }
                     else
                     {
@@ -255,7 +253,6 @@ void game::move_water()
     else if ((int)time_water==3)
     {
         spr_water -> setTextureRect(sf::IntRect(784, 107, 255, 48));
-
     }
     else
     {
@@ -489,7 +486,6 @@ void game::draw()
         window1->draw(*text_score);
         window1->draw(*text_objectives);
 
-
         // Drawing lifes
         if(player_lifes == 3 )
         {
@@ -590,15 +586,33 @@ void game::move_enemies()
 {
     // First I am going to check if it is
     if(ufo1_direction.y == 0) // If it goes up
+    {
         if(ufo1_direction.x == 0) // If it goes left
+        {
             ufo1 -> setPosition(ufo1 -> getPosition().x - (gameSpeed/4), ufo1 -> getPosition().y - (gameSpeed/4));
+            if(ufo1 -> getPosition().x == 0) ufo1_direction.x = 1;// If it hits the left wall I change the direction to right
+//            {
+//                 //
+//            }
+        }
         else // If it goes right
+        {
             ufo1 -> setPosition(ufo1 -> getPosition().x + (gameSpeed/4), ufo1 -> getPosition().y - (gameSpeed/4));
-    else // If it goes down
+         if(ufo1 -> getPosition().x == 800)  ufo1_direction.x = 0; // If it hits the right wall I change the direction to left
+//            {
+//                ufo1_direction.x = 0; //
+//            }
+        }
+    }
+    else   // If it goes down
         if(ufo1_direction.x == 0) // If it goes left
             ufo1 -> setPosition(ufo1 -> getPosition().x - (gameSpeed/4), ufo1 -> getPosition().y + (gameSpeed/4));
         else // If it goes right
             ufo1 -> setPosition(ufo1 -> getPosition().x + (gameSpeed/4), ufo1 -> getPosition().y + (gameSpeed/4));
+
+
+
+
 }
 
 

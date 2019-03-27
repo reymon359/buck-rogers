@@ -39,7 +39,7 @@ private:
     int game_status;
     Texture * txt_title;
     Sprite * spr_title;
-           int game_level;
+    int game_level;
 
     // Time
     Clock * clock1;
