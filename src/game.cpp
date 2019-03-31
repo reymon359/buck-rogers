@@ -149,12 +149,12 @@ void game::load_resources()
     spr_life3 -> setPosition(700,10);
 
     // Bullets
-     for (int i = 0; i < sizeof(slots_bullets); i++ )
+    for (int i = 0; i < sizeof(slots_bullets); i++ )
     {
         slots_bullets[i] = false; // all bullets to false, none is fired yet
         bullets[i] = new RectangleShape({20,20}); // creating them
+        bullets[i] -> setFillColor(Color::Magenta); // Magenta bullets ftw
     }
-
 
     // Rocks
     txt_rock = new Texture();
@@ -203,6 +203,7 @@ void game::gameLoop()
                 move_rocks();
                 process_collisions();
                 calculate_objectives();
+                shooting_bullets();
                 if(game_level==2)
                 {
                     move_enemies();
@@ -359,22 +360,18 @@ void game::process_events()
                 else if(Keyboard::isKeyPressed(Keyboard::Space))
                 {
                     cout<< "shooot bullet"<<endl;
-//                    // Move the rocks and islands
-//                    rock1-> setPosition(rock1 -> getPosition().x - (float)(vel_player/1.5),rock1 -> getPosition().y );
-//                    rockspace-> setPosition(rockspace -> getPosition().x - (float)(vel_player/1.5),rockspace -> getPosition().y);
-//                    rock2-> setPosition(rock2 -> getPosition().x - (float)(vel_player/1.5),rock2 -> getPosition().y);
-//
-//                    spr_islands -> setPosition(spr_islands -> getPosition().x - (float)(vel_player/2.3),spr_islands -> getPosition().y );
-//                    spr_islands2 -> setPosition(spr_islands2 -> getPosition().x - (float)(vel_player/2.3),spr_islands2 -> getPosition().y );
-//
-//                    if (spr_player -> getPosition().x < 722)
-//                    {
-//                        spr_player -> setTextureRect(sf::IntRect(672, 0, 224, 224));
-//                        spr_player -> setPosition(spr_player -> getPosition().x + vel_player, spr_player -> getPosition().y );
-//
-//                    }
+                    for (int i = 0; i < sizeof(slots_bullets); i++ ) // go through bullets array
+                    {
+                        if(slots_bullets[i] == false) // When it finds a bullet not fired
+                        {
+                            slots_bullets[i] = true; // Changed to fired
+                            // Now i spawn the bullet a bit upper the player position
+                            bullets[i]-> setPosition(spr_player -> getPosition().x, spr_player -> getPosition().y -40 );
+                            cout<< "bullet spawned in "<<spr_player -> getPosition().x << spr_player -> getPosition().y -40<<endl;
+                            break; // We exit the for
+                        }
+                    }
                 }
-
             }
             if(game_status == -1)
             {
@@ -520,10 +517,9 @@ void game::draw()
         window1->draw(*text_objectives);
 
         // Drawing bullets
-      for (int i = 0; i < sizeof(slots_bullets); i++ )
+        for (int i = 0; i < sizeof(slots_bullets); i++ )
         {
-            if(slots_bullets[i] == false)
-            window1->draw(*bullets[i]);
+            if(slots_bullets[i] == true) window1->draw(*bullets[i]);
         }
 
         // Drawing lifes
@@ -545,7 +541,6 @@ void game::draw()
 
         if (game_level == 2)
         {
-//           cout<<"drawing enemies"<<endl;
             window1->draw(*ufo1);
             window1->draw(*ufo2);
         }
@@ -718,12 +713,20 @@ void game::shooting_bullets()
 
     for (int i = 0; i < sizeof(slots_bullets); i++ )
     {
+        // Move the bullets
+        for (int i = 0; i < sizeof(slots_bullets); i++ ) // go through bullets array
+        {
+            if(slots_bullets[i] == true) // When it finds a bullet that is fired
+            {
+                slots_bullets[i] = true; // Changed to fired
+                // Now i spawn the bullet a bit upper the player position
+                bullets[i]-> setPosition(spr_player -> getPosition().x, spr_player -> getPosition().y -40 );
+                cout<< "bullet spawned in "<<spr_player -> getPosition().x << spr_player -> getPosition().y -40<<endl;
+                break; // We exit the for
+            }
+        }
 
     }
-
-
-
-
 }
 
 
