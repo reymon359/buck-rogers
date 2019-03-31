@@ -718,11 +718,9 @@ void game::shooting_bullets()
         {
             if(slots_bullets[i] == true) // When it finds a bullet that is fired
             {
-                slots_bullets[i] = true; // Changed to fired
-                // Now i spawn the bullet a bit upper the player position
-                bullets[i]-> setPosition(spr_player -> getPosition().x, spr_player -> getPosition().y -40 );
-                cout<< "bullet spawned in "<<spr_player -> getPosition().x << spr_player -> getPosition().y -40<<endl;
-                break; // We exit the for
+                // Now I move the bullet a bit upper
+                bullets[i]-> setPosition(bullets[i] -> getPosition().x, bullets[i] -> getPosition().y -1 );
+
             }
         }
 
