@@ -74,6 +74,7 @@ private:
     float  time_objectives;
 
     // Bullets
+    RectangleShape * bullets[10];
     Vector2i bullets_pos[10];
     bool slots_bullets[10];
 

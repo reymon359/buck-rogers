@@ -148,6 +148,14 @@ void game::load_resources()
     spr_life3 -> setScale(50.f/190, 50.f/200);
     spr_life3 -> setPosition(700,10);
 
+    // Bullets
+     for (int i = 0; i < sizeof(slots_bullets); i++ )
+    {
+        slots_bullets[i] = false; // all bullets to false, none is fired yet
+        bullets[i] = new RectangleShape({20,20}); // creating them
+    }
+
+
     // Rocks
     txt_rock = new Texture();
     txt_rock -> loadFromFile("imgs/sea_rock.png");
@@ -347,6 +355,25 @@ void game::process_events()
 
                     }
                 }
+                /// Shoot a bullet
+                else if(Keyboard::isKeyPressed(Keyboard::Space))
+                {
+                    cout<< "shooot bullet"<<endl;
+//                    // Move the rocks and islands
+//                    rock1-> setPosition(rock1 -> getPosition().x - (float)(vel_player/1.5),rock1 -> getPosition().y );
+//                    rockspace-> setPosition(rockspace -> getPosition().x - (float)(vel_player/1.5),rockspace -> getPosition().y);
+//                    rock2-> setPosition(rock2 -> getPosition().x - (float)(vel_player/1.5),rock2 -> getPosition().y);
+//
+//                    spr_islands -> setPosition(spr_islands -> getPosition().x - (float)(vel_player/2.3),spr_islands -> getPosition().y );
+//                    spr_islands2 -> setPosition(spr_islands2 -> getPosition().x - (float)(vel_player/2.3),spr_islands2 -> getPosition().y );
+//
+//                    if (spr_player -> getPosition().x < 722)
+//                    {
+//                        spr_player -> setTextureRect(sf::IntRect(672, 0, 224, 224));
+//                        spr_player -> setPosition(spr_player -> getPosition().x + vel_player, spr_player -> getPosition().y );
+//
+//                    }
+                }
 
             }
             if(game_status == -1)
@@ -426,7 +453,7 @@ void game::process_collisions()
     {
         player_crashed(1);
     }
-      // If the player hits the ufos
+    // If the player hits the ufos
     if(spr_player -> getGlobalBounds().intersects(ufo1 -> getGlobalBounds()) || spr_player -> getGlobalBounds().intersects(ufo2 -> getGlobalBounds()))
     {
         player_crashed(2);
@@ -491,6 +518,13 @@ void game::draw()
         window1->draw(*text_time);
         window1->draw(*text_score);
         window1->draw(*text_objectives);
+
+        // Drawing bullets
+      for (int i = 0; i < sizeof(slots_bullets); i++ )
+        {
+            if(slots_bullets[i] == false)
+            window1->draw(*bullets[i]);
+        }
 
         // Drawing lifes
         if(player_lifes == 3 )
@@ -567,8 +601,8 @@ void game::spawn_enemies()
 
     ufo1 -> setTexture(txt_ufo);
     ufo2 -> setTexture(txt_ufo);
- ufo1 -> setTextureRect(sf::IntRect(5, 89, 44, 38));
-  ufo2 -> setTextureRect(sf::IntRect(5, 89, 44, 38));
+    ufo1 -> setTextureRect(sf::IntRect(5, 89, 44, 38));
+    ufo2 -> setTextureRect(sf::IntRect(5, 89, 44, 38));
     ufo1 -> setPosition(ufo1_pos.x,ufo1_pos.y);
     ufo2 -> setPosition(ufo2_pos.x,ufo2_pos.y);
     cout<<"Ufo1 size: "<<ufo1_size<<endl;
@@ -679,7 +713,18 @@ void game::move_enemies()
 }
 
 
+void game::shooting_bullets()
+{
 
+    for (int i = 0; i < sizeof(slots_bullets); i++ )
+    {
+
+    }
+
+
+
+
+}
 
 
 
