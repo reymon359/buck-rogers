@@ -3,14 +3,14 @@
 	<SFML/Graphics.hpp>
 	<game.h>
 
-1553712932 /home/ramon/Desktop/FV/buck_rogers/include/game.h
+1554023860 /home/ramon/Desktop/FV/buck_rogers/include/game.h
 	"player.h"
 	<SFML/Graphics.hpp>
 
 1551114137 /home/ramon/Desktop/FV/buck_rogers/include/player.h
 	<SFML/Graphics.hpp>
 
-1553714106 source:/home/ramon/Desktop/FV/buck_rogers/src/game.cpp
+1554022368 source:/home/ramon/Desktop/FV/buck_rogers/src/game.cpp
 	"game.h"
 	"SFML/Graphics.hpp"
 	<iostream>

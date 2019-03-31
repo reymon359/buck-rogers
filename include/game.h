@@ -23,6 +23,7 @@ public:
     void process_events();
     void process_collisions();
     void player_crashed(int a);
+    void shooting_bullets();
     void calculate_objectives();
     void move_water();
     void spawn_rocks();
@@ -71,6 +72,10 @@ private:
     Font * font_objectives;
     Text * text_objectives;
     float  time_objectives;
+
+    // Bullets
+    Vector2i bullets_pos[10];
+    bool slots_bullets[10];
 
     // Rocks
     Texture * txt_rock;
