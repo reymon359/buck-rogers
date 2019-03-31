@@ -130,7 +130,7 @@ void game::load_resources()
     txt_player = new Texture();
     txt_player -> loadFromFile("imgs/player.png");
     spr_player = new Sprite(*txt_player);
-    spr_player -> setScale(500.f/spr_player->getTexture()->getSize().y, 500.f/spr_player->getTexture()->getSize().y);
+    spr_player -> setScale(300.f/spr_player->getTexture()->getSize().y, 300.f/spr_player->getTexture()->getSize().y);
 
     txt_player_explosion = new Texture();
     txt_player_explosion -> loadFromFile("imgs/explosion.png");
