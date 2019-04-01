@@ -152,7 +152,7 @@ void game::load_resources()
     for (int i = 0; i < sizeof(slots_bullets); i++ )
     {
         slots_bullets[i] = false; // all bullets to false, none is fired yet
-        bullets[i] = new RectangleShape({20,20}); // creating them
+        bullets[i] = new RectangleShape({5,30}); // creating them
         bullets[i] -> setFillColor(Color::Magenta); // Magenta bullets ftw
     }
 
@@ -314,7 +314,7 @@ void game::process_events()
                         spr_player -> setPosition(spr_player -> getPosition().x, spr_player -> getPosition().y - vel_player );
                     }
                 }
-                else if(Keyboard::isKeyPressed(Keyboard::Down))
+                if(Keyboard::isKeyPressed(Keyboard::Down))
                 {
                     if (spr_player -> getPosition().y < 538)
                     {
@@ -322,7 +322,7 @@ void game::process_events()
                         spr_player -> setPosition(spr_player -> getPosition().x, spr_player -> getPosition().y + vel_player );
                     }
                 }
-                else if(Keyboard::isKeyPressed(Keyboard::Left))
+                if(Keyboard::isKeyPressed(Keyboard::Left))
                 {
                     // Move the rocks and islands
                     rock1-> setPosition(rock1 -> getPosition().x + (float)(vel_player/1.5),rock1 -> getPosition().y );
@@ -339,7 +339,7 @@ void game::process_events()
 
                     }
                 }
-                else if(Keyboard::isKeyPressed(Keyboard::Right))
+                if(Keyboard::isKeyPressed(Keyboard::Right))
                 {
                     // Move the rocks and islands
                     rock1-> setPosition(rock1 -> getPosition().x - (float)(vel_player/1.5),rock1 -> getPosition().y );
@@ -357,7 +357,7 @@ void game::process_events()
                     }
                 }
                 /// Shoot a bullet
-                else if(Keyboard::isKeyPressed(Keyboard::Space))
+                if(Keyboard::isKeyPressed(Keyboard::Space))
                 {
                     cout<< "shooot bullet"<<endl;
                     for (int i = 0; i < sizeof(slots_bullets); i++ ) // go through bullets array
@@ -366,8 +366,7 @@ void game::process_events()
                         {
                             slots_bullets[i] = true; // Changed to fired
                             // Now i spawn the bullet a bit upper the player position
-                            bullets[i]-> setPosition(spr_player -> getPosition().x, spr_player -> getPosition().y -40 );
-                            cout<< "bullet spawned in "<<spr_player -> getPosition().x << spr_player -> getPosition().y -40<<endl;
+                            bullets[i]-> setPosition(spr_player -> getPosition().x+15, spr_player -> getPosition().y -40 );
                             break; // We exit the for
                         }
                     }
