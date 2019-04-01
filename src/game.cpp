@@ -713,16 +713,20 @@ void game::shooting_bullets()
 
 
 
-        for (int i = 0; i < sizeof(slots_bullets); i++ ) // go through bullets array
+    for (int i = 0; i < sizeof(slots_bullets); i++ ) // go through bullets array
+    {
+        /// Move the bullets
+        if(slots_bullets[i] == true)  //  when it finds a bullet that is fired
         {
-            if(slots_bullets[i] == true)  // Move the bullets when it finds a bullet that is fired
-            {
-                // Now I move the bullet a bit upper
-                bullets[i]-> setPosition(bullets[i] -> getPosition().x, bullets[i] -> getPosition().y -4 );
+            // Now I move the bullet a bit upper
+            bullets[i]-> setPosition(bullets[i] -> getPosition().x, bullets[i] -> getPosition().y -4 );
 
-            }
         }
-
+        /// Delete the bullets
+        if(bullets[i]-> getPosition().y < 130){
+             slots_bullets[i] = false;
+        }
+    }
 
 }
 
