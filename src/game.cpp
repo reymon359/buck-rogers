@@ -725,6 +725,14 @@ void game::shooting_bullets()
         if(bullets[i]-> getPosition().y < 130){
              slots_bullets[i] = false;
         }
+        /// Hits ufo1
+        if(bullets[i] -> getGlobalBounds().intersects(ufo1 -> getGlobalBounds())){
+            slots_bullets[i] = false; // I put the bullet to false
+            // Change ufo sprite with the explosion one
+            ufo1 -> setTexture(txt_player_explosion);
+            ufo1 -> setTextureRect(sf::IntRect(97, 65, 393, 420));
+            // Delete the ufo
+        }
     }
 
 }
