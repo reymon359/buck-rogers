@@ -711,20 +711,19 @@ void game::move_enemies()
 void game::shooting_bullets()
 {
 
-    for (int i = 0; i < sizeof(slots_bullets); i++ )
-    {
-        // Move the bullets
+
+
         for (int i = 0; i < sizeof(slots_bullets); i++ ) // go through bullets array
         {
-            if(slots_bullets[i] == true) // When it finds a bullet that is fired
+            if(slots_bullets[i] == true)  // Move the bullets when it finds a bullet that is fired
             {
                 // Now I move the bullet a bit upper
-                bullets[i]-> setPosition(bullets[i] -> getPosition().x, bullets[i] -> getPosition().y -1 );
+                bullets[i]-> setPosition(bullets[i] -> getPosition().x, bullets[i] -> getPosition().y -4 );
 
             }
         }
 
-    }
+
 }
 
 
