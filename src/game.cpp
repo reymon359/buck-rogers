@@ -670,12 +670,12 @@ void game::move_enemies()
     {
         if(ufo2_direction.x == 0) // If it goes left
         {
-            ufo2 -> setPosition(ufo2 -> getPosition().x - (gameSpeed/4), ufo2 -> getPosition().y - (gameSpeed/4));
-            if(ufo2 -> getPosition().x == 0) ufo2_direction.x = 1;// If it hits the left wall I change the direction to right
+            ufo2 -> setPosition(ufo2 -> getPosition().x - (gameSpeed/3), ufo2 -> getPosition().y - (gameSpeed/3));
+            if(ufo2 -> getPosition().x  <= 0) ufo2_direction.x = 1;// If it hits the left wall I change the direction to right
         }
         else if(ufo2_direction.x == 1)// If it goes right
         {
-            ufo2 -> setPosition(ufo2 -> getPosition().x + (gameSpeed/4), ufo2 -> getPosition().y - (gameSpeed/4));
+            ufo2 -> setPosition(ufo2 -> getPosition().x + (gameSpeed/3), ufo2 -> getPosition().y - (gameSpeed/3));
             if(ufo2 -> getPosition().x == 800)  ufo2_direction.x = 0; // If it hits the right wall I change the direction to left
         }
         if(ufo2 -> getPosition().y <= 140)
@@ -688,12 +688,12 @@ void game::move_enemies()
     {
         if(ufo2_direction.x == 0) // If it goes left
         {
-            ufo2 -> setPosition(ufo2 -> getPosition().x - (gameSpeed/4), ufo2 -> getPosition().y + (gameSpeed/4));
-            if(ufo2 -> getPosition().x == 0) ufo2_direction.x = 1;// If it hits the left wall I change the direction to right
+            ufo2 -> setPosition(ufo2 -> getPosition().x - (gameSpeed/3), ufo2 -> getPosition().y + (gameSpeed/3));
+            if(ufo2 -> getPosition().x <= 0) ufo2_direction.x = 1;// If it hits the left wall I change the direction to right
         }
         else if(ufo2_direction.x == 1)// If it goes right
         {
-            ufo2 -> setPosition(ufo2 -> getPosition().x + (gameSpeed/4), ufo2 -> getPosition().y + (gameSpeed/4));
+            ufo2 -> setPosition(ufo2 -> getPosition().x + (gameSpeed/3), ufo2 -> getPosition().y + (gameSpeed/3));
             if(ufo2 -> getPosition().x == 800)  ufo2_direction.x = 0; // If it hits the right wall I change the direction to left
         }
         if(ufo2 -> getPosition().y >= 580)
@@ -727,7 +727,7 @@ void game::shooting_bullets()
              slots_bullets[i] = false;
         }
         /// Hits ufo1
-        if(bullets[i] -> getGlobalBounds().intersects(ufo1 -> getGlobalBounds())){
+        if(bullets[i] -> getGlobalBounds().intersects(ufo1 -> getGlobalBounds()) && time_respawn_ufo1 <= time1->asSeconds()){
             slots_bullets[i] = false; // I put the bullet to false
             ufo1_state=2; // Ufo1 exploded
             player_objectives--; // Objective acomplished
