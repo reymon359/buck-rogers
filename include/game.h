@@ -24,7 +24,7 @@ public:
     void process_collisions();
     void player_crashed(int a);
     void shooting_bullets();
-    void ufo1_exploded();
+
     void calculate_objectives();
     void move_water();
     void spawn_rocks();
@@ -34,6 +34,8 @@ public:
 
     void spawn_ufo1();
     void spawn_ufo2();
+      void ufo1_exploded();
+        void ufo2_exploded();
     void move_enemies();
 
 private:

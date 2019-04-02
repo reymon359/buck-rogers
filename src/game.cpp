@@ -725,6 +725,12 @@ void game::shooting_bullets()
             slots_bullets[i] = false; // I put the bullet to false
             ufo1_exploded();
         }
+        /// Hits ufo2
+        if(bullets[i] -> getGlobalBounds().intersects(ufo2 -> getGlobalBounds()) && ufo2_state==1)
+        {
+            slots_bullets[i] = false; // I put the bullet to false
+            ufo2_exploded();
+        }
     }
 }
 
@@ -738,6 +744,17 @@ void game::ufo1_exploded()
     ufo1 -> setTextureRect(sf::IntRect(97, 65, 393, 420));
     time_respawn_ufo1 = time1->asSeconds() + 2; // 2 seconds as an explosion
     ufo1_direction.y = -1; // With this it does not move
+}
+void game::ufo2_exploded()
+{
+    ufo2_state=2; // Ufo1 exploded
+    player_objectives--; // Objective acomplished
+    player_points += 200; // 200 score points
+    // Change ufo sprite with the explosion one
+    ufo2 -> setTexture(txt_player_explosion);
+    ufo2 -> setTextureRect(sf::IntRect(97, 65, 393, 420));
+    time_respawn_ufo2 = time1->asSeconds() + 2; // 2 seconds as an explosion
+    ufo2_direction.y = -1; // With this it does not move
 }
 /// TODO
 /// dissapear bullets when player crashed
