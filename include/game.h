@@ -32,7 +32,8 @@ public:
     void draw();
 
 
-    void spawn_enemies();
+    void spawn_ufo1();
+    void spawn_ufo2();
     void move_enemies();
 
 private:

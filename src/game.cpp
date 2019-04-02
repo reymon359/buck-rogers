@@ -59,7 +59,8 @@ void game::start_game()
     spawn_rocks();
     if(game_level==2)
     {
-        spawn_enemies();
+       spawn_ufo1();
+       spawn_ufo2();
     }
 }
 
@@ -209,10 +210,11 @@ void game::gameLoop()
                     move_enemies();
                     if (ufo1_state==2)
                     {
-                        if(time_respawn_ufo1 <= time1->asSeconds())
-                        {
-                            spawn_enemies();
-                        }
+                        if(time_respawn_ufo1 <= time1->asSeconds()) spawn_ufo1();
+                    }
+                    if (ufo2_state==2)
+                    {
+                        if(time_respawn_ufo2 <= time1->asSeconds()) spawn_ufo2();
                     }
                 }
             }
@@ -243,7 +245,8 @@ void game::gameLoop()
                 game_status = 2; // He passes to the second stage
                 game_level =2;
                 player_objectives = 15;
-                spawn_enemies();
+                spawn_ufo1();
+                spawn_ufo2();
 
             }
 
@@ -554,16 +557,13 @@ void game::draw()
     }
     window1->display();
 }
-
-void game::spawn_enemies()
+void game::spawn_ufo1()
 {
-    ufo1_state=1;
-    ufo2_state=1;
-    int ufo1_size, ufo2_size;
+    ufo1_state=1; // Ufo is alive
+    int ufo1_size; // Ufosize
     srand (time(NULL));
+    int ran1 =  rand() % 100; // Random number
 
-    int ran1 =  rand() % 100;
-    cout<<"ran1: "<<ran1<<endl;
     if (ran1 > 50 )
     {
         ufo1_pos.y = 150; // Spawns Up
@@ -576,11 +576,24 @@ void game::spawn_enemies()
         ufo1_size =30; // So it is big
         ufo1_direction.y=0; // Goes Up
     }
-    ufo1_pos.x = rand() % (800-ufo1_size ) + 1;
+    ufo1_pos.x = rand() % (800-ufo1_size ) + 1; // Random x position betweeen 0 and 800
+    ufo1 = new RectangleShape({ufo1_size,ufo1_size}); // We create the ufo
+    ufo1 -> setTexture(txt_ufo); // Texture added
+    ufo1 -> setTextureRect(sf::IntRect(5, 89, 44, 38)); // Texture part desired
+    ufo1 -> setPosition(ufo1_pos.x,ufo1_pos.y); // We put the position with the random numbers from before
 
-    int ran2 =  rand() % 100;
-    cout<<"ran2: "<<ran2<<endl;
-    if (ran2 > 50 )
+    int ran2 =  rand() % 100; // Another random number to determine if it goes left or right
+    ufo1_direction.x = 0;
+    if (ran2 > 50 ) ufo1_direction.x= 1;
+}
+void game::spawn_ufo2() // Same as the spawnufo1 but for the ufo2
+{
+    ufo2_state=1;
+    int  ufo2_size;
+    srand (time(NULL));
+    int ran3 =  rand() % 100;
+
+    if (ran3 > 50 )
     {
         ufo2_pos.y = 150;
         ufo2_size = 10;
@@ -593,40 +606,14 @@ void game::spawn_enemies()
         ufo2_direction.y=0;
     }
     ufo2_pos.x = rand() % (800-ufo2_size ) + 1;
-
-
-    ufo1 = new RectangleShape({ufo1_size,ufo1_size});
     ufo2 = new RectangleShape({ufo2_size,ufo2_size});
-
-//    ufo1 -> setFillColor(Color::Green);
-//    ufo2 -> setFillColor(Color::Red);
-
-
-    ufo1 -> setTexture(txt_ufo);
     ufo2 -> setTexture(txt_ufo);
-    ufo1 -> setTextureRect(sf::IntRect(5, 89, 44, 38));
     ufo2 -> setTextureRect(sf::IntRect(5, 89, 44, 38));
-    ufo1 -> setPosition(ufo1_pos.x,ufo1_pos.y);
     ufo2 -> setPosition(ufo2_pos.x,ufo2_pos.y);
-    cout<<"Ufo1 size: "<<ufo1_size<<endl;
-    cout<<"Ufo1 position: x:"<<ufo1_pos.x << " y: "<<ufo1_pos.y <<endl;
-    cout<<"Ufo2 size: "<<ufo2_size<<endl;
-    cout<<"Ufo2 position: x:"<<ufo2_pos.x << " y: "<<ufo2_pos.y <<endl;
-
-    int ran3 =  rand() % 100;
-    cout<<"ran3: "<<ran3<<endl;
-    ufo1_direction.x= 0;
-    if (ran3 > 50 )
-        ufo1_direction.x= 1;
-    cout<<"Ufo1 direction x: "<<ufo1_direction.x<<endl;
-    cout<<"Ufo1 direction y: "<<ufo1_direction.y<<endl;
 
     int ran4 =  rand() % 100;
-//    cout<<"ran4: "<<ran4<<endl;
     ufo2_direction.x= 0;
-    if (ran4 > 50 )
-        ufo2_direction.x= 1;
-//    cout<<"Ufo2 direction x: "<<ufo2_direction.x<<endl;
+    if (ran4 > 50 )  ufo2_direction.x= 1;
 }
 
 void game::move_enemies()
