@@ -24,11 +24,13 @@ public:
     void process_collisions();
     void player_crashed(int a);
     void shooting_bullets();
+    void ufo1_exploded();
     void calculate_objectives();
     void move_water();
     void spawn_rocks();
     void move_rocks();
     void draw();
+
 
     void spawn_enemies();
     void move_enemies();
