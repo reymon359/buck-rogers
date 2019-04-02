@@ -459,7 +459,7 @@ void game::process_collisions()
 
 void game::calculate_objectives()
 {
-    // The objectives are acomplished if the player stays alive some X time or passing between rocks
+    /// The objectives are acomplished if the player stays alive some X time or passing between rocks or killing ufos
     if(time1->asSeconds()>= time_objectives+(gameSpeed*1.2))
     {
         time_objectives = time1->asSeconds() + (gameSpeed*1.2);
@@ -540,8 +540,8 @@ void game::draw()
 
         if (game_level == 2)
         {
-            window1->draw(*ufo1);
-            window1->draw(*ufo2);
+            if( ufo1_state > 0) window1->draw(*ufo1);
+            if( ufo2_state > 0) window1->draw(*ufo2);
         }
 
     }
@@ -550,6 +550,7 @@ void game::draw()
 
 void game::spawn_enemies()
 {
+  ufo1_state=1;ufo2_state=1;
     int ufo1_size, ufo2_size;
     srand (time(NULL));
 
@@ -704,14 +705,14 @@ void game::move_enemies()
     if(ufo2 -> getPosition().y <= 280) ufo2->setSize({20,20}); // Size to small
     if(ufo2 -> getPosition().y > 280 && ufo2 -> getPosition().y <= 420 ) ufo2->setSize({30,30});// Size to medium}
     if(ufo2 -> getPosition().y > 420)  ufo2->setSize({40,40}); // Size to big
+
+    if(ufo1_direction.y == -1)  ufo1 -> setPosition(ufo1 -> getPosition().x , ufo1 -> getPosition().y );
+    if(ufo2_direction.y == -1)  ufo2 -> setPosition(ufo2 -> getPosition().x , ufo2 -> getPosition().y );
 }
 
 
 void game::shooting_bullets()
 {
-
-
-
     for (int i = 0; i < sizeof(slots_bullets); i++ ) // go through bullets array
     {
         /// Move the bullets
@@ -728,6 +729,11 @@ void game::shooting_bullets()
         /// Hits ufo1
         if(bullets[i] -> getGlobalBounds().intersects(ufo1 -> getGlobalBounds())){
             slots_bullets[i] = false; // I put the bullet to false
+            ufo1_state=2; // Ufo1 exploded
+            player_objectives--; // Objective acomplished
+            player_points += 200; // 200 score points
+            time_respawn_ufo1 = time1->asSeconds() + 2;
+            ufo1_direction.y = -1;
             // Change ufo sprite with the explosion one
             ufo1 -> setTexture(txt_player_explosion);
             ufo1 -> setTextureRect(sf::IntRect(97, 65, 393, 420));
@@ -738,7 +744,8 @@ void game::shooting_bullets()
 }
 
 
-
+/// TODO
+/// dissapear bullets when player crashed
 
 
 

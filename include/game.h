@@ -91,6 +91,8 @@ private:
 
     // Enemies
     Texture * txt_ufo;
+    float  time_respawn_ufo1, time_respawn_ufo2;
+    int ufo1_state, ufo2_state;
     RectangleShape * ufo1, * ufo2;
     Vector2i ufo1_pos;
     Vector2i ufo2_pos;
