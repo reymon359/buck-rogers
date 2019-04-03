@@ -34,7 +34,7 @@ void game::initialize_stuff()
     gameSpeed = 4;
     vel_player = 5;
     player_points = 0;
-    player_objectives = 0;
+    player_objectives = 10;
     player_lifes = 3;
     time_water = 0;
     time_objectives = 0;
@@ -50,7 +50,7 @@ void game::start_game()
     spr_islands -> setPosition(-10,130);
     spr_islands2 -> setPosition(790,130);
 
-    spr_player ->setTexture(*txt_player);
+    spr_player -> setTexture(*txt_player);
     spr_player -> setTextureRect(sf::IntRect(0, 0, 224, 224));
     spr_player -> setPosition(350,470);
 
@@ -238,12 +238,12 @@ void game::gameLoop()
             draw();
         }
 
-        if(player_objectives== 0)  // If the player accomplishes all objectives
+        if(player_objectives == 0)  // If the player accomplishes all objectives
         {
             if(game_status == 1)  // And it is in the first stage
             {
                 game_status = 2; // He passes to the second stage
-                game_level =2;
+                game_level = 2;
                 player_objectives = 15;
                 spawn_ufo1();
                 spawn_ufo2();
@@ -470,11 +470,11 @@ void game::process_collisions()
 void game::calculate_objectives()
 {
     /// The objectives are acomplished if the player stays alive some X time or passing between rocks or killing ufos
-    if(time1->asSeconds()>= time_objectives+(gameSpeed*1.2))
-    {
-        time_objectives = time1->asSeconds() + (gameSpeed*1.2);
-        player_objectives--;
-    }
+//    if(time1->asSeconds()>= time_objectives+(gameSpeed*1.2))
+//    {
+//        time_objectives = time1->asSeconds() + (gameSpeed*1.2);
+//        player_objectives--;
+//    }
     string strAux;
     for (int i = 0; i<player_objectives; i++ )
     {
@@ -561,7 +561,7 @@ void game::spawn_ufo1()
 {
     ufo1_state=1; // Ufo is alive
     int ufo1_size; // Ufosize
-    srand (time(NULL));
+    srand (time(NULL)+1);
     int ran1 =  rand() % 100; // Random number
 
     if (ran1 > 50 )
@@ -585,6 +585,8 @@ void game::spawn_ufo1()
     int ran2 =  rand() % 100; // Another random number to determine if it goes left or right
     ufo1_direction.x = 0;
     if (ran2 > 50 ) ufo1_direction.x= 1;
+      cout<< ran1 << endl;
+        cout<< ran2 << endl;
 }
 void game::spawn_ufo2() // Same as the spawnufo1 but for the ufo2
 {
@@ -614,6 +616,8 @@ void game::spawn_ufo2() // Same as the spawnufo1 but for the ufo2
     int ran4 =  rand() % 100;
     ufo2_direction.x= 0;
     if (ran4 > 50 )  ufo2_direction.x= 1;
+       cout<< ran3 << endl;
+        cout<< ran4 << endl;
 }
 
 void game::move_enemies()
