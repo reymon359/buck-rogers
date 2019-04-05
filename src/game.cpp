@@ -470,11 +470,11 @@ void game::process_collisions()
 void game::calculate_objectives()
 {
     /// The objectives are acomplished if the player stays alive some X time or passing between rocks or killing ufos
-//    if(time1->asSeconds()>= time_objectives+(gameSpeed*1.2))
-//    {
-//        time_objectives = time1->asSeconds() + (gameSpeed*1.2);
-//        player_objectives--;
-//    }
+    if(time1->asSeconds()>= time_objectives+(gameSpeed*1.2))
+    {
+        time_objectives = time1->asSeconds() + (gameSpeed*1.2);
+        player_objectives--;
+    }
     string strAux;
     for (int i = 0; i<player_objectives; i++ )
     {
