@@ -34,7 +34,7 @@ void game::initialize_stuff()
     gameSpeed = 4;
     vel_player = 5;
     player_points = 0;
-    player_objectives = 10;
+    player_objectives = 2;
     player_lifes = 3;
     time_water = 0;
     time_objectives = 0;
@@ -59,8 +59,9 @@ void game::start_game()
     spawn_rocks();
     if(game_level==2)
     {
-       spawn_ufo1();
-       spawn_ufo2();
+        /// Status problem
+        spawn_ufo1();
+        spawn_ufo2();
     }
 }
 
@@ -150,6 +151,7 @@ void game::load_resources()
     spr_life3 -> setPosition(700,10);
 
     // Bullets
+    /// Status problem
     for (int i = 0; i < sizeof(slots_bullets); i++ )
     {
         slots_bullets[i] = false; // all bullets to false, none is fired yet
@@ -200,14 +202,17 @@ void game::gameLoop()
         {
             if(game_status >= 1 )
             {
+                cout<<"bucle"<<endl;
                 move_water();
                 move_rocks();
                 process_collisions();
                 calculate_objectives();
                 shooting_bullets();
+                /// Status problem
                 if(game_level==2)
                 {
                     move_enemies();
+                    /// Status problem
                     if (ufo1_state==2)
                     {
                         if(time_respawn_ufo1 <= time1->asSeconds()) spawn_ufo1();
@@ -242,9 +247,11 @@ void game::gameLoop()
         {
             if(game_status == 1)  // And it is in the first stage
             {
+                cout<<" part 2 starts"<<endl;
                 game_status = 2; // He passes to the second stage
                 game_level = 2;
-                player_objectives = 15;
+                player_objectives = 2;
+                /// Status problem
                 spawn_ufo1();
                 spawn_ufo2();
 
@@ -324,7 +331,7 @@ void game::process_events()
                         spr_player -> setPosition(spr_player -> getPosition().x, spr_player -> getPosition().y - vel_player );
                     }
                 }
-                if(Keyboard::isKeyPressed(Keyboard::Down))
+                else if(Keyboard::isKeyPressed(Keyboard::Down))
                 {
                     if (spr_player -> getPosition().y < 538)
                     {
@@ -332,7 +339,7 @@ void game::process_events()
                         spr_player -> setPosition(spr_player -> getPosition().x, spr_player -> getPosition().y + vel_player );
                     }
                 }
-                if(Keyboard::isKeyPressed(Keyboard::Left))
+                else if(Keyboard::isKeyPressed(Keyboard::Left))
                 {
                     // Move the rocks and islands
                     rock1-> setPosition(rock1 -> getPosition().x + (float)(vel_player/1.5),rock1 -> getPosition().y );
@@ -349,7 +356,7 @@ void game::process_events()
 
                     }
                 }
-                if(Keyboard::isKeyPressed(Keyboard::Right))
+                else if(Keyboard::isKeyPressed(Keyboard::Right))
                 {
                     // Move the rocks and islands
                     rock1-> setPosition(rock1 -> getPosition().x - (float)(vel_player/1.5),rock1 -> getPosition().y );
@@ -366,6 +373,7 @@ void game::process_events()
 
                     }
                 }
+                /// Status problem
                 /// Shoot a bullet
                 if(Keyboard::isKeyPressed(Keyboard::Space))
                 {
@@ -459,16 +467,22 @@ void game::process_collisions()
     {
         player_crashed(1);
     }
+    /// Status problem
     // If the player hits the ufos
-    if(spr_player -> getGlobalBounds().intersects(ufo1 -> getGlobalBounds()) || spr_player -> getGlobalBounds().intersects(ufo2 -> getGlobalBounds()))
+    if (game_level == 2)
     {
-        player_crashed(2);
+        if(spr_player -> getGlobalBounds().intersects(ufo1 -> getGlobalBounds()) || spr_player -> getGlobalBounds().intersects(ufo2 -> getGlobalBounds()))
+        {
+            player_crashed(2);
+        }
     }
+
 }
 
 
 void game::calculate_objectives()
 {
+    cout<<"calculate objectives"<<endl;
     /// The objectives are acomplished if the player stays alive some X time or passing between rocks or killing ufos
     if(time1->asSeconds()>= time_objectives+(gameSpeed*1.2))
     {
@@ -524,7 +538,7 @@ void game::draw()
         window1->draw(*text_time);
         window1->draw(*text_score);
         window1->draw(*text_objectives);
-
+        /// Status problem
         // Drawing bullets
         for (int i = 0; i < sizeof(slots_bullets); i++ )
         {
@@ -585,8 +599,8 @@ void game::spawn_ufo1()
     int ran2 =  rand() % 100; // Another random number to determine if it goes left or right
     ufo1_direction.x = 0;
     if (ran2 > 50 ) ufo1_direction.x= 1;
-      cout<< ran1 << endl;
-        cout<< ran2 << endl;
+    cout<< ran1 << endl;
+    cout<< ran2 << endl;
 }
 void game::spawn_ufo2() // Same as the spawnufo1 but for the ufo2
 {
@@ -616,12 +630,13 @@ void game::spawn_ufo2() // Same as the spawnufo1 but for the ufo2
     int ran4 =  rand() % 100;
     ufo2_direction.x= 0;
     if (ran4 > 50 )  ufo2_direction.x= 1;
-       cout<< ran3 << endl;
-        cout<< ran4 << endl;
+    cout<< ran3 << endl;
+    cout<< ran4 << endl;
 }
 
 void game::move_enemies()
 {
+    cout<<"move enemies"<<endl;
     // First I am going to check if it is
     if(ufo1_direction.y == 0) // If it goes up
     {
@@ -662,6 +677,8 @@ void game::move_enemies()
     if(ufo1 -> getPosition().y <= 280) ufo1->setSize({20,20}); // Size to small
     if(ufo1 -> getPosition().y > 280 && ufo1 -> getPosition().y <= 420 ) ufo1->setSize({30,30});// Size to medium}
     if(ufo1 -> getPosition().y > 420)  ufo1->setSize({40,40}); // Size to big
+    cout<<"move enemies out"<<endl;
+    /// status problem
     // NOW UFO 2
     // First I am going to check if it is
     if(ufo2_direction.y == 0) // If it goes up
@@ -723,18 +740,23 @@ void game::shooting_bullets()
         {
             slots_bullets[i] = false;
         }
-        /// Hits ufo1
-        if(bullets[i] -> getGlobalBounds().intersects(ufo1 -> getGlobalBounds()) && ufo1_state==1)
+        if(game_level == 2)
         {
-            slots_bullets[i] = false; // I put the bullet to false
-            ufo1_exploded();
+            /// Hits ufo1
+            if(bullets[i] -> getGlobalBounds().intersects(ufo1 -> getGlobalBounds()) && ufo1_state==1)
+            {
+                slots_bullets[i] = false; // I put the bullet to false
+                ufo1_exploded();
+            }
+            /// Hits ufo2
+            if(bullets[i] -> getGlobalBounds().intersects(ufo2 -> getGlobalBounds()) && ufo2_state==1)
+            {
+                slots_bullets[i] = false; // I put the bullet to false
+                ufo2_exploded();
+            }
+
         }
-        /// Hits ufo2
-        if(bullets[i] -> getGlobalBounds().intersects(ufo2 -> getGlobalBounds()) && ufo2_state==1)
-        {
-            slots_bullets[i] = false; // I put the bullet to false
-            ufo2_exploded();
-        }
+
     }
 }
 
