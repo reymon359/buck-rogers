@@ -59,7 +59,6 @@ void game::start_game()
     spawn_rocks();
     if(game_level==2)
     {
-        /// Status problem
         spawn_ufo1();
         spawn_ufo2();
     }
@@ -151,7 +150,6 @@ void game::load_resources()
     spr_life3 -> setPosition(700,10);
 
     // Bullets
-    /// Status problem
     for (int i = 0; i < sizeof(slots_bullets); i++ )
     {
         slots_bullets[i] = false; // all bullets to false, none is fired yet
@@ -202,17 +200,14 @@ void game::gameLoop()
         {
             if(game_status >= 1 )
             {
-                cout<<"bucle"<<endl;
                 move_water();
                 move_rocks();
                 process_collisions();
                 calculate_objectives();
                 shooting_bullets();
-                /// Status problem
                 if(game_level==2)
                 {
                     move_enemies();
-                    /// Status problem
                     if (ufo1_state==2)
                     {
                         if(time_respawn_ufo1 <= time1->asSeconds()) spawn_ufo1();
@@ -247,11 +242,9 @@ void game::gameLoop()
         {
             if(game_status == 1)  // And it is in the first stage
             {
-                cout<<" part 2 starts"<<endl;
                 game_status = 2; // He passes to the second stage
                 game_level = 2;
                 player_objectives = 2;
-                /// Status problem
                 spawn_ufo1();
                 spawn_ufo2();
 
@@ -373,11 +366,9 @@ void game::process_events()
 
                     }
                 }
-                /// Status problem
                 /// Shoot a bullet
                 if(Keyboard::isKeyPressed(Keyboard::Space))
                 {
-                    cout<< "shooot bullet"<<endl;
                     for (int i = 0; i < sizeof(slots_bullets); i++ ) // go through bullets array
                     {
                         if(slots_bullets[i] == false) // When it finds a bullet not fired
@@ -467,9 +458,8 @@ void game::process_collisions()
     {
         player_crashed(1);
     }
-    /// Status problem
     // If the player hits the ufos
-    if (game_level == 2)
+    if (game_level == 2) // Here was the biggest problem of the fucking game
     {
         if(spr_player -> getGlobalBounds().intersects(ufo1 -> getGlobalBounds()) || spr_player -> getGlobalBounds().intersects(ufo2 -> getGlobalBounds()))
         {
@@ -482,7 +472,6 @@ void game::process_collisions()
 
 void game::calculate_objectives()
 {
-    cout<<"calculate objectives"<<endl;
     /// The objectives are acomplished if the player stays alive some X time or passing between rocks or killing ufos
     if(time1->asSeconds()>= time_objectives+(gameSpeed*1.2))
     {
@@ -538,7 +527,6 @@ void game::draw()
         window1->draw(*text_time);
         window1->draw(*text_score);
         window1->draw(*text_objectives);
-        /// Status problem
         // Drawing bullets
         for (int i = 0; i < sizeof(slots_bullets); i++ )
         {
@@ -599,8 +587,6 @@ void game::spawn_ufo1()
     int ran2 =  rand() % 100; // Another random number to determine if it goes left or right
     ufo1_direction.x = 0;
     if (ran2 > 50 ) ufo1_direction.x= 1;
-    cout<< ran1 << endl;
-    cout<< ran2 << endl;
 }
 void game::spawn_ufo2() // Same as the spawnufo1 but for the ufo2
 {
@@ -630,13 +616,10 @@ void game::spawn_ufo2() // Same as the spawnufo1 but for the ufo2
     int ran4 =  rand() % 100;
     ufo2_direction.x= 0;
     if (ran4 > 50 )  ufo2_direction.x= 1;
-    cout<< ran3 << endl;
-    cout<< ran4 << endl;
 }
 
 void game::move_enemies()
 {
-    cout<<"move enemies"<<endl;
     // First I am going to check if it is
     if(ufo1_direction.y == 0) // If it goes up
     {
@@ -677,8 +660,7 @@ void game::move_enemies()
     if(ufo1 -> getPosition().y <= 280) ufo1->setSize({20,20}); // Size to small
     if(ufo1 -> getPosition().y > 280 && ufo1 -> getPosition().y <= 420 ) ufo1->setSize({30,30});// Size to medium}
     if(ufo1 -> getPosition().y > 420)  ufo1->setSize({40,40}); // Size to big
-    cout<<"move enemies out"<<endl;
-    /// status problem
+
     // NOW UFO 2
     // First I am going to check if it is
     if(ufo2_direction.y == 0) // If it goes up
@@ -740,7 +722,7 @@ void game::shooting_bullets()
         {
             slots_bullets[i] = false;
         }
-        if(game_level == 2)
+        if(game_level == 2) /// Status problem hehe
         {
             /// Hits ufo1
             if(bullets[i] -> getGlobalBounds().intersects(ufo1 -> getGlobalBounds()) && ufo1_state==1)
