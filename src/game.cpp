@@ -390,6 +390,13 @@ void game::process_events()
                     start_game();
                 }
             }
+            // Quit game pressing Q
+            if(Keyboard::isKeyPressed(Keyboard::Q))
+            {
+                window1->close();
+                exit(1);
+                break;
+            }
             break;
         case Event::KeyReleased:
             if(game_status>= 1)
@@ -407,7 +414,6 @@ void game::process_events()
         if(spr_islands -> getPosition().x <= -0.5 && spr_islands -> getPosition().x > -2)
         {
             // islands at begining
-//            cout << "0 patatero" <<endl;
             // Now we look which one has an x greater to see where are they
             if(spr_islands -> getPosition().x > spr_islands2 -> getPosition().x )
             {
@@ -549,13 +555,12 @@ void game::draw()
         {
             window1->draw(*spr_life1);
         }
-
+        // Drawing ufos
         if (game_level == 2)
         {
             window1->draw(*ufo1);
             window1->draw(*ufo2);
         }
-
     }
     window1->display();
 }
@@ -736,9 +741,7 @@ void game::shooting_bullets()
                 slots_bullets[i] = false; // I put the bullet to false
                 ufo2_exploded();
             }
-
         }
-
     }
 }
 
@@ -755,7 +758,7 @@ void game::ufo1_exploded()
 }
 void game::ufo2_exploded()
 {
-    ufo2_state=2; // Ufo1 exploded
+    ufo2_state=2; // Ufo2 exploded
     player_objectives--; // Objective acomplished
     player_points += 200; // 200 score points
     // Change ufo sprite with the explosion one
