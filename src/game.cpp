@@ -55,6 +55,10 @@ void game::start_game()
 
     text_score -> setPosition(10,40);
 
+    player_time = new RectangleShape({450,30});
+    player_time -> setFillColor(Color::White);
+    player_time-> setPosition(120,10);
+
     spawn_rocks();
     if(game_level==2)
     {
@@ -95,9 +99,7 @@ void game::load_resources()
     text_time -> setPosition(10,5);
     text_time -> setCharacterSize(40);
 
-    player_time = new RectangleShape({450,30});
-    player_time -> setFillColor(Color::White);
-    player_time-> setPosition(120,10);
+
 
     text_score = new Text();
     text_score -> setFont(*font1);
@@ -205,6 +207,7 @@ void game::gameLoop()
         {
             if(game_status >= 1 )
             {
+                pass_time();
                 move_water();
                 move_rocks();
                 process_collisions();
@@ -257,6 +260,12 @@ void game::gameLoop()
 
         }
     }
+}
+
+void game::pass_time(){
+//    player_time = new RectangleShape({450,30});
+    player_time -> setSize({player_time ->getSize().x - (float)(gameSpeed/32),player_time ->getSize().y });
+//    player_time-> setPosition(120,10);
 }
 
 void game::move_water()
