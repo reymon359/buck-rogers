@@ -95,9 +95,9 @@ void game::load_resources()
     text_time -> setPosition(10,5);
     text_time -> setCharacterSize(40);
 
-    player_time = new RectangleShape({300,40});
+    player_time = new RectangleShape({450,30});
     player_time -> setFillColor(Color::White);
-    player_time-> setPosition(40,10);
+    player_time-> setPosition(120,10);
 
     text_score = new Text();
     text_score -> setFont(*font1);
