@@ -261,11 +261,13 @@ void game::gameLoop()
         }
     }
 }
-
+/// Moving time bar
 void game::pass_time(){
-//    player_time = new RectangleShape({450,30});
-    player_time -> setSize({player_time ->getSize().x - (float)(gameSpeed/32),player_time ->getSize().y });
-//    player_time-> setPosition(120,10);
+    player_time -> setSize({player_time ->getSize().x - (float)(gameSpeed/24),player_time ->getSize().y });
+    if(player_time ->getSize().x <=0) //If time bar is 0 x Player looses 1 life
+    {
+        player_crashed(3);
+    }
 }
 
 void game::move_water()
