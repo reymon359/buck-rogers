@@ -35,8 +35,8 @@ public:
 
     void spawn_ufo1();
     void spawn_ufo2();
-      void ufo1_exploded();
-        void ufo2_exploded();
+    void ufo1_exploded();
+    void ufo2_exploded();
     void move_enemies();
 
 private:
@@ -47,6 +47,7 @@ private:
     Texture * txt_title;
     Sprite * spr_title;
     int game_level;
+    bool god_mode;
 
     // Time
     Clock * clock1;

@@ -30,6 +30,7 @@ game::game(Vector2f dimension, std::string title)
 
 void game::initialize_stuff()
 {
+    god_mode = false;
     gameSpeed = 4;
     vel_player = 5;
     player_points = 0;
@@ -262,7 +263,8 @@ void game::gameLoop()
     }
 }
 /// Moving time bar
-void game::pass_time(){
+void game::pass_time()
+{
     player_time -> setSize({player_time ->getSize().x - (float)(gameSpeed/24),player_time ->getSize().y });
     if(player_time ->getSize().x <=0) //If time bar is 0 x Player looses 1 life
     {
@@ -337,7 +339,7 @@ void game::process_events()
                     if (spr_player -> getPosition().y > 390)
                     {
                         spr_player -> setTextureRect(sf::IntRect(0, 0, 224, 224));
-                        spr_player -> setPosition(spr_player -> getPosition().x, spr_player -> getPosition().y - vel_player );
+                        spr_player -> setPosition(spr_player -> getPosition().x, spr_player -> getPosition().y - (gameSpeed*2) );
                     }
                 }
                 else if(Keyboard::isKeyPressed(Keyboard::Down))
@@ -345,7 +347,7 @@ void game::process_events()
                     if (spr_player -> getPosition().y < 538)
                     {
                         spr_player -> setTextureRect(sf::IntRect(0, 0, 224, 224));
-                        spr_player -> setPosition(spr_player -> getPosition().x, spr_player -> getPosition().y + vel_player );
+                        spr_player -> setPosition(spr_player -> getPosition().x, spr_player -> getPosition().y + (gameSpeed*2) );
                     }
                 }
                 else if(Keyboard::isKeyPressed(Keyboard::Left))
@@ -361,7 +363,7 @@ void game::process_events()
                     if (spr_player -> getPosition().x > 2)
                     {
                         spr_player -> setTextureRect(sf::IntRect(896, 1120, 224, 224));
-                        spr_player -> setPosition(spr_player -> getPosition().x - vel_player, spr_player -> getPosition().y);
+                        spr_player -> setPosition(spr_player -> getPosition().x - (gameSpeed*2), spr_player -> getPosition().y);
 
                     }
                 }
@@ -378,11 +380,16 @@ void game::process_events()
                     if (spr_player -> getPosition().x < 722)
                     {
                         spr_player -> setTextureRect(sf::IntRect(672, 0, 224, 224));
-                        spr_player -> setPosition(spr_player -> getPosition().x + vel_player, spr_player -> getPosition().y );
+                        spr_player -> setPosition(spr_player -> getPosition().x + (gameSpeed*2), spr_player -> getPosition().y );
 
                     }
                 }
                 /// Shoot a bullet
+                if(Keyboard::isKeyPressed(Keyboard::G))
+                {
+                    god_mode=true;
+                    gameSpeed = gameSpeed  * 2;
+                }
                 if(Keyboard::isKeyPressed(Keyboard::Space))
                 {
                     for (int i = 0; i < sizeof(slots_bullets); i++ ) // go through bullets array
@@ -553,7 +560,8 @@ void game::draw()
         // Drawing bullets
         for (int i = 0; i < sizeof(slots_bullets); i++ )
         {
-            if(slots_bullets[i] == true) window1->draw(*bullets[i]);
+            window1->draw(*bullets[i]);
+//            if(slots_bullets[i] == true) window1->draw(*bullets[i]);
         }
 
         // Drawing lifes
@@ -733,6 +741,10 @@ void game::shooting_bullets()
 {
     for (int i = 0; i < sizeof(slots_bullets); i++ ) // go through bullets array
     {
+        if(slots_bullets[i] == false)  //  when it finds a bullet that is not fired
+        {
+            bullets[i]-> setPosition(0,0);
+        }
         /// Move the bullets
         if(slots_bullets[i] == true)  //  when it finds a bullet that is fired
         {
