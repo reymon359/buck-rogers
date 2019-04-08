@@ -482,7 +482,8 @@ void game::process_collisions()
     }
     text_score -> setString("SCORE " + std::to_string(player_points));
 
-    // If the player hits the rocks
+    if(!god_mode){
+     // If the player hits the rocks
     if(spr_player -> getGlobalBounds().intersects(rock1 -> getGlobalBounds()) || spr_player -> getGlobalBounds().intersects(rock2 -> getGlobalBounds()))
     {
         player_crashed(1);
@@ -495,6 +496,8 @@ void game::process_collisions()
             player_crashed(2);
         }
     }
+    }
+
 
 }
 
@@ -560,8 +563,7 @@ void game::draw()
         // Drawing bullets
         for (int i = 0; i < sizeof(slots_bullets); i++ )
         {
-            window1->draw(*bullets[i]);
-//            if(slots_bullets[i] == true) window1->draw(*bullets[i]);
+            if(slots_bullets[i] == true) window1->draw(*bullets[i]);
         }
 
         // Drawing lifes
