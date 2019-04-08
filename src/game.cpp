@@ -32,7 +32,6 @@ void game::initialize_stuff()
 {
     god_mode = false;
     gameSpeed = 4;
-    vel_player = 5;
     player_points = 0;
     player_objectives = 2;
     player_lifes = 3;
@@ -239,6 +238,8 @@ void game::gameLoop()
                     else
                     {
                         end_game(); // Game Over
+
+
                     }
                 }
             }
@@ -353,12 +354,12 @@ void game::process_events()
                 else if(Keyboard::isKeyPressed(Keyboard::Left))
                 {
                     // Move the rocks and islands
-                    rock1-> setPosition(rock1 -> getPosition().x + (float)(vel_player/1.5),rock1 -> getPosition().y );
-                    rockspace-> setPosition(rockspace -> getPosition().x + (float)(vel_player/1.5),rockspace -> getPosition().y);
-                    rock2-> setPosition(rock2 -> getPosition().x + (float)(vel_player/1.5),rock2 -> getPosition().y);
+                    rock1-> setPosition(rock1 -> getPosition().x + (float)(gameSpeed/1.5),rock1 -> getPosition().y );
+                    rockspace-> setPosition(rockspace -> getPosition().x + (float)(gameSpeed/1.5),rockspace -> getPosition().y);
+                    rock2-> setPosition(rock2 -> getPosition().x + (float)(gameSpeed/1.5),rock2 -> getPosition().y);
                     // And the islands background
-                    spr_islands -> setPosition(spr_islands -> getPosition().x + (float)(vel_player/2.3),spr_islands -> getPosition().y );
-                    spr_islands2 -> setPosition(spr_islands2 -> getPosition().x + (float)(vel_player/2.3),spr_islands2 -> getPosition().y );
+                    spr_islands -> setPosition(spr_islands -> getPosition().x + (float)(gameSpeed/2.3),spr_islands -> getPosition().y );
+                    spr_islands2 -> setPosition(spr_islands2 -> getPosition().x + (float)(gameSpeed/2.3),spr_islands2 -> getPosition().y );
 
                     if (spr_player -> getPosition().x > 2)
                     {
@@ -370,12 +371,12 @@ void game::process_events()
                 else if(Keyboard::isKeyPressed(Keyboard::Right))
                 {
                     // Move the rocks and islands
-                    rock1-> setPosition(rock1 -> getPosition().x - (float)(vel_player/1.5),rock1 -> getPosition().y );
-                    rockspace-> setPosition(rockspace -> getPosition().x - (float)(vel_player/1.5),rockspace -> getPosition().y);
-                    rock2-> setPosition(rock2 -> getPosition().x - (float)(vel_player/1.5),rock2 -> getPosition().y);
+                    rock1-> setPosition(rock1 -> getPosition().x - (float)(gameSpeed/1.5),rock1 -> getPosition().y );
+                    rockspace-> setPosition(rockspace -> getPosition().x - (float)(gameSpeed/1.5),rockspace -> getPosition().y);
+                    rock2-> setPosition(rock2 -> getPosition().x - (float)(gameSpeed/1.5),rock2 -> getPosition().y);
 
-                    spr_islands -> setPosition(spr_islands -> getPosition().x - (float)(vel_player/2.3),spr_islands -> getPosition().y );
-                    spr_islands2 -> setPosition(spr_islands2 -> getPosition().x - (float)(vel_player/2.3),spr_islands2 -> getPosition().y );
+                    spr_islands -> setPosition(spr_islands -> getPosition().x - (float)(gameSpeed/2.3),spr_islands -> getPosition().y );
+                    spr_islands2 -> setPosition(spr_islands2 -> getPosition().x - (float)(gameSpeed/2.3),spr_islands2 -> getPosition().y );
 
                     if (spr_player -> getPosition().x < 722)
                     {
@@ -384,12 +385,12 @@ void game::process_events()
 
                     }
                 }
-                /// Shoot a bullet
                 if(Keyboard::isKeyPressed(Keyboard::G))
                 {
                     god_mode=true;
                     gameSpeed = gameSpeed  * 2;
                 }
+                /// Shoot a bullet
                 if(Keyboard::isKeyPressed(Keyboard::Space))
                 {
                     for (int i = 0; i < sizeof(slots_bullets); i++ ) // go through bullets array
@@ -409,6 +410,7 @@ void game::process_events()
                 if(Keyboard::isKeyPressed(Keyboard::A))
                 {
                     // Restart game
+                    game_level = 1;
                     initialize_stuff();
                     start_game();
                 }
