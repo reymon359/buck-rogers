@@ -204,7 +204,6 @@ void game::gameLoop()
                 move_rocks();
                 process_collisions();
                 calculate_objectives();
-                shooting_bullets();
                 if(game_level==2)
                 {
                     move_enemies();
@@ -235,6 +234,7 @@ void game::gameLoop()
                 }
             }
             process_events();
+            shooting_bullets();
             draw();
         }
 
@@ -764,12 +764,5 @@ void game::ufo2_exploded()
     time_respawn_ufo2 = time1->asSeconds() + 2; // 2 seconds as an explosion
     ufo2_direction.y = -1; // With this it does not move
 }
-/// TODO
-/// dissapear bullets when player crashed
 
 
-
-//game::~game()
-//{
-//    //dtor
-//}
