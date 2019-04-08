@@ -68,6 +68,7 @@ private:
     Sprite * spr_player;
     int vel_player;
     int player_points;
+    RectangleShape * player_time;
 
     int player_lifes;
     Texture * txt_life;

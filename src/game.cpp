@@ -25,7 +25,6 @@ game::game(Vector2f dimension, std::string title)
 
     initialize_stuff();
     load_resources();
-//    start_game();
     gameLoop();
 }
 
@@ -96,6 +95,10 @@ void game::load_resources()
     text_time -> setPosition(10,5);
     text_time -> setCharacterSize(40);
 
+    player_time = new RectangleShape({300,40});
+    player_time -> setFillColor(Color::White);
+    player_time-> setPosition(40,10);
+
     text_score = new Text();
     text_score -> setFont(*font1);
     text_score -> setString("Ramon Morcillo\n    Presents: \n\n\n\n\n\nPRESS A TO PLAY");
@@ -148,6 +151,8 @@ void game::load_resources()
     spr_life3 = new Sprite(*txt_life);
     spr_life3 -> setScale(50.f/190, 50.f/200);
     spr_life3 -> setPosition(700,10);
+
+
 
     // Bullets
     for (int i = 0; i < sizeof(slots_bullets); i++ )
@@ -531,6 +536,7 @@ void game::draw()
         window1->draw(*spr_player);
         window1->draw(*spr_sky);
         window1->draw(*text_time);
+        window1->draw(*player_time);
         window1->draw(*text_score);
         window1->draw(*text_objectives);
         // Drawing bullets
