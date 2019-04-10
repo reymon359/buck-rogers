@@ -33,7 +33,7 @@ void game::initialize_stuff()
     god_mode = false;
     gameSpeed = 4;
     player_points = 0;
-    player_objectives = 2;
+    player_objectives = 10;
     player_lifes = 3;
     time_water = 0;
     time_objectives = 0;
@@ -254,7 +254,7 @@ void game::gameLoop()
             {
                 game_status = 2; // He passes to the second stage
                 game_level = 2;
-                player_objectives = 2;
+                player_objectives = 15;
                 spawn_ufo1();
                 spawn_ufo2();
 
