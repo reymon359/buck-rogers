@@ -250,17 +250,20 @@ void game::gameLoop()
         {
             if(game_level == 3)   // And it is in the second stage
             {
-               end_game(); // Game Over
+                cout << " del 3 al gameover" <<endl;
+                end_game(); // Game Over
             }
             if(game_level == 2)   // And it is in the second stage
             {
+                cout << "del 2 al 3" <<endl;
                 game_status = 2; // He passes to the third stage
                 game_level = 3;
                 player_objectives = 6;
-                gameSpeed = 5;
+                gameSpeed = 6;
             }
             if(game_status == 1)  // And it is in the first stage
             {
+                cout << "del 1al 2" <<endl;
                 game_status = 2; // He passes to the second stage
                 game_level = 2;
                 player_objectives = 4;
@@ -366,8 +369,17 @@ void game::process_events()
                     rockspace-> setPosition(rockspace -> getPosition().x + (float)(gameSpeed/1.5),rockspace -> getPosition().y);
                     rock2-> setPosition(rock2 -> getPosition().x + (float)(gameSpeed/1.5),rock2 -> getPosition().y);
                     // And the islands background
-                    spr_islands -> setPosition(spr_islands -> getPosition().x + (float)(gameSpeed/2.3),spr_islands -> getPosition().y );
-                    spr_islands2 -> setPosition(spr_islands2 -> getPosition().x + (float)(gameSpeed/2.3),spr_islands2 -> getPosition().y );
+
+                    if (game_level==3)
+                    {
+                        spr_islands -> setPosition(spr_islands -> getPosition().x + (float)((gameSpeed-2)/2.3),spr_islands -> getPosition().y );
+                        spr_islands2 -> setPosition(spr_islands2 -> getPosition().x + (float)((gameSpeed-2)/2.3),spr_islands2 -> getPosition().y );
+                    }
+                    else
+                    {
+                        spr_islands -> setPosition(spr_islands -> getPosition().x + (float)(gameSpeed/2.3),spr_islands -> getPosition().y );
+                        spr_islands2 -> setPosition(spr_islands2 -> getPosition().x + (float)(gameSpeed/2.3),spr_islands2 -> getPosition().y );
+                    }
                     infinite_islands();
                     if (spr_player -> getPosition().x > 2)
                     {
@@ -382,9 +394,17 @@ void game::process_events()
                     rock1-> setPosition(rock1 -> getPosition().x - (float)(gameSpeed/1.5),rock1 -> getPosition().y );
                     rockspace-> setPosition(rockspace -> getPosition().x - (float)(gameSpeed/1.5),rockspace -> getPosition().y);
                     rock2-> setPosition(rock2 -> getPosition().x - (float)(gameSpeed/1.5),rock2 -> getPosition().y);
-
-                    spr_islands -> setPosition(spr_islands -> getPosition().x - (float)(gameSpeed/2.3),spr_islands -> getPosition().y );
+                    if (game_level==3)
+                    {
+                        spr_islands -> setPosition(spr_islands -> getPosition().x - (float)((gameSpeed-2)/2.3),spr_islands -> getPosition().y );
+                    spr_islands2 -> setPosition(spr_islands2 -> getPosition().x - (float)((gameSpeed-2)/2.3),spr_islands2 -> getPosition().y );
+                    }
+                    else
+                    {
+                  spr_islands -> setPosition(spr_islands -> getPosition().x - (float)(gameSpeed/2.3),spr_islands -> getPosition().y );
                     spr_islands2 -> setPosition(spr_islands2 -> getPosition().x - (float)(gameSpeed/2.3),spr_islands2 -> getPosition().y );
+                    }
+
 
                     infinite_islands();
                     if (spr_player -> getPosition().x < 722)
