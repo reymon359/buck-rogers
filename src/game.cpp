@@ -257,9 +257,13 @@ void game::gameLoop()
                 player_objectives = 15;
                 spawn_ufo1();
                 spawn_ufo2();
-
             }
-
+            if(game_status == 2)  // And it is in the second stage
+            {
+                game_status = 2; // He passes to the third stage
+                game_level = 2;
+                player_objectives = 30;
+            }
         }
     }
 }
