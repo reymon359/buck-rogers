@@ -356,7 +356,6 @@ void game::process_events()
                 }
                 else if(Keyboard::isKeyPressed(Keyboard::Left))
                 {
-                    cout << "entra en left" <<endl;
                     // Move the rocks and islands
                     rock1-> setPosition(rock1 -> getPosition().x + (float)(gameSpeed/1.5),rock1 -> getPosition().y );
                     rockspace-> setPosition(rockspace -> getPosition().x + (float)(gameSpeed/1.5),rockspace -> getPosition().y);
@@ -445,14 +444,9 @@ void game::process_events()
 }
 void game::infinite_islands()
 {
-
-    cout << spr_islands -> getPosition().x <<endl;
-    cout << spr_islands2 -> getPosition().x <<endl;
     // Move islands background.When the islands1 passes through 0 patatero
     if(spr_islands -> getPosition().x <= -0.5 && spr_islands -> getPosition().x > -2)
     {
-
-        cout << "islands al begining" <<endl;
         // Now we look which one has an x greater to see where are they
         if(spr_islands -> getPosition().x > spr_islands2 -> getPosition().x )
         {
@@ -468,7 +462,6 @@ void game::infinite_islands()
     // When the islands2 passes through 0 patatero
     if(spr_islands2 -> getPosition().x <= -0.5 && spr_islands2 -> getPosition().x > -2)
     {
-        cout << "islands2 al begining" <<endl;
         // Now we look which one has an x greater to see where are they
         if(spr_islands2 -> getPosition().x > spr_islands -> getPosition().x )
         {
