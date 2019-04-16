@@ -33,7 +33,7 @@ void game::initialize_stuff()
     god_mode = false;
     gameSpeed = 4;
     player_points = 0;
-    player_objectives = 2;
+    player_objectives = 10;
     player_lifes = 3;
     time_water = 0;
     time_objectives = 0;
@@ -250,23 +250,20 @@ void game::gameLoop()
         {
             if(game_level == 3)   // And it is in the second stage
             {
-                cout << " del 3 al gameover" <<endl;
                 end_game(); // Game Over
             }
             if(game_level == 2)   // And it is in the second stage
             {
-                cout << "del 2 al 3" <<endl;
                 game_status = 2; // He passes to the third stage
                 game_level = 3;
-                player_objectives = 6;
+                player_objectives = 20;
                 gameSpeed = 6;
             }
             if(game_status == 1)  // And it is in the first stage
             {
-                cout << "del 1al 2" <<endl;
                 game_status = 2; // He passes to the second stage
                 game_level = 2;
-                player_objectives = 4;
+                player_objectives = 15;
                 spawn_ufo1();
                 spawn_ufo2();
             }
