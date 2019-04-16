@@ -33,7 +33,7 @@ void game::initialize_stuff()
     god_mode = false;
     gameSpeed = 4;
     player_points = 0;
-    player_objectives = 10;
+    player_objectives = 2;
     player_lifes = 3;
     time_water = 0;
     time_objectives = 0;
@@ -60,7 +60,7 @@ void game::start_game()
     player_time-> setPosition(120,10);
 
     spawn_rocks();
-    if(game_level==2)
+    if(game_level>=2)
     {
         spawn_ufo1();
         spawn_ufo2();
@@ -212,7 +212,7 @@ void game::gameLoop()
                 move_rocks();
                 process_collisions();
                 calculate_objectives();
-                if(game_level==2)
+                if(game_level>=2)
                 {
                     move_enemies();
                     if (ufo1_state==2)
@@ -248,21 +248,26 @@ void game::gameLoop()
 
         if(player_objectives == 0)  // If the player accomplishes all objectives
         {
+            if(game_level == 3)   // And it is in the second stage
+            {
+               end_game(); // Game Over
+            }
+            if(game_level == 2)   // And it is in the second stage
+            {
+                game_status = 2; // He passes to the third stage
+                game_level = 3;
+                player_objectives = 6;
+                gameSpeed = 5;
+            }
             if(game_status == 1)  // And it is in the first stage
             {
                 game_status = 2; // He passes to the second stage
                 game_level = 2;
-                player_objectives = 15;
+                player_objectives = 4;
                 spawn_ufo1();
                 spawn_ufo2();
             }
-            else if(game_level == 2)   // And it is in the second stage
-            {
-                game_status = 2; // He passes to the third stage
-                game_level = 2;
-                player_objectives = 20;
-                gameSpeed = 6;
-            }
+
         }
     }
 }
@@ -498,7 +503,7 @@ void game::process_collisions()
             player_crashed(1);
         }
         // If the player hits the ufos
-        if (game_level == 2) // Here was the biggest problem of the fucking game
+        if (game_level>=2) // Here was the biggest problem of the fucking game
         {
             if(spr_player -> getGlobalBounds().intersects(ufo1 -> getGlobalBounds()) || spr_player -> getGlobalBounds().intersects(ufo2 -> getGlobalBounds()))
             {
@@ -592,7 +597,7 @@ void game::draw()
             window1->draw(*spr_life1);
         }
         // Drawing ufos
-        if (game_level == 2)
+        if (game_level>=2)
         {
             window1->draw(*ufo1);
             window1->draw(*ufo2);
@@ -767,7 +772,7 @@ void game::shooting_bullets()
         {
             slots_bullets[i] = false;
         }
-        if(game_level == 2) /// Status problem hehe
+        if(game_level >= 2) /// Status problem hehe
         {
             /// Hits ufo1
             if(bullets[i] -> getGlobalBounds().intersects(ufo1 -> getGlobalBounds()) && ufo1_state==1)
