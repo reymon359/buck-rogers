@@ -258,11 +258,12 @@ void game::gameLoop()
                 spawn_ufo1();
                 spawn_ufo2();
             }
-            if(game_status == 2)  // And it is in the second stage
+            else if(game_level == 2)   // And it is in the second stage
             {
                 game_status = 2; // He passes to the third stage
                 game_level = 2;
-                player_objectives = 30;
+                player_objectives = 20;
+                gameSpeed = 6;
             }
         }
     }
@@ -488,20 +489,21 @@ void game::process_collisions()
     }
     text_score -> setString("SCORE " + std::to_string(player_points));
 
-    if(!god_mode){
-     // If the player hits the rocks
-    if(spr_player -> getGlobalBounds().intersects(rock1 -> getGlobalBounds()) || spr_player -> getGlobalBounds().intersects(rock2 -> getGlobalBounds()))
+    if(!god_mode)
     {
-        player_crashed(1);
-    }
-    // If the player hits the ufos
-    if (game_level == 2) // Here was the biggest problem of the fucking game
-    {
-        if(spr_player -> getGlobalBounds().intersects(ufo1 -> getGlobalBounds()) || spr_player -> getGlobalBounds().intersects(ufo2 -> getGlobalBounds()))
+        // If the player hits the rocks
+        if(spr_player -> getGlobalBounds().intersects(rock1 -> getGlobalBounds()) || spr_player -> getGlobalBounds().intersects(rock2 -> getGlobalBounds()))
         {
-            player_crashed(2);
+            player_crashed(1);
         }
-    }
+        // If the player hits the ufos
+        if (game_level == 2) // Here was the biggest problem of the fucking game
+        {
+            if(spr_player -> getGlobalBounds().intersects(ufo1 -> getGlobalBounds()) || spr_player -> getGlobalBounds().intersects(ufo2 -> getGlobalBounds()))
+            {
+                player_crashed(2);
+            }
+        }
     }
 
 
