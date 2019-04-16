@@ -30,6 +30,7 @@ public:
     void move_water();
     void spawn_rocks();
     void move_rocks();
+    void infinite_islands();
     void draw();
 
 
